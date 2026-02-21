@@ -20,6 +20,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform groundCheck;
 
     private float horizontal;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+    }
     void Update()
     {
         horizontalInput = Input.GetAxis("Horizontal");
