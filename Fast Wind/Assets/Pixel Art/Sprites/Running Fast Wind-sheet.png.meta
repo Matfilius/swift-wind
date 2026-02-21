@@ -1,0 +1,728 @@
+fileFormatVersion: 2
+guid: c80cba6624ae61146a6591076aac1849
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4061116824486550717
+    second: Running Fast Wind-sheet_0
+  - first:
+      213: 1578485722328232530
+    second: Running Fast Wind-sheet_1
+  - first:
+      213: 8230580685513238648
+    second: Running Fast Wind-sheet_2
+  - first:
+      213: -1046410432201758699
+    second: Running Fast Wind-sheet_3
+  - first:
+      213: 2776663336820621470
+    second: Running Fast Wind-sheet_4
+  - first:
+      213: -7681555392169698721
+    second: Running Fast Wind-sheet_5
+  - first:
+      213: -3699049239558860240
+    second: Running Fast Wind-sheet_6
+  - first:
+      213: -8719825336747872108
+    second: Running Fast Wind-sheet_7
+  - first:
+      213: 1301700728820447630
+    second: Running Fast Wind-sheet_8
+  - first:
+      213: 8472747590492914013
+    second: Running Fast Wind-sheet_9
+  - first:
+      213: 2320094942816852347
+    second: Running Fast Wind-sheet_10
+  - first:
+      213: 1672894454435354159
+    second: Running Fast Wind-sheet_11
+  - first:
+      213: 6978390211073663570
+    second: Running Fast Wind-sheet_12
+  - first:
+      213: -56196098218068732
+    second: Running Fast Wind-sheet_13
+  - first:
+      213: -8671757353246938420
+    second: Running Fast Wind-sheet_14
+  - first:
+      213: 2631486468360373774
+    second: Running Fast Wind-sheet_15
+  - first:
+      213: -4180965581273320524
+    second: Running Fast Wind-sheet_16
+  - first:
+      213: -8481135184051912498
+    second: Running Fast Wind-sheet_17
+  - first:
+      213: 3770984373540727702
+    second: Running Fast Wind-sheet_18
+  - first:
+      213: -2886247253629483325
+    second: Running Fast Wind-sheet_19
+  - first:
+      213: -6767374824045353081
+    second: Running Fast Wind-sheet_20
+  - first:
+      213: 7794244449786558243
+    second: Running Fast Wind-sheet_21
+  - first:
+      213: 3821351544793468596
+    second: Running Fast Wind-sheet_22
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Running Fast Wind-sheet_0
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 15
+        width: 39
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 343ed1dc3c304a7c0800000000000000
+      internalID: -4061116824486550717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Running Fast Wind-sheet_1
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 15
+        width: 42
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 252766ab668e7e510800000000000000
+      internalID: 1578485722328232530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Running Fast Wind-sheet_2
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 15
+        width: 44
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8782537a685e83270800000000000000
+      internalID: 8230580685513238648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Running Fast Wind-sheet_3
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 15
+        width: 38
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 518e95b81476a71f0800000000000000
+      internalID: -1046410432201758699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Running Fast Wind-sheet_4
+      rect:
+        serializedVersion: 2
+        x: 341
+        y: 15
+        width: 33
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e904b0ce790b88620800000000000000
+      internalID: 2776663336820621470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Running Fast Wind-sheet_5
+      rect:
+        serializedVersion: 2
+        x: 419
+        y: 15
+        width: 36
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5a1d37c112a56590800000000000000
+      internalID: -7681555392169698721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Running Fast Wind-sheet_6
+      rect:
+        serializedVersion: 2
+        x: 497
+        y: 15
+        width: 36
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0325a65a0565aacc0800000000000000
+      internalID: -3699049239558860240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Running Fast Wind-sheet_7
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 15
+        width: 41
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49031bb4e05fcf680800000000000000
+      internalID: -8719825336747872108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Running Fast Wind-sheet_8
+      rect:
+        serializedVersion: 2
+        x: 650
+        y: 21
+        width: 49
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e89b5398ae1901210800000000000000
+      internalID: 1301700728820447630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Running Fast Wind-sheet_9
+      rect:
+        serializedVersion: 2
+        x: 730
+        y: 18
+        width: 48
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5180e20b0f359570800000000000000
+      internalID: 8472747590492914013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Running Fast Wind-sheet_10
+      rect:
+        serializedVersion: 2
+        x: 809
+        y: 15
+        width: 50
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7957cfde02a23020800000000000000
+      internalID: 2320094942816852347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Running Fast Wind-sheet_11
+      rect:
+        serializedVersion: 2
+        x: 895
+        y: 15
+        width: 39
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f26175794a0573710800000000000000
+      internalID: 1672894454435354159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Running Fast Wind-sheet_12
+      rect:
+        serializedVersion: 2
+        x: 979
+        y: 15
+        width: 35
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 252eb138ce838d060800000000000000
+      internalID: 6978390211073663570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Running Fast Wind-sheet_13
+      rect:
+        serializedVersion: 2
+        x: 1057
+        y: 15
+        width: 38
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 405f2f742f9583ff0800000000000000
+      internalID: -56196098218068732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Running Fast Wind-sheet_14
+      rect:
+        serializedVersion: 2
+        x: 1136
+        y: 15
+        width: 37
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ccaa555d1aab7a780800000000000000
+      internalID: -8671757353246938420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Running Fast Wind-sheet_15
+      rect:
+        serializedVersion: 2
+        x: 1212
+        y: 15
+        width: 41
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e060ed1300be48420800000000000000
+      internalID: 2631486468360373774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Running Fast Wind-sheet_16
+      rect:
+        serializedVersion: 2
+        x: 1290
+        y: 21
+        width: 49
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b3b11e94f93af5c0800000000000000
+      internalID: -4180965581273320524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Running Fast Wind-sheet_17
+      rect:
+        serializedVersion: 2
+        x: 1370
+        y: 18
+        width: 48
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec0c48e2c74fc4a80800000000000000
+      internalID: -8481135184051912498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Running Fast Wind-sheet_18
+      rect:
+        serializedVersion: 2
+        x: 1456
+        y: 15
+        width: 44
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69ba176ee4a355430800000000000000
+      internalID: 3770984373540727702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Running Fast Wind-sheet_19
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 15
+        width: 42
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c6c7713a6df1f7d0800000000000000
+      internalID: -2886247253629483325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Running Fast Wind-sheet_20
+      rect:
+        serializedVersion: 2
+        x: 1622
+        y: 15
+        width: 34
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 787eaded3747512a0800000000000000
+      internalID: -6767374824045353081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Running Fast Wind-sheet_21
+      rect:
+        serializedVersion: 2
+        x: 1702
+        y: 15
+        width: 34
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 327761a0808ba2c60800000000000000
+      internalID: 7794244449786558243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Running Fast Wind-sheet_22
+      rect:
+        serializedVersion: 2
+        x: 1782
+        y: 15
+        width: 32
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4be0e4dcbfa280530800000000000000
+      internalID: 3821351544793468596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Running Fast Wind-sheet_0: -4061116824486550717
+      Running Fast Wind-sheet_1: 1578485722328232530
+      Running Fast Wind-sheet_10: 2320094942816852347
+      Running Fast Wind-sheet_11: 1672894454435354159
+      Running Fast Wind-sheet_12: 6978390211073663570
+      Running Fast Wind-sheet_13: -56196098218068732
+      Running Fast Wind-sheet_14: -8671757353246938420
+      Running Fast Wind-sheet_15: 2631486468360373774
+      Running Fast Wind-sheet_16: -4180965581273320524
+      Running Fast Wind-sheet_17: -8481135184051912498
+      Running Fast Wind-sheet_18: 3770984373540727702
+      Running Fast Wind-sheet_19: -2886247253629483325
+      Running Fast Wind-sheet_2: 8230580685513238648
+      Running Fast Wind-sheet_20: -6767374824045353081
+      Running Fast Wind-sheet_21: 7794244449786558243
+      Running Fast Wind-sheet_22: 3821351544793468596
+      Running Fast Wind-sheet_3: -1046410432201758699
+      Running Fast Wind-sheet_4: 2776663336820621470
+      Running Fast Wind-sheet_5: -7681555392169698721
+      Running Fast Wind-sheet_6: -3699049239558860240
+      Running Fast Wind-sheet_7: -8719825336747872108
+      Running Fast Wind-sheet_8: 1301700728820447630
+      Running Fast Wind-sheet_9: 8472747590492914013
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
