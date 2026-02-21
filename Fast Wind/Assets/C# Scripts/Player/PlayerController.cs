@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,6 +19,7 @@ public class PlayerController : MonoBehaviour
     [Header("Grounding")]
     [SerializeField] LayerMask groundLayer;
     [SerializeField] Transform groundCheck;
+    private bool doubleJump;
 
     private float horizontal;
 
@@ -59,11 +61,20 @@ public class PlayerController : MonoBehaviour
         horizontal = context.ReadValue<Vector2>().x;
     }
 
+
     public void Jump(InputAction.CallbackContext context)
     {
-        if(context.performed && isGrounded())
+
+        if(isGrounded() && !context.performed)
+        {
+            doubleJump = false;
+        }
+
+        if (context.performed && (isGrounded()||doubleJump))
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
+
+            doubleJump = !doubleJump;
         }
     }
 
