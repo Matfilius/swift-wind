@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,10 +11,17 @@ public class PlayerController : MonoBehaviour
     Animator animator;
 
     [Header("Player Settings")]
+    [SerializeField] float dashLenght;
     [SerializeField] float speed;
     [SerializeField] float jumpingPower;
+    [SerializeField] float dashDuration = 0.2f;
+    public GameObject afterImagePrefab;
+    public float afterImageSpacing = 0.05f;
+    private float afterImageTimer;
+    private bool isDashing;
     float horizontalInput;
     bool isFacingRight = true;
+    private SpriteRenderer playerSR;
 
 
     [Header("Grounding")]
@@ -27,17 +35,28 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        playerSR = GetComponent<SpriteRenderer>();
     }
     void Update()
     {
-        horizontalInput = Input.GetAxis("Horizontal");
+        horizontalInput = horizontal;
         Flip();
+        if (isDashing)
+        {
+            afterImageTimer -= Time.deltaTime;
 
+            if (afterImageTimer <= 0)
+            {
+                SpawnAfterImage();
+                afterImageTimer = afterImageSpacing;
+            }
+        }
     }
 
 
     private void FixedUpdate()
     {
+        if (isDashing) return;
         rb.linearVelocity = new Vector2(horizontal * speed, rb.linearVelocity.y);
         animator.SetFloat("xVelocity", Math.Abs(rb.linearVelocity.x));
     }
@@ -61,6 +80,14 @@ public class PlayerController : MonoBehaviour
         horizontal = context.ReadValue<Vector2>().x;
     }
 
+    public void Dash(InputAction.CallbackContext context)
+    {
+        if (context.performed && !isDashing)
+        {
+            StartCoroutine(DashRoutine());
+        }
+
+    }
 
     public void Jump(InputAction.CallbackContext context)
     {
@@ -81,6 +108,36 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded()
     {
         return Physics2D.OverlapCapsule(groundCheck.position, new Vector2(1f, 0.1f), CapsuleDirection2D.Horizontal, 0, groundLayer);
+    }
+
+    private IEnumerator DashRoutine()
+    {
+        isDashing = true;
+
+        float dashDirection = isFacingRight ? 1f : -1f;
+        rb.linearVelocity = new Vector2(dashDirection * dashLenght, 0f);
+
+        yield return new WaitForSeconds(dashDuration);
+
+        isDashing = false;
+    }
+
+    #endregion
+
+    #region EFFECTS
+
+    void SpawnAfterImage()
+    {
+        GameObject obj = Instantiate(afterImagePrefab, transform.position, transform.rotation);
+
+        SpriteRenderer playerSR = GetComponent<SpriteRenderer>();
+        SpriteRenderer objSR = obj.GetComponent<SpriteRenderer>();
+
+        objSR.sprite = playerSR.sprite;
+        objSR.flipX = playerSR.flipX;
+        objSR.flipX = playerSR.flipX;
+        obj.transform.localScale = transform.localScale * 1.05f;
+        objSR.color = new Color(0.3f, 0.8f, 1f, 0.4f);
     }
 
     #endregion
