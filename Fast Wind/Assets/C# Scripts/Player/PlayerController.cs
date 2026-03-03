@@ -82,7 +82,7 @@ public class PlayerController : MonoBehaviour
 
     public void Dash(InputAction.CallbackContext context)
     {
-        if (context.performed && !isDashing)
+        if (context.performed && !isDashing && isGrounded())
         {
             StartCoroutine(DashRoutine());
         }
