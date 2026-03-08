@@ -3532,13 +3532,14 @@ GameObject:
   - component: {fileID: 1015655665}
   - component: {fileID: 1015655664}
   - component: {fileID: 1015655666}
+  - component: {fileID: 1015655667}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!50 &1015655664
 Rigidbody2D:
   serializedVersion: 5
@@ -3596,6 +3597,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Damage
   damage1: 5
   playerHealth: {fileID: 284325293}
+--- !u!114 &1015655667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1015655663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8094219bb653b64bad925c3a10e09c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MonsterMovement
+  PatrolPoints:
+  - {fileID: 1169816406}
+  - {fileID: 1314965863}
+  moveSpeed: 3
+  patrolDestination: 1
 --- !u!1 &1068501813
 GameObject:
   m_ObjectHideFlags: 0
@@ -4210,8 +4228,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1169816405}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.63101, y: -1.02, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 7.53, y: -0.63, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4242,7 +4260,7 @@ Transform:
   m_GameObject: {fileID: 1314965862}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.07, y: -1.03, z: 0}
+  m_LocalPosition: {x: -4.44, y: -0.57, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4275,7 +4293,7 @@ Transform:
   m_GameObject: {fileID: 1905809140}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.63101, y: 0.38858, z: 0}
+  m_LocalPosition: {x: -3.75, y: -1.24, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4319,7 +4337,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.38, y: 2.56}
+    oldSize: {x: 1.36, y: 2.56}
     newSize: {x: 1.38, y: 2.56}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
