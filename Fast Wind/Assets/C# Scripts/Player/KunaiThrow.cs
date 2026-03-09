@@ -4,14 +4,16 @@ public class KunaiThrow : MonoBehaviour
 {
     public GameObject kunaiPrefab;
     public Transform throwPoint;
-    public float throwForce = 100f;
+    [SerializeField] float throwForce = 100f;
+    [SerializeField] LineRenderer trajectoryLine;
+    [SerializeField] int trajectoryPoints = 30;
+    [SerializeField] float timeStep = 0.05f;
 
     Vector3 throwVector;
-    LineRenderer _lr;
 
-    void Awake()
+    void Start()
     {
-        _lr = GetComponent<LineRenderer>();
+        trajectoryLine.enabled = false;
     }
 
     void Update()
@@ -19,18 +21,18 @@ public class KunaiThrow : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             CalculateThrowVector();
-            SetArrow();
+            DrawTrajectory();
         }
 
         if (Input.GetMouseButton(1))
         {
             CalculateThrowVector();
-            SetArrow();
+            DrawTrajectory();
         }
 
         if (Input.GetMouseButtonUp(1))
         {
-            RemoveArrow();
+            trajectoryLine.enabled = false;
             Throw();
         }
     }
@@ -42,19 +44,23 @@ public class KunaiThrow : MonoBehaviour
         throwVector = distance.normalized * throwForce;
     }
 
-    void SetArrow()
+    void DrawTrajectory()
     {
-        _lr.positionCount = 2;
+        trajectoryLine.positionCount = trajectoryPoints;
+        trajectoryLine.enabled = true;
 
-        _lr.SetPosition(0, throwPoint.position);
-        _lr.SetPosition(1, throwPoint.position + throwVector.normalized * 2);
+        Vector2 startPos = throwPoint.position;
 
-        _lr.enabled = true;
-    }
+        Vector2 displayVelocity = throwVector / 50f;
 
-    void RemoveArrow()
-    {
-        _lr.enabled = false;
+        for (int i = 0; i < trajectoryPoints; i++)
+        {
+            float t = i * timeStep;
+
+            Vector2 point = startPos + displayVelocity * t + 0.5f * Physics2D.gravity * t * t;
+
+            trajectoryLine.SetPosition(i, point);
+        }
     }
 
     void Throw()
