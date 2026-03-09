@@ -2800,12 +2800,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 284325292}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 267.84772, y: 133.36533, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 66.96193, y: 33.34133, z: 0}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1068501818}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &291596736
 GameObject:
@@ -2994,6 +2994,37 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.5073937, y: 0.92699385}
   m_EdgeRadius: 0
+--- !u!1 &470652669
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 470652670}
+  m_Layer: 0
+  m_Name: ThrowPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &470652670
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 470652669}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.218, y: 0.018, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1068501818}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -3539,7 +3570,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!50 &1015655664
 Rigidbody2D:
   serializedVersion: 5
@@ -3632,7 +3663,8 @@ GameObject:
   - component: {fileID: 1068501823}
   - component: {fileID: 1068501822}
   - component: {fileID: 1068501821}
-  m_Layer: 0
+  - component: {fileID: 1068501824}
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -3933,6 +3965,8 @@ Transform:
   - {fileID: 1955815415}
   - {fileID: 519420032}
   - {fileID: 155165999}
+  - {fileID: 470652670}
+  - {fileID: 284325294}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1068501819
@@ -4126,6 +4160,21 @@ MonoBehaviour:
   _lineRenderer: {fileID: 1068501821}
   _distanceJoint: {fileID: 1068501822}
   player: {fileID: 1068501813}
+--- !u!114 &1068501824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1068501813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a749d3b60469247a2fc7d5b7ce160c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KunaiThrow
+  kunaiPrefab: {fileID: 6395549089880600558, guid: ef03aa3c11ede0c4c933c292fdb74661, type: 3}
+  throwPoint: {fileID: 470652670}
+  throwForce: 1000
 --- !u!1 &1115875833
 GameObject:
   m_ObjectHideFlags: 0
@@ -4552,7 +4601,6 @@ SceneRoots:
   - {fileID: 605841357}
   - {fileID: 908355813}
   - {fileID: 895459910}
-  - {fileID: 284325294}
   - {fileID: 1015655665}
   - {fileID: 1169816406}
   - {fileID: 1314965863}
