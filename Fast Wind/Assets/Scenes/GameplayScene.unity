@@ -4005,7 +4005,7 @@ MonoBehaviour:
   dashDuration: 0.2
   afterImagePrefab: {fileID: 8828814330362416954, guid: 063f1c34540dd8041a7941c7e0cd3253, type: 3}
   afterImageSpacing: 0.01
-  rollSpeed: 30
+  rollSpeed: 20
   rollDuration: 0.5
   groundLayer:
     serializedVersion: 2
