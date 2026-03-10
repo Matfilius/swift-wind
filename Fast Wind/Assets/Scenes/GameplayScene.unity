@@ -3840,6 +3840,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 7f6de0ab-862c-4e30-a3c0-8d9c1c13fff3
     m_ActionName: 'Player/Dash[/Keyboard/c]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1068501819}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: Roll
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 61bce115-c868-45d5-9392-ab090c471a93
+    m_ActionName: 'Player/Roll[/Keyboard/v]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
@@ -3989,6 +4005,8 @@ MonoBehaviour:
   dashDuration: 0.2
   afterImagePrefab: {fileID: 8828814330362416954, guid: 063f1c34540dd8041a7941c7e0cd3253, type: 3}
   afterImageSpacing: 0.01
+  rollSpeed: 30
+  rollDuration: 0.5
   groundLayer:
     serializedVersion: 2
     m_Bits: 64

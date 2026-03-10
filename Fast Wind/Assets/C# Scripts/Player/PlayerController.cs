@@ -23,6 +23,11 @@ public class PlayerController : MonoBehaviour
     bool isFacingRight = true;
     private SpriteRenderer playerSR;
 
+    public float rollSpeed = 40f;
+    public float rollDuration = 5f;
+
+    bool isRolling = false;
+
 
     [Header("Grounding")]
     [SerializeField] LayerMask groundLayer;
@@ -41,6 +46,11 @@ public class PlayerController : MonoBehaviour
     {
         horizontalInput = horizontal;
         Flip();
+        
+           
+
+        
+
         if (isDashing)
         {
             afterImageTimer -= Time.deltaTime;
@@ -57,8 +67,41 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         if (isDashing) return;
-        rb.linearVelocity = new Vector2(horizontal * speed, rb.linearVelocity.y);
+        if (!isRolling)
+        {
+            rb.linearVelocity = new Vector2(horizontal * speed, rb.linearVelocity.y);
+        }
         animator.SetFloat("xVelocity", Math.Abs(rb.linearVelocity.x));
+    }
+
+
+    public void Roll(InputAction.CallbackContext context)
+    {
+        if (context.performed && !isRolling && isGrounded())
+        {
+            StartCoroutine(RollMovement());
+        }
+
+    }
+    
+
+
+    IEnumerator RollMovement()
+    {
+        animator.SetBool("roll", true);
+        isRolling = true;
+
+        float rollDirection = isFacingRight ? 1f : -1f;
+        rb.linearVelocity = new Vector2(rollDirection * rollSpeed, 0f);
+
+        yield return new WaitForSeconds(rollDuration);
+
+
+        isRolling = false;
+
+
+        animator.SetBool("roll", false);
+
     }
 
     void Flip()
