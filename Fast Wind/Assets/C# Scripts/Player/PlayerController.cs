@@ -75,15 +75,32 @@ public class PlayerController : MonoBehaviour
     }
 
 
+
+    #region PLAYER MOVEMENT
+
+    public void Move(InputAction.CallbackContext context)
+    {
+        horizontal = context.ReadValue<Vector2>().x;
+    }
+
+    public void Dash(InputAction.CallbackContext context)
+    {
+        if (context.performed && !isDashing && isGrounded() &&!isRolling)
+        {
+            StartCoroutine(DashRoutine());
+        }
+
+    }
+
     public void Roll(InputAction.CallbackContext context)
     {
-        if (context.performed && !isRolling && isGrounded())
+        if (context.performed && !isRolling && isGrounded() && !isDashing)
         {
             StartCoroutine(RollMovement());
         }
 
     }
-    
+
 
 
     IEnumerator RollMovement()
@@ -116,22 +133,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    #region PLAYER MOVEMENT
-
-    public void Move(InputAction.CallbackContext context)
-    {
-        horizontal = context.ReadValue<Vector2>().x;
-    }
-
-    public void Dash(InputAction.CallbackContext context)
-    {
-        if (context.performed && !isDashing && isGrounded())
-        {
-            StartCoroutine(DashRoutine());
-        }
-
-    }
-
     public void Jump(InputAction.CallbackContext context)
     {
 
@@ -150,7 +151,7 @@ public class PlayerController : MonoBehaviour
 
     private bool isGrounded()
     {
-        return Physics2D.OverlapCapsule(groundCheck.position, new Vector2(1f, 0.1f), CapsuleDirection2D.Horizontal, 0, groundLayer);
+        return Physics2D.OverlapCapsule(groundCheck.position, new Vector2(0.64f, 0.1f), CapsuleDirection2D.Horizontal, 0, groundLayer);
     }
 
     private IEnumerator DashRoutine()
