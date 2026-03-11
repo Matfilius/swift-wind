@@ -33,6 +33,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] LayerMask groundLayer;
     [SerializeField] Transform groundCheck;
     private bool doubleJump;
+    [SerializeField] BoxCollider2D playerCollider;
+
+    private Vector2 originalColliderSize;
+    private Vector2 originalColliderOffset;
 
     private float horizontal;
 
@@ -41,14 +45,15 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         playerSR = GetComponent<SpriteRenderer>();
+        playerCollider = GetComponent<BoxCollider2D>();
+
+        originalColliderSize = playerCollider.size;
+        originalColliderOffset = playerCollider.offset;
     }
     void Update()
     {
         horizontalInput = horizontal;
-        Flip();
-        
-           
-
+        Flip();      
         
 
         if (isDashing)
@@ -108,11 +113,24 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("roll", true);
         isRolling = true;
 
+        playerCollider.size = new Vector2(originalColliderSize.x, originalColliderSize.y * 0.5f);
+        playerCollider.offset = new Vector2(originalColliderOffset.x, originalColliderOffset.y);
+
+        Physics2D.IgnoreLayerCollision(
+            LayerMask.NameToLayer("Player"),LayerMask.NameToLayer("Enemy"),true
+        );
+
         float rollDirection = isFacingRight ? 1f : -1f;
         rb.linearVelocity = new Vector2(rollDirection * rollSpeed, 0f);
 
         yield return new WaitForSeconds(rollDuration);
 
+        playerCollider.size = originalColliderSize;
+        playerCollider.offset = originalColliderOffset;
+
+        Physics2D.IgnoreLayerCollision(
+            LayerMask.NameToLayer("Player"),LayerMask.NameToLayer("Enemy"),false
+        );
 
         isRolling = false;
 
