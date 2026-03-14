@@ -30,7 +30,7 @@ public class Mana
     private float manaRegenAmount;
     public Mana()
     {
-        manaAmount = 0;
+        manaAmount = 100;
         manaRegenAmount = 30f;
     }
 
