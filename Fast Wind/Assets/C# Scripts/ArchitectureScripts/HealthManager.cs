@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class HealthManager : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class HealthManager : MonoBehaviour
     {
         if(healthAmount <= 0)
         {
-            Application.LoadLevel(Application.loadedLevel);
+            SceneManager.LoadScene;
         }
 
         if (Input.GetKeyDown(KeyCode.Return))
