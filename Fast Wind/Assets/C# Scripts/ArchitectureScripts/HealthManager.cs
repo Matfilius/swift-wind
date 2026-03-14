@@ -18,7 +18,7 @@ public class HealthManager : MonoBehaviour
     {
         if(healthAmount <= 0)
         {
-            SceneManager.LoadScene;
+            ReloadScene();
         }
 
         if (Input.GetKeyDown(KeyCode.Return))
@@ -30,6 +30,12 @@ public class HealthManager : MonoBehaviour
         {
             Heal(5);
         }
+    }
+
+    public void ReloadScene()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex);
     }
 
     public void TakeDamage(float damage)
