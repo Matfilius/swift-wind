@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
     [Header("Grounding")]
     [SerializeField] LayerMask groundLayer;
     [SerializeField] Transform groundCheck;
-    private bool doubleJump;
+    public bool doubleJump;
     [SerializeField] BoxCollider2D playerCollider;
 
     private Vector2 originalColliderSize;
