@@ -4032,6 +4032,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 5e4738ee-fc35-4160-8be1-b56f0a23ddb8
     m_ActionName: 'Player/ForcePush[/Keyboard/f]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1068501824}
+        m_TargetAssemblyTypeName: KunaiThrow, Assembly-CSharp
+        m_MethodName: OnKnifeThrow
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: aa526d31-a354-401f-85ec-236a69907a87
+    m_ActionName: 'Player/ThrowKnife[/Mouse/middleButton]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player

@@ -1,4 +1,6 @@
+using UnityEngine.InputSystem;
 using UnityEngine;
+
 
 public class KunaiThrow : MonoBehaviour
 {
@@ -16,25 +18,20 @@ public class KunaiThrow : MonoBehaviour
         trajectoryLine.enabled = false;
     }
 
-    void Update()
+  public void OnKnifeThrow(InputAction.CallbackContext context)
     {
-        if (Input.GetMouseButtonDown(1))
+        if(context.started || context.performed)
         {
             CalculateThrowVector();
             DrawTrajectory();
         }
-
-        if (Input.GetMouseButton(1))
-        {
-            CalculateThrowVector();
-            DrawTrajectory();
-        }
-
-        if (Input.GetMouseButtonUp(1))
+        
+        if(context.canceled)
         {
             trajectoryLine.enabled = false;
             Throw();
         }
+
     }
 
     void CalculateThrowVector()
