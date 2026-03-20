@@ -10,6 +10,7 @@ public class KunaiThrow : MonoBehaviour
     [SerializeField] LineRenderer trajectoryLine;
     [SerializeField] int trajectoryPoints = 30;
     [SerializeField] float timeStep = 0.05f;
+    bool isAiming = false;
 
     Vector3 throwVector;
 
@@ -18,16 +19,26 @@ public class KunaiThrow : MonoBehaviour
         trajectoryLine.enabled = false;
     }
 
-  public void OnKnifeThrow(InputAction.CallbackContext context)
+    private void Update()
     {
-        if(context.started || context.performed)
+     if(isAiming)
         {
             CalculateThrowVector();
             DrawTrajectory();
         }
+    }
+
+    public void OnKnifeThrow(InputAction.CallbackContext context)
+    {
+        if(context.started || context.performed)
+        {
+            isAiming = true;
+            trajectoryLine.enabled = true;
+        }
         
         if(context.canceled)
         {
+            isAiming = false;
             trajectoryLine.enabled = false;
             Throw();
         }
