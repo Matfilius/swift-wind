@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     public float rollDuration = 5f;
 
     bool isRolling = false;
+   
 
 
     [Header("Grounding")]
@@ -66,6 +67,8 @@ public class PlayerController : MonoBehaviour
                 afterImageTimer = afterImageSpacing;
             }
         }
+
+        
 
     }
 
@@ -156,26 +159,36 @@ public class PlayerController : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
+
         if (context.performed)
         {
+            animator.SetBool("isJumping", true);
+
             if (isGrounded())
             {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
-                animator.SetTrigger("isJumping");
+                
                 doubleJump = true; // dozvoli drugi skok
             }
             else if (doubleJump)
             {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
-                animator.SetTrigger("isJumping");
+                //animator.SetBool("isJumping",!isGrounded());
                 doubleJump = false; // potroši double jump
             }
         }
+        
     }
 
     private bool isGrounded()
     {
         return Physics2D.OverlapCapsule(groundCheck.position, new Vector2(0.64f, 0.1f), CapsuleDirection2D.Horizontal, 0, groundLayer);
+       
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        animator.SetBool("isJumping", false);
     }
 
     private IEnumerator DashRoutine()
