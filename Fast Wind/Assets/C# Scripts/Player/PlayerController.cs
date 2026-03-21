@@ -66,6 +66,7 @@ public class PlayerController : MonoBehaviour
                 afterImageTimer = afterImageSpacing;
             }
         }
+
     }
 
 
@@ -77,6 +78,8 @@ public class PlayerController : MonoBehaviour
             rb.linearVelocity = new Vector2(horizontal * speed, rb.linearVelocity.y);
         }
         animator.SetFloat("xVelocity", Math.Abs(rb.linearVelocity.x));
+        animator.SetFloat("yVelocity", (rb.linearVelocity.y));
+
     }
 
 
@@ -153,17 +156,20 @@ public class PlayerController : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
-
-        if(isGrounded() && !context.performed)
+        if (context.performed)
         {
-            doubleJump = false;
-        }
-
-        if (context.performed && (isGrounded()||doubleJump))
-        {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
-
-            doubleJump = !doubleJump;
+            if (isGrounded())
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
+                animator.SetTrigger("isJumping");
+                doubleJump = true; // dozvoli drugi skok
+            }
+            else if (doubleJump)
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
+                animator.SetTrigger("isJumping");
+                doubleJump = false; // potroši double jump
+            }
         }
     }
 
