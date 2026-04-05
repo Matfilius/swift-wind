@@ -17,11 +17,12 @@ public class ManaBar : MonoBehaviour
         mana.Update();
         barImage.fillAmount = mana.GetManaNormalized();
     }
+
 }
 
 public class Mana
 {
-    public const int MANA_MAX = 100;
+    public static int MANA_MAX = 100;
     private float manaAmount;
     private float manaRegenAmount;
 
@@ -29,6 +30,13 @@ public class Mana
     {
         manaAmount = 100;
         manaRegenAmount = 30f;
+    }
+
+    public void ModifyMaxMana(float amount)
+    {
+        // Adjust the cap — manaAmount stays the same unless it now exceeds the new cap
+        MANA_MAX += (int)amount;
+        manaAmount = Mathf.Clamp(manaAmount, 0f, MANA_MAX);
     }
 
     public void Update()

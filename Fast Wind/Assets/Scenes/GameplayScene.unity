@@ -333,6 +333,7 @@ GameObject:
   - component: {fileID: 196821554}
   - component: {fileID: 196821556}
   - component: {fileID: 196821555}
+  - component: {fileID: 196821557}
   m_Layer: 5
   m_Name: InroThirdLayer
   m_TagString: Untagged
@@ -351,13 +352,14 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 407518701}
   m_Father: {fileID: 887655304}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 467, y: -89.41455}
-  m_SizeDelta: {x: 362.8546, y: 219.7455}
+  m_AnchoredPosition: {x: 467, y: -54}
+  m_SizeDelta: {x: 362.8546, y: 204.1057}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &196821555
 MonoBehaviour:
@@ -394,6 +396,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 196821553}
   m_CullTransparentMesh: 1
+--- !u!114 &196821557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 196821553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b776b81b973b6428d803577768f2c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  layerIndex: 2
+  snapDistance: 100
+  hoverShiftAmount: 50
+  occupiedShiftAmount: 50
+  animationSpeed: 8
+  charmSlot: {fileID: 407518701}
+  baseYPosition: 0
 --- !u!1 &208281669
 GameObject:
   m_ObjectHideFlags: 0
@@ -423,7 +444,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1082430741}
   m_Father: {fileID: 887655304}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -2977,6 +2999,7 @@ GameObject:
   - component: {fileID: 277021022}
   - component: {fileID: 277021024}
   - component: {fileID: 277021023}
+  - component: {fileID: 277021025}
   m_Layer: 5
   m_Name: InroFirstLayer
   m_TagString: Untagged
@@ -2995,13 +3018,14 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 681521440}
   m_Father: {fileID: 887655304}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 467, y: -374.06}
-  m_SizeDelta: {x: 362.8546, y: 331.8848}
+  m_AnchoredPosition: {x: 467, y: -338.73}
+  m_SizeDelta: {x: 362.8546, y: 402.5418}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &277021023
 MonoBehaviour:
@@ -3038,6 +3062,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 277021021}
   m_CullTransparentMesh: 1
+--- !u!114 &277021025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 277021021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b776b81b973b6428d803577768f2c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  layerIndex: 0
+  snapDistance: 100
+  hoverShiftAmount: 50
+  occupiedShiftAmount: 50
+  animationSpeed: 8
+  charmSlot: {fileID: 681521440}
+  baseYPosition: 0
 --- !u!1 &291596736
 GameObject:
   m_ObjectHideFlags: 0
@@ -3113,6 +3156,76 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 291596736}
   m_CullTransparentMesh: 1
+--- !u!1 &309915519
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 309915520}
+  m_Layer: 5
+  m_Name: CharmSlot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &309915520
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 309915519}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1035153294}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 11.5}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &407518700
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 407518701}
+  m_Layer: 5
+  m_Name: CharmSlot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &407518701
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407518700}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 196821554}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 13.5}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &440815794
 GameObject:
   m_ObjectHideFlags: 0
@@ -3600,6 +3713,76 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &639372173
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 639372174}
+  m_Layer: 5
+  m_Name: SlotDummy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &639372174
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 639372173}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1079038821}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &681521439
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 681521440}
+  m_Layer: 5
+  m_Name: CharmSlot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &681521440
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 681521439}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 277021022}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 118}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &724036835
 GameObject:
   m_ObjectHideFlags: 0
@@ -3743,13 +3926,14 @@ GameObject:
   - component: {fileID: 887655304}
   - component: {fileID: 887655306}
   - component: {fileID: 887655305}
+  - component: {fileID: 887655307}
   m_Layer: 5
   m_Name: CharmMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &887655304
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3757,7 +3941,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 887655303}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3813,6 +3997,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 887655303}
   m_CullTransparentMesh: 1
+--- !u!114 &887655307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 887655303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98fb8cad2e286b7489f07d23586e43f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  layers:
+  - {fileID: 277021025}
+  - {fileID: 1443771151}
+  - {fileID: 196821557}
+  - {fileID: 1035153297}
+  - {fileID: 1079038824}
+  charmMenu: {fileID: 887655303}
 --- !u!1 &895459907
 GameObject:
   m_ObjectHideFlags: 0
@@ -4214,6 +4417,7 @@ GameObject:
   - component: {fileID: 1035153294}
   - component: {fileID: 1035153296}
   - component: {fileID: 1035153295}
+  - component: {fileID: 1035153297}
   m_Layer: 5
   m_Name: InroFourthLayer
   m_TagString: Untagged
@@ -4232,13 +4436,14 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 309915520}
   m_Father: {fileID: 887655304}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 467, y: 3.0702}
-  m_SizeDelta: {x: 362.8546, y: 209.4343}
+  m_AnchoredPosition: {x: 467, y: 38.48475}
+  m_SizeDelta: {x: 362.8546, y: 209.7753}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1035153295
 MonoBehaviour:
@@ -4275,6 +4480,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1035153293}
   m_CullTransparentMesh: 1
+--- !u!114 &1035153297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1035153293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b776b81b973b6428d803577768f2c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  layerIndex: 3
+  snapDistance: 100
+  hoverShiftAmount: 50
+  occupiedShiftAmount: 50
+  animationSpeed: 8
+  charmSlot: {fileID: 309915520}
+  baseYPosition: 0
 --- !u!1 &1037464254
 GameObject:
   m_ObjectHideFlags: 0
@@ -4618,6 +4842,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 8d635fcd-d29a-4459-92c2-64be14c56a9f
     m_ActionName: 'Player/Wind[/Mouse/rightButton]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 887655307}
+        m_TargetAssemblyTypeName: InroManager, Assembly-CSharp
+        m_MethodName: CharmMenu
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 639b8a88-e7dc-42e9-a744-e9c9751c159c
+    m_ActionName: 'UI/CharmMenu[/Keyboard/u]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
@@ -5019,6 +5259,7 @@ GameObject:
   - component: {fileID: 1079038821}
   - component: {fileID: 1079038823}
   - component: {fileID: 1079038822}
+  - component: {fileID: 1079038824}
   m_Layer: 5
   m_Name: InroFifthLayer
   m_TagString: Untagged
@@ -5037,13 +5278,14 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 639372174}
   m_Father: {fileID: 887655304}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 467, y: 146.90483}
-  m_SizeDelta: {x: 362.8546, y: 316.015}
+  m_AnchoredPosition: {x: 467, y: 193.6}
+  m_SizeDelta: {x: 362.8546, y: 340.1768}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1079038822
 MonoBehaviour:
@@ -5079,6 +5321,115 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1079038820}
+  m_CullTransparentMesh: 1
+--- !u!114 &1079038824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079038820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b776b81b973b6428d803577768f2c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  layerIndex: 4
+  snapDistance: 100
+  hoverShiftAmount: 50
+  occupiedShiftAmount: 50
+  animationSpeed: 8
+  charmSlot: {fileID: 639372174}
+  baseYPosition: 0
+--- !u!1 &1082430740
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1082430741}
+  - component: {fileID: 1082430744}
+  - component: {fileID: 1082430743}
+  - component: {fileID: 1082430742}
+  m_Layer: 5
+  m_Name: WindManaCharmFull
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1082430741
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1082430740}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 208281670}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -259, y: 409}
+  m_SizeDelta: {x: 351.51538, y: 93.3712}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1082430742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1082430740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c35ad600634f9144a8456d8c3285fd1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  effectType: 0
+  baseEffectValue: 20
+  fullTexture: {fileID: 2800000, guid: 0a50a4b69e63af3429ed889946b35a46, type: 3}
+  slottedTexture: {fileID: 2800000, guid: 818b802af9708274a95b7a70af4bb3c3, type: 3}
+  canvas: {fileID: 1646441673}
+--- !u!114 &1082430743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1082430740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RawImage
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 2800000, guid: 0a50a4b69e63af3429ed889946b35a46, type: 3}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+--- !u!222 &1082430744
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1082430740}
   m_CullTransparentMesh: 1
 --- !u!1 &1115875833
 GameObject:
@@ -5309,6 +5660,41 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!1 &1280782772
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1280782773}
+  m_Layer: 5
+  m_Name: CharmSlot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1280782773
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1280782772}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1443771148}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 13.5}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1426037458
 GameObject:
   m_ObjectHideFlags: 0
@@ -5395,6 +5781,7 @@ GameObject:
   - component: {fileID: 1443771148}
   - component: {fileID: 1443771150}
   - component: {fileID: 1443771149}
+  - component: {fileID: 1443771151}
   m_Layer: 5
   m_Name: InroSecondLayer
   m_TagString: Untagged
@@ -5413,13 +5800,14 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1280782773}
   m_Father: {fileID: 887655304}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 467, y: -185}
-  m_SizeDelta: {x: 362.8546, y: 230.5746}
+  m_AnchoredPosition: {x: 467, y: -144}
+  m_SizeDelta: {x: 362.8546, y: 204.1057}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1443771149
 MonoBehaviour:
@@ -5456,6 +5844,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1443771147}
   m_CullTransparentMesh: 1
+--- !u!114 &1443771151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1443771147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b776b81b973b6428d803577768f2c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  layerIndex: 1
+  snapDistance: 100
+  hoverShiftAmount: 50
+  occupiedShiftAmount: 50
+  animationSpeed: 8
+  charmSlot: {fileID: 1280782773}
+  baseYPosition: 0
 --- !u!1 &1454057720
 GameObject:
   m_ObjectHideFlags: 0
