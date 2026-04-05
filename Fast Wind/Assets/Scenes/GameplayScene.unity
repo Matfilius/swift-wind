@@ -4632,10 +4632,10 @@ MonoBehaviour:
   liftAngleThreshold: 60
   grabManaCost: 15
   holdManaCostPerSec: 10
-  lineCount: 5
-  lineSpeed: 2
-  spiralRadius: 0.4
-  spiralFrequency: 3
+  lineCount: 3
+  lineSpeed: 3
+  spiralRadius: 0.6
+  spiralFrequency: 4
 --- !u!1 &1115875833
 GameObject:
   m_ObjectHideFlags: 0
