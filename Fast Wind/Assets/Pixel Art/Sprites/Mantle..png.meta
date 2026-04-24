@@ -137,10 +137,10 @@ TextureImporter:
       name: Mantle._0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 133
-        height: 144
+        x: 39
+        y: 1
+        width: 94
+        height: 126
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -159,10 +159,10 @@ TextureImporter:
       name: Mantle._1
       rect:
         serializedVersion: 2
-        x: 133
+        x: 173
         y: 0
-        width: 133
-        height: 144
+        width: 94
+        height: 126
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -181,10 +181,10 @@ TextureImporter:
       name: Mantle._2
       rect:
         serializedVersion: 2
-        x: 266
+        x: 305
         y: 0
-        width: 133
-        height: 144
+        width: 94
+        height: 126
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -203,12 +203,12 @@ TextureImporter:
       name: Mantle._3
       rect:
         serializedVersion: 2
-        x: 399
-        y: 0
-        width: 133
-        height: 144
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 459
+        y: 14
+        width: 72
+        height: 112
+      alignment: 9
+      pivot: {x: 0.335, y: 0.332}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -225,12 +225,12 @@ TextureImporter:
       name: Mantle._4
       rect:
         serializedVersion: 2
-        x: 532
-        y: 0
-        width: 133
-        height: 144
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 593
+        y: 14
+        width: 72
+        height: 112
+      alignment: 9
+      pivot: {x: 0.32, y: 0.332}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -247,12 +247,12 @@ TextureImporter:
       name: Mantle._5
       rect:
         serializedVersion: 2
-        x: 665
-        y: 0
-        width: 133
-        height: 144
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 726
+        y: 16
+        width: 72
+        height: 112
+      alignment: 9
+      pivot: {x: 0.335, y: 0.1799}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -269,12 +269,12 @@ TextureImporter:
       name: Mantle._6
       rect:
         serializedVersion: 2
-        x: 798
-        y: 0
-        width: 133
-        height: 144
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 859
+        y: 14
+        width: 72
+        height: 112
+      alignment: 9
+      pivot: {x: 0.335, y: 0.1799}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -291,12 +291,12 @@ TextureImporter:
       name: Mantle._7
       rect:
         serializedVersion: 2
-        x: 931
-        y: 0
-        width: 133
-        height: 144
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 991
+        y: 14
+        width: 72
+        height: 112
+      alignment: 9
+      pivot: {x: 0.335, y: 0.1799}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []

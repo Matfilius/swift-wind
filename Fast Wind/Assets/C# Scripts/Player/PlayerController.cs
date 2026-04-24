@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
    
 
 
-    [Header("Grounding")]
+    [Header("Collision")]
     [SerializeField] LayerMask groundLayer;
     [SerializeField] Transform groundCheck;
     public bool doubleJump;
@@ -38,6 +38,18 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 originalColliderSize;
     private Vector2 originalColliderOffset;
+
+    public bool ledgeDetected;
+
+    [Header("Ledge Info")]
+    [SerializeField] private Vector2 offset1;
+    [SerializeField] private Vector2 offset2;
+
+    private Vector2 climbBegunPosition;
+    private Vector2 climbOverPosition;
+
+    private bool canGrabLedge = true;
+    private bool canClimbLedge;
 
     private float horizontal;
 
@@ -55,6 +67,7 @@ public class PlayerController : MonoBehaviour
     {
         horizontalInput = horizontal;
         Flip();      
+        CheckForLedge();
         
 
         if (isDashing)
@@ -67,9 +80,6 @@ public class PlayerController : MonoBehaviour
                 afterImageTimer = afterImageSpacing;
             }
         }
-
-        
-
     }
 
 
@@ -112,7 +122,25 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    private void CheckForLedge()
+    {
+        if (ledgeDetected && canGrabLedge)
+        {
+            canGrabLedge = false;
+            animator.SetBool("canClimb", canClimbLedge);
 
+            Vector2 ledgePosition = GetComponentInChildren<LedgeDetect>().transform.position;
+
+            climbBegunPosition = ledgePosition + offset1;
+            climbOverPosition = ledgePosition + offset2;
+
+            canClimbLedge = true;
+            animator.SetBool("canClimb", canClimbLedge);
+        }
+
+        if(canClimbLedge)
+            transform.position = climbBegunPosition;
+    }
 
     IEnumerator RollMovement()
     {
