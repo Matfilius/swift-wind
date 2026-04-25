@@ -126,21 +126,35 @@ public class PlayerController : MonoBehaviour
     {
         if (ledgeDetected && canGrabLedge)
         {
+            Debug.Log("CheckedforLedge");
             canGrabLedge = false;
             animator.SetBool("canClimb", canClimbLedge);
 
             Vector2 ledgePosition = GetComponentInChildren<LedgeDetect>().transform.position;
+            Debug.Log(ledgePosition);
 
             climbBegunPosition = ledgePosition + offset1;
             climbOverPosition = ledgePosition + offset2;
 
             canClimbLedge = true;
             animator.SetBool("canClimb", canClimbLedge);
+            Debug.Log("LedgeCheckDone");
         }
 
         if(canClimbLedge)
             transform.position = climbBegunPosition;
     }
+
+    private void LedgeClimbOver()
+    {
+        canClimbLedge = false;
+        Debug.Log("ClimbOver called");
+        transform.position = climbOverPosition;
+        Debug.Log(climbOverPosition);
+        Invoke("AllowLedgeClimb", 1.9f);
+    }
+
+    private void AllowLedgeClimb() => canClimbLedge = true;
 
     IEnumerator RollMovement()
     {

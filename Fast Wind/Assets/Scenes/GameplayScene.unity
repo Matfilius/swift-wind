@@ -5115,8 +5115,8 @@ MonoBehaviour:
   doubleJump: 0
   playerCollider: {fileID: 1068501816}
   ledgeDetected: 0
-  offset1: {x: -0.5924, y: -0.2855}
-  offset2: {x: -0.125, y: -0.298}
+  offset1: {x: -0.7824, y: -1.1655}
+  offset2: {x: 0.305, y: 0.273}
 --- !u!95 &1068501820
 Animator:
   serializedVersion: 7
