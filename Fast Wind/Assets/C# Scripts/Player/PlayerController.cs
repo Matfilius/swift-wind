@@ -151,7 +151,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log("ClimbOver called");
         transform.position = climbOverPosition;
         Debug.Log(climbOverPosition);
-        Invoke("AllowLedgeClimb", 1.9f);
+        Invoke("AllowLedgeClimb", 0.1f);
     }
 
     private void AllowLedgeClimb() => canClimbLedge = true;

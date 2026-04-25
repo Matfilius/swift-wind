@@ -75,6 +75,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: canClimb
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isJumping
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 2603177480670420117}
   m_Solo: 0
