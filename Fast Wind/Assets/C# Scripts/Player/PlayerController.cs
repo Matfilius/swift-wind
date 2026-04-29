@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] float jumpingPower;
     [SerializeField] float dashDuration = 0.2f;
+    private Vector3 originalScale;
     public GameObject afterImagePrefab;
     public float afterImageSpacing = 0.05f;
     private float afterImageTimer;
@@ -44,12 +45,14 @@ public class PlayerController : MonoBehaviour
     [Header("Ledge Info")]
     [SerializeField] private Vector2 offset1;
     [SerializeField] private Vector2 offset2;
+    private int climbDirection;
 
     private Vector2 climbBegunPosition;
     private Vector2 climbOverPosition;
 
     private bool canGrabLedge = true;
     private bool canClimbLedge;
+    private bool climbLock;
 
     private float horizontal;
 
@@ -59,6 +62,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         playerSR = GetComponent<SpriteRenderer>();
         playerCollider = GetComponent<BoxCollider2D>();
+        originalScale = transform.localScale;
 
         originalColliderSize = playerCollider.size;
         originalColliderOffset = playerCollider.offset;
@@ -124,37 +128,48 @@ public class PlayerController : MonoBehaviour
 
     private void CheckForLedge()
     {
+        climbDirection = isFacingRight ? 1 : -1;
         if (ledgeDetected && canGrabLedge)
-        {
-            Debug.Log("CheckedforLedge");
+        { 
             canGrabLedge = false;
-            animator.SetBool("canClimb", canClimbLedge);
+
+            Vector3 scale = transform.localScale;
+            isFacingRight = scale.x > 0;
+            climbDirection = isFacingRight ? 1 : -1;
 
             Vector2 ledgePosition = GetComponentInChildren<LedgeDetect>().transform.position;
-            Debug.Log(ledgePosition);
 
-            climbBegunPosition = ledgePosition + offset1;
-            climbOverPosition = ledgePosition + offset2;
+            climbBegunPosition = ledgePosition + new Vector2(offset1.x * climbDirection, offset1.y);
+            climbOverPosition = ledgePosition + new Vector2(offset2.x * climbDirection, offset2.y);
 
             canClimbLedge = true;
-            animator.SetBool("canClimb", canClimbLedge);
-            Debug.Log("LedgeCheckDone");
+            animator.SetBool("canClimb", true);
         }
 
         if(canClimbLedge)
+        {
             transform.position = climbBegunPosition;
+        }
+            
     }
 
     private void LedgeClimbOver()
     {
         canClimbLedge = false;
-        Debug.Log("ClimbOver called");
+        animator.SetBool("canClimb", false);
         transform.position = climbOverPosition;
-        Debug.Log(climbOverPosition);
-        Invoke("AllowLedgeClimb", 0.1f);
+        animator.SetBool("isJumping", false);
+        climbLock = true;
+        Invoke("UnlockClimb", 0.2f);
+        Invoke("AllowLedgeClimb", 0.5f);
     }
 
-    private void AllowLedgeClimb() => canClimbLedge = true;
+    private void UnlockClimb()
+    {
+        climbLock = false;
+    }
+
+    private void AllowLedgeClimb() => canGrabLedge = true;
 
     IEnumerator RollMovement()
     {
@@ -189,13 +204,17 @@ public class PlayerController : MonoBehaviour
 
     void Flip()
     {
-        if (isFacingRight && horizontalInput < 0f || !isFacingRight && horizontalInput > 0f)
+        if (canClimbLedge || climbLock) return;
+
+        if ((isFacingRight && horizontalInput < 0f) ||(!isFacingRight && horizontalInput > 0f))
         {
             isFacingRight = !isFacingRight;
-            Vector3 ls = transform.localScale;
-            ls.x *= -1f;
-            transform.localScale = ls;
 
+            Vector3 scale = transform.localScale;
+
+            scale.x = Mathf.Abs(originalScale.x) * (isFacingRight ? 1f : -1f);
+
+            transform.localScale = scale;
         }
     }
 
@@ -216,7 +235,7 @@ public class PlayerController : MonoBehaviour
             {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
                 //animator.SetBool("isJumping",!isGrounded());
-                doubleJump = false; // potro�i double jump
+                doubleJump = false; // potroši double jump
             }
         }
         

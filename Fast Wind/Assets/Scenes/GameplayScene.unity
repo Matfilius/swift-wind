@@ -3960,7 +3960,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eedebf6676d1af44afa75a5b137dc5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  radius: 0.3
+  radius: 0.18
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
@@ -5105,9 +5105,9 @@ MonoBehaviour:
   jumpingPower: 20
   dashDuration: 0.2
   afterImagePrefab: {fileID: 8828814330362416954, guid: 063f1c34540dd8041a7941c7e0cd3253, type: 3}
-  afterImageSpacing: 0.01
-  rollSpeed: 15
-  rollDuration: 0.4
+  afterImageSpacing: 0.05
+  rollSpeed: 40
+  rollDuration: 5
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
