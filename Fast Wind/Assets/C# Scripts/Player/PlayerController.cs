@@ -142,6 +142,9 @@ public class PlayerController : MonoBehaviour
             climbBegunPosition = ledgePosition + new Vector2(offset1.x * climbDirection, offset1.y);
             climbOverPosition = ledgePosition + new Vector2(offset2.x * climbDirection, offset2.y);
 
+            Debug.Log("ClimbBegunPosition" + climbBegunPosition);
+            Debug.Log("ClimbOverPosition" + climbOverPosition);
+
             canClimbLedge = true;
             animator.SetBool("canClimb", true);
         }
@@ -161,7 +164,7 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("isJumping", false);
         climbLock = true;
         Invoke("UnlockClimb", 0.2f);
-        Invoke("AllowLedgeClimb", 0.5f);
+        Invoke("AllowLedgeClimb", 0.3f);
     }
 
     private void UnlockClimb()
