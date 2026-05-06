@@ -148,9 +148,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7c34b06ad1e6524a8b58ea6622da8fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameInitiator
-  coreSceneName: CoreScene
-  mainMenuSceneName: MainMenuScene
-  gameplaySceneName: GameplayScene
+  corePrefab: {fileID: 7462057916240261413, guid: 2569d21080269f74cbdd5b9c9ad093fe, type: 3}
+  firstSceneName: MainMenuScene
 --- !u!4 &441856526
 Transform:
   m_ObjectHideFlags: 0

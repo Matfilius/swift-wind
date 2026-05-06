@@ -1,71 +1,40 @@
-using System.Collections;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class GameInitiator : MonoBehaviour
 {
-    [Header("Scene Names")]
-    [SerializeField] private string coreSceneName = "Core";
-    [SerializeField] private string mainMenuSceneName = "MainMenu";
-    [SerializeField] private string gameplaySceneName = "Gameplay";
+    [Header("Core")]
+    [SerializeField] private GameObject corePrefab;
 
-    private async void Start()
+    [Header("First Scene")]
+    [SerializeField] private string firstSceneName = "MainMenuScene";
+
+    private static bool coreSpawned = false;
+
+    private void Start()
     {
-        await StartGameFlow();
+        StartCoroutine(BootFlow());
     }
 
-    private async Task StartGameFlow()
+    private IEnumerator BootFlow()
     {
-        // 1. Ucita korijene sisteme prvo
-        await LoadSceneAsync(coreSceneName, LoadSceneMode.Additive);
+        // Zaustavlja duplo kporianje korijena
+        if (!coreSpawned)
+        {
+            Instantiate(corePrefab);
+            coreSpawned = true;
+        }
+
+        
+        yield return null;
 
         // Mala pauza u vremenu za stabilnost
-        await Task.Delay(200);
+        yield return new WaitForSeconds(0.5f);
 
-        // 2. Ucita se glavni meni
-        await LoadMainMenu();
-
-        // 3. Skloni se boot scena
-        await UnloadSceneAsync(SceneManager.GetActiveScene().name);
-    }
-
-    private async Task LoadMainMenu()
-    {
-        await LoadSceneAsync(mainMenuSceneName, LoadSceneMode.Additive);
-    }
-
-    private async Task LoadGameplayFlow()
-    {
-        await LoadSceneAsync(gameplaySceneName, LoadSceneMode.Additive);
-
-    }
+        // Ucitaj Glavni Meni
+        SceneManager.LoadScene(firstSceneName);
 
 
-    private async Task LoadSceneAsync(string sceneName, LoadSceneMode mode)
-    {
-        if (SceneManager.GetSceneByName(sceneName).isLoaded)
-            return;
-
-        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName, mode);
-
-        while (!operation.isDone)
-        {
-            await Task.Yield();
-        }
-    }
-
-    private async Task UnloadSceneAsync(string sceneName)
-    {
-        if (!SceneManager.GetSceneByName(sceneName).isLoaded)
-            return;
-
-        AsyncOperation operation = SceneManager.UnloadSceneAsync(sceneName);
-
-        while (!operation.isDone)
-        {
-            await Task.Yield();
-        }
     }
 }
-

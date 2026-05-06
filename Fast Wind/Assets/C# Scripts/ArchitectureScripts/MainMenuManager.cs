@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -6,52 +5,71 @@ using System.Collections;
 
 public class MainMenuManager : MonoBehaviour
 {
-    [Header("Main Menu Object")]
-    [SerializeField] private GameObject _loadingBarObject;
-    [SerializeField] private Image _loadingBar;
-    [SerializeField] private GameObject[] _objcetsToHide;
+    [Header("UI")]
+    [SerializeField] private GameObject loadingBarObject;
+    [SerializeField] private Image loadingBar;
+    [SerializeField] private GameObject[] objectsToHide;
 
-    [Header("Scenes to Load")]
-    [SerializeField] private string _GameplayScene="GameplayScene";
+    [Header("Scenes")]
+    [SerializeField] private string gameplayScene = "GameplayScene";
 
-    private List<AsyncOperation> _scenesToLoad = new List<AsyncOperation>();
+    [Header("Core")]
+    [SerializeField] private GameObject corePrefab;
 
     private void Awake()
     {
-        _loadingBarObject.SetActive(false);
+        loadingBarObject.SetActive(false);
+    }
+
+    private void Start()
+    {
+        EnsureCoreExists();
+    }
+
+    // Provjerava da korjien postoji
+    private void EnsureCoreExists()
+    {
+        if (FindFirstObjectByType<GameManager>() == null)
+        {
+            Instantiate(corePrefab);
+        }
     }
 
     public void StartGame()
     {
         HideMenu();
+        loadingBarObject.SetActive(true);
 
-        _loadingBarObject.SetActive(true);
-
-        _scenesToLoad.Add(SceneManager.LoadSceneAsync(_GameplayScene));
-
-        StartCoroutine(ProgressLoadingBar());
+        StartCoroutine(LoadGameplay());
     }
 
     private void HideMenu()
     {
-        for(int i=0;i<_objcetsToHide.Length;i++)
+        for (int i = 0; i < objectsToHide.Length; i++)
         {
-            _objcetsToHide[i].SetActive(false);
+            if (objectsToHide[i] != null)
+                objectsToHide[i].SetActive(false);
         }
     }
 
-    private IEnumerator ProgressLoadingBar()
+    private IEnumerator LoadGameplay()
     {
-        float loadProgress = 0f;
-        for(int i=0;i< _scenesToLoad.Count;i++)
+        AsyncOperation operation = SceneManager.LoadSceneAsync(gameplayScene);
+        operation.allowSceneActivation = false;
+
+        while (!operation.isDone)
         {
-            while (!_scenesToLoad[i].isDone)
+            float progress = Mathf.Clamp01(operation.progress / 0.9f);
+            loadingBar.fillAmount = progress;
+
+            // Aktiviraj scenu kad je skroz ucitano
+            if (operation.progress >= 0.9f)
             {
-                loadProgress += _scenesToLoad[i].progress;
-                _loadingBar.fillAmount = loadProgress / _scenesToLoad.Count;
-                yield return null;
+                yield return new WaitForSeconds(0.2f);
+                operation.allowSceneActivation = true;
             }
+
+            yield return null;
         }
     }
-
 }
