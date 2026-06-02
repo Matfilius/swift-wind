@@ -6,7 +6,7 @@ public class LedgeDetect : MonoBehaviour
     [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private PlayerController player;
 
-    public bool canDetect;
+    private bool canDetect;
 
     private void Update()
     {

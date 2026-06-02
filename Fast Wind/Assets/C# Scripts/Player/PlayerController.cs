@@ -23,7 +23,6 @@ public class PlayerController : MonoBehaviour
     float horizontalInput;
     bool isFacingRight = true;
     private SpriteRenderer playerSR;
-    private bool isFlipping;
 
     public float rollSpeed = 40f;
     public float rollDuration = 5f;
@@ -71,11 +70,8 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         horizontalInput = horizontal;
-        Flip();
-        if (!isFlipping)
-        {
-            CheckForLedge();
-        }
+        Flip();      
+        CheckForLedge();
         
 
         if (isDashing)
@@ -146,6 +142,9 @@ public class PlayerController : MonoBehaviour
             climbBegunPosition = ledgePosition + new Vector2(offset1.x * climbDirection, offset1.y);
             climbOverPosition = ledgePosition + new Vector2(offset2.x * climbDirection, offset2.y);
 
+            Debug.Log("ClimbBegunPosition" + climbBegunPosition);
+            Debug.Log("ClimbOverPosition" + climbOverPosition);
+
             canClimbLedge = true;
             animator.SetBool("canClimb", true);
         }
@@ -174,12 +173,6 @@ public class PlayerController : MonoBehaviour
     }
 
     private void AllowLedgeClimb() => canGrabLedge = true;
-
-    private void NoLongerFlipping()
-    {
-        isFlipping = false;
-        ledgeDetected = false;
-    }
 
     IEnumerator RollMovement()
     {
@@ -218,16 +211,13 @@ public class PlayerController : MonoBehaviour
 
         if ((isFacingRight && horizontalInput < 0f) ||(!isFacingRight && horizontalInput > 0f))
         {
-            isFlipping = true;
             isFacingRight = !isFacingRight;
-
 
             Vector3 scale = transform.localScale;
 
             scale.x = Mathf.Abs(originalScale.x) * (isFacingRight ? 1f : -1f);
 
             transform.localScale = scale;
-            Invoke("NoLongerFlipping", 0.3f);
         }
     }
 
