@@ -1,2 +1,2 @@
-# fast-game
-Steam game Fast Wind
+# wind-game
+Steam game Swift Wind
