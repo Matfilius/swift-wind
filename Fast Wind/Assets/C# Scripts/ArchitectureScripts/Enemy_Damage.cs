@@ -2,16 +2,15 @@ using UnityEngine;
 
 public class Enemy_Damage : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public int damage1;
-    public HealthManager playerHealth;
+    [SerializeField] int damage1;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player")
-        {
-            playerHealth.TakeDamage(damage1);
-        }
+        if (!collision.gameObject.CompareTag("Player"))
+            return;
 
+        HealthManager playerHealth = HealthManager.Instance;
+        if (playerHealth != null)
+            playerHealth.TakeDamage(damage1);
     }
 }

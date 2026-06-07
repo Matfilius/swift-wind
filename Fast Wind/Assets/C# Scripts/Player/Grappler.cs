@@ -1,35 +1,42 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 using System.Collections.Generic;
 
 public class Grappler : MonoBehaviour
 {
-    public Camera mainCamera;
-    public LineRenderer _lineRenderer;
-    public DistanceJoint2D _distanceJoint;
-    public GameObject player;
-    public PlayerController playerController;
+    [Header("Component References")]
+    [SerializeField] LineRenderer _lineRenderer;
+    [SerializeField] DistanceJoint2D _distanceJoint;
 
     [Header("Grapple Settings")]
-    public Tilemap tilemap;
-    public TileBase grappleTile;
-    public float maxGrappleDistance = 10f;
-    public float ropeLength = 10f;
+    [SerializeField] TileBase grappleTile;
+    [SerializeField] float maxGrappleDistance = 10f;
+    [SerializeField] float ropeLength = 10f;
 
     [Header("Swing Settings")]
-    public float maxSwingSpeed = 8f;
+    [SerializeField] float maxSwingSpeed = 8f;
 
     private Rigidbody2D _rb;
-    private List<Vector3> _grapplePoints = new List<Vector3>();
+    private PlayerController _playerController;
+    private readonly List<Vector3> _grapplePoints = new List<Vector3>();
     private PlayerInput _playerInput;
     private InputAction _grappleAction;
 
     void Awake()
     {
-        _playerInput = player.GetComponent<PlayerInput>();
+        _playerInput = GetComponent<PlayerInput>();
         _grappleAction = _playerInput.actions["Grapple"];
-        _rb = player.GetComponent<Rigidbody2D>();
+        _rb = GetComponent<Rigidbody2D>();
+        _playerController = GetComponent<PlayerController>();
+    }
+
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        _grappleAction.performed += OnGrapple;
+        _grappleAction.canceled += OnGrapple;
         ScanForGrapplePoints();
     }
 
@@ -39,32 +46,53 @@ public class Grappler : MonoBehaviour
         _lineRenderer.enabled = false;
     }
 
-    void OnEnable()
-    {
-        _grappleAction.performed += OnGrapple;
-        _grappleAction.canceled += OnGrapple;
-    }
-
     void OnDisable()
     {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
         _grappleAction.performed -= OnGrapple;
         _grappleAction.canceled -= OnGrapple;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        ScanForGrapplePoints();
     }
 
     private void ScanForGrapplePoints()
     {
         _grapplePoints.Clear();
+
+        if (grappleTile == null)
+        {
+            Debug.LogWarning("Grappler: grappleTile is not assigned.");
+            return;
+        }
+
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            Scene scene = SceneManager.GetSceneAt(i);
+            if (!scene.isLoaded)
+                continue;
+
+            foreach (GameObject root in scene.GetRootGameObjects())
+            {
+                foreach (Tilemap tilemap in root.GetComponentsInChildren<Tilemap>(true))
+                    ScanTilemap(tilemap);
+            }
+        }
+
+        Debug.Log($"Grappler: found {_grapplePoints.Count} grapple points across loaded scenes.");
+    }
+
+    private void ScanTilemap(Tilemap tilemap)
+    {
         BoundsInt bounds = tilemap.cellBounds;
 
         foreach (Vector3Int cellPos in bounds.allPositionsWithin)
         {
             if (tilemap.GetTile(cellPos) == grappleTile)
-            {
                 _grapplePoints.Add(tilemap.GetCellCenterWorld(cellPos));
-            }
         }
-
-        Debug.Log($"Found {_grapplePoints.Count} grapple points.");
     }
 
     private Vector3? GetNearestPoint()
@@ -90,17 +118,19 @@ public class Grappler : MonoBehaviour
         if (ctx.performed)
         {
             Vector3? target = GetNearestPoint();
-            if (target == null) return;
+            if (target == null)
+                return;
 
             float distance = Vector2.Distance(transform.position, target.Value);
             bool isAbove = target.Value.y > transform.position.y;
             bool isInRange = distance <= maxGrappleDistance;
 
-            if (!isAbove || !isInRange) return;
+            if (!isAbove || !isInRange)
+                return;
 
             Vector2 targetPos = target.Value;
 
-            player.GetComponent<PlayerController>().enabled = false;
+            _playerController.enabled = false;
 
             _lineRenderer.SetPosition(0, targetPos);
             _lineRenderer.SetPosition(1, transform.position);
@@ -114,21 +144,19 @@ public class Grappler : MonoBehaviour
         {
             _distanceJoint.enabled = false;
             _lineRenderer.enabled = false;
-            player.GetComponent<PlayerController>().enabled = true;
-            playerController.doubleJump = true;
+            _playerController.enabled = true;
+            _playerController.doubleJump = true;
         }
     }
 
     void FixedUpdate()
     {
-        if (_distanceJoint.enabled)
-        {
-            _lineRenderer.SetPosition(1, transform.position);
+        if (!_distanceJoint.enabled)
+            return;
 
-            if (_rb.linearVelocity.magnitude > maxSwingSpeed)
-            {
-                _rb.linearVelocity = _rb.linearVelocity.normalized * maxSwingSpeed;
-            }
-        }
+        _lineRenderer.SetPosition(1, transform.position);
+
+        if (_rb.linearVelocity.magnitude > maxSwingSpeed)
+            _rb.linearVelocity = _rb.linearVelocity.normalized * maxSwingSpeed;
     }
 }
