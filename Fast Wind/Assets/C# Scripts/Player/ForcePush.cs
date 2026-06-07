@@ -17,7 +17,8 @@ public class ForcePush : MonoBehaviour
 
             Vector2 dirToObject = (hit.transform.position - transform.position).normalized;
 
-            Vector2 facingDir = transform.localScale.x > 0 ? Vector2.right : Vector2.left;
+            PlayerController player = GetComponent<PlayerController>();
+            Vector2 facingDir = player != null && player.IsFacingRight ? Vector2.right : Vector2.left;
 
             float dot = Vector2.Dot(facingDir, dirToObject);
 

@@ -1325,10 +1325,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   radius: 0.18
-  whatIsGround:
+  groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  player: {fileID: 1068501819}
+  wallCheckDistance: 0.15
+  clearAboveDistance: 0.2
 --- !u!61 &881545152
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2063,9 +2064,14 @@ MonoBehaviour:
   groundCheck: {fileID: 1955815415}
   doubleJump: 0
   playerCollider: {fileID: 1068501816}
-  ledgeDetected: 0
-  offset1: {x: -0.7734, y: -1.1675}
-  offset2: {x: 0.535, y: 1.103}
+  hangOffset: {x: -0.7734, y: -1.1675}
+  climbOverOffset: {x: 0.535, y: 1.103}
+  ledgeClimbCooldown: 0.35
+  rollColliderHeightScale: 0.5
+  rollShrinkDuration: 0.12
+  rollGrowDuration: 0.12
+  groundCheckSize: {x: 0.64, y: 0.1}
+  wallDepenetrateDistance: 0.03
 --- !u!95 &1068501820
 Animator:
   serializedVersion: 7
