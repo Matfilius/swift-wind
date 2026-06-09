@@ -22,7 +22,7 @@ public class ForcePush : MonoBehaviour
 
             float dot = Vector2.Dot(facingDir, dirToObject);
 
-            if (dot < 0.707f) continue; // Outside the 90° cone, skip
+            if (dot < 0.707f) continue; // Outside the 90ï¿½ cone, skip
 
             Rigidbody2D rb = hit.GetComponent<Rigidbody2D>();
             if (rb == null) continue;

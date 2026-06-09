@@ -1921,7 +1921,7 @@ BoxCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 5c8e4557caa939b48a404b8747b7370f, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -2049,29 +2049,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b9b4b0931426794e87ca1b3b6c0aad6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  rb: {fileID: 1068501814}
+  groundCheck: {fileID: 1955815415}
   dashLenght: 30
   speed: 10
   jumpingPower: 20
   dashDuration: 0.2
   afterImagePrefab: {fileID: 8828814330362416954, guid: 063f1c34540dd8041a7941c7e0cd3253, type: 3}
   afterImageSpacing: 0.05
-  rollSpeed: 20
+  rollSpeed: 25
   rollDuration: 0.4
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  groundCheck: {fileID: 1955815415}
-  doubleJump: 0
-  playerCollider: {fileID: 1068501816}
-  hangOffset: {x: -0.7734, y: -1.1675}
-  climbOverOffset: {x: 0.535, y: 1.103}
-  ledgeClimbCooldown: 0.35
   rollColliderHeightScale: 0.5
   rollShrinkDuration: 0.12
   rollGrowDuration: 0.12
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
   groundCheckSize: {x: 0.64, y: 0.1}
   wallDepenetrateDistance: 0.03
+  hangOffset: {x: -0.4734, y: -0.9675}
+  climbOverOffset: {x: 0.435, y: 1.253}
+  ledgeClimbCooldown: 0.35
 --- !u!95 &1068501820
 Animator:
   serializedVersion: 7
