@@ -12728,7 +12728,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
   scenesToLoad:
-  - 
+  - Tutorial_Region2
   scenesToUnload:
   - 
 --- !u!61 &583361408

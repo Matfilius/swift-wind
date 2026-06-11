@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float rollColliderHeightScale = 0.5f;
     [SerializeField] float rollShrinkDuration = 0.12f;
     [SerializeField] float rollGrowDuration = 0.12f;
+    [SerializeField] float coyoteTime = 0.1f;
+    float coyoteTimeCounter;
 
     [Header("Collision")]
     [SerializeField] LayerMask groundLayer;
@@ -111,6 +113,10 @@ public class PlayerController : MonoBehaviour
         _horizontalInput = _horizontal;
         Flip();
         TryStartLedgeClimb();
+        if (IsGrounded)
+            coyoteTimeCounter = coyoteTime;
+        else
+            coyoteTimeCounter -= Time.deltaTime;
 
         if (_movementState == MovementState.LedgeClimbing)
             transform.position = _ledgeHangPosition;
@@ -187,10 +193,11 @@ public class PlayerController : MonoBehaviour
 
         _animator.SetBool("isJumping", true);
 
-        if (IsGrounded)
+        if (IsGrounded || coyoteTimeCounter > 0f)
         {
             _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, jumpingPower);
             doubleJump = true;
+            coyoteTimeCounter = 0f;
         }
         else if (doubleJump)
         {
