@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     float coyoteTimeCounter;
     [SerializeField] float jumpBufferTime = 0.1f;
     float jumpBufferCounter;
+    [SerializeField] float jumpCutMultiplier = 0.6f;
 
     [Header("Collision")]
     [SerializeField] LayerMask groundLayer;
@@ -115,7 +116,6 @@ public class PlayerController : MonoBehaviour
         _horizontalInput = _horizontal;
         Flip();
         TryStartLedgeClimb();
-        TryJump();
         jumpBufferCounter -= Time.deltaTime;
         if (IsGrounded)
         {
@@ -125,7 +125,9 @@ public class PlayerController : MonoBehaviour
         {
             coyoteTimeCounter -= Time.deltaTime;
         }
-            
+
+        TryJump();
+
 
         if (_movementState == MovementState.LedgeClimbing)
             transform.position = _ledgeHangPosition;
@@ -201,6 +203,23 @@ public class PlayerController : MonoBehaviour
         {
             jumpBufferCounter = jumpBufferTime;  
             TryJump();                            
+        }
+
+        if (context.canceled)
+            CutJump();
+    }
+
+    void CutJump()
+    {
+        if (_movementState != MovementState.Normal)
+            return;
+
+        if (_rb.linearVelocity.y > 0f)
+        {
+            _rb.linearVelocity = new Vector2(
+                _rb.linearVelocity.x,
+                _rb.linearVelocity.y * jumpCutMultiplier
+            );
         }
     }
 
