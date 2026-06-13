@@ -46,6 +46,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Vector2 climbOverOffset = new Vector2(0.54f, 1.1f);
     [SerializeField] float ledgeClimbCooldown = 0.35f;
 
+    [Header("Wall Slide")]
+    [SerializeField] Transform wallCheck;           
+    [SerializeField] float wallCheckDistance = 0.1f;
+    [SerializeField] float wallSlideSpeed = 2f;
+    [SerializeField] bool requireInputForSlide = true;  
+
+    bool _isTouchingWall;
+    int _wallDirection;   
+
     public bool doubleJump { get; set; }
 
     public bool IsGrounded => CheckGrounded();
@@ -60,6 +69,7 @@ public class PlayerController : MonoBehaviour
     private BoxCollider2D _playerCollider;
     private LedgeDetect _ledgeDetect;
     private Transform _ledgeCheckTransform;
+    private Transform _wallCheckTransform;
     private SpriteRenderer _playerSR;
 
     private Vector3 _originalScale;
@@ -67,6 +77,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 _originalColliderOffset;
     private float _colliderOffsetAbsX;
     private float _ledgeCheckAbsX;
+    private float _wallCheckAbsX;
 
     private MovementState _movementState = MovementState.Normal;
     private float _horizontalInput;
@@ -105,6 +116,12 @@ public class PlayerController : MonoBehaviour
         {
             _ledgeCheckTransform = _ledgeDetect.transform;
             _ledgeCheckAbsX = Mathf.Abs(_ledgeCheckTransform.localPosition.x);
+        }
+
+        if (wallCheck != null)
+        {
+            _wallCheckTransform = wallCheck;
+            _wallCheckAbsX = Mathf.Abs(_wallCheckTransform.localPosition.x);
         }
 
         _isFacingRight = true;
@@ -165,7 +182,24 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        _rb.linearVelocity = new Vector2(_horizontal * speed, _rb.linearVelocity.y);
+        CheckWalls();
+
+        float targetX = _horizontal * speed;
+        float targetY = _rb.linearVelocity.y;
+        if (!IsGrounded && _isTouchingWall)
+        {
+            bool holdingTowardWall = (_wallDirection == 1 && _horizontal > 0f)
+                || (_wallDirection == -1 && _horizontal < 0f);
+
+            if (holdingTowardWall)
+                targetX = 0f;
+
+            bool shouldSlide = requireInputForSlide ? holdingTowardWall : true;
+
+            if (shouldSlide && targetY < -wallSlideSpeed)
+                targetY = -wallSlideSpeed;
+        }
+        _rb.linearVelocity = new Vector2(targetX, targetY);
         UpdateAnimatorVelocity();
     }
 
@@ -199,19 +233,23 @@ public class PlayerController : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        // Use started (press down only) — performed can fire again on release with some interactions
+        if (context.started)
         {
-            jumpBufferCounter = jumpBufferTime;  
-            TryJump();                            
+            jumpBufferCounter = jumpBufferTime;
+            TryJump();
         }
 
         if (context.canceled)
+        {
+            jumpBufferCounter = 0f;
             CutJump();
+        }
     }
 
     void CutJump()
     {
-        if (_movementState != MovementState.Normal)
+        if (_movementState != MovementState.Normal || IsGrounded)
             return;
 
         if (_rb.linearVelocity.y > 0f)
@@ -257,6 +295,34 @@ public class PlayerController : MonoBehaviour
         _animator.SetBool("isJumping", true);
         doubleJump = false;          
         jumpBufferCounter = 0f;
+    }
+
+    private void CheckWalls()
+    {
+        _isTouchingWall = false;
+        _wallDirection = 0;
+
+        // Cast from collider edges so asymmetric offset / flipX work on both sides
+        Bounds bounds = _playerCollider.bounds;
+        float skin = 0.02f;
+        float castY = wallCheck != null ? wallCheck.position.y : bounds.center.y;
+
+        Vector2 rightOrigin = new Vector2(bounds.max.x - skin, castY);
+        Vector2 leftOrigin = new Vector2(bounds.min.x + skin, castY);
+
+        RaycastHit2D rightHit = Physics2D.Raycast(rightOrigin, Vector2.right, wallCheckDistance, groundLayer);
+        RaycastHit2D leftHit = Physics2D.Raycast(leftOrigin, Vector2.left, wallCheckDistance, groundLayer);
+
+        if (rightHit.collider != null)
+        {
+            _isTouchingWall = true;
+            _wallDirection = 1;
+        }
+        else if (leftHit.collider != null)
+        {
+            _isTouchingWall = true;
+            _wallDirection = -1;
+        }
     }
 
     #endregion
@@ -443,8 +509,12 @@ public class PlayerController : MonoBehaviour
         if (((1 << collision.gameObject.layer) & groundLayer) == 0)
             return;
 
-        _animator.SetBool("isJumping", false);
-        doubleJump = false;
+        if (IsLandingCollision(collision))
+        {
+            _animator.SetBool("isJumping", false);
+            doubleJump = false;
+        }
+
         DepenetrateFromWalls(collision);
     }
 
@@ -457,6 +527,17 @@ public class PlayerController : MonoBehaviour
             _animator.SetBool("isJumping", false);
 
         DepenetrateFromWalls(collision);
+    }
+
+    private bool IsLandingCollision(Collision2D collision)
+    {
+        foreach (ContactPoint2D contact in collision.contacts)
+        {
+            if (contact.normal.y > 0.5f)
+                return true;
+        }
+
+        return IsGrounded;
     }
 
     private void DepenetrateFromWalls(Collision2D collision)
@@ -505,6 +586,13 @@ public class PlayerController : MonoBehaviour
             Vector3 ledgePos = _ledgeCheckTransform.localPosition;
             ledgePos.x = _ledgeCheckAbsX * (_isFacingRight ? 1f : -1f);
             _ledgeCheckTransform.localPosition = ledgePos;
+        }
+
+        if (_wallCheckTransform != null)
+        {
+            Vector3 wallPos = _wallCheckTransform.localPosition;
+            wallPos.x = _wallCheckAbsX * (_isFacingRight ? 1f : -1f);
+            _wallCheckTransform.localPosition = wallPos;
         }
     }
 
