@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float rollGrowDuration = 0.12f;
     [SerializeField] float coyoteTime = 0.1f;
     float coyoteTimeCounter;
+    [SerializeField] float jumpBufferTime = 0.1f;
+    float jumpBufferCounter;
 
     [Header("Collision")]
     [SerializeField] LayerMask groundLayer;
@@ -113,10 +115,17 @@ public class PlayerController : MonoBehaviour
         _horizontalInput = _horizontal;
         Flip();
         TryStartLedgeClimb();
+        TryJump();
+        jumpBufferCounter -= Time.deltaTime;
         if (IsGrounded)
+        {
             coyoteTimeCounter = coyoteTime;
+        }
         else
+        {
             coyoteTimeCounter -= Time.deltaTime;
+        }
+            
 
         if (_movementState == MovementState.LedgeClimbing)
             transform.position = _ledgeHangPosition;
@@ -188,22 +197,47 @@ public class PlayerController : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
-        if (!context.performed || _movementState == MovementState.LedgeClimbing)
+        if (context.performed)
+        {
+            jumpBufferCounter = jumpBufferTime;  
+            TryJump();                            
+        }
+    }
+
+    void TryJump()
+    {
+        if (_movementState != MovementState.Normal)
             return;
-
-        _animator.SetBool("isJumping", true);
-
+        if (jumpBufferCounter <= 0f)
+            return;
         if (IsGrounded || coyoteTimeCounter > 0f)
         {
-            _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, jumpingPower);
-            doubleJump = true;
-            coyoteTimeCounter = 0f;
+            GroundJump();
+            return;
         }
-        else if (doubleJump)
+
+        if (doubleJump)
         {
-            _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, jumpingPower);
-            doubleJump = false;
+            AirJump();
+            return;
         }
+
+    }
+
+    void GroundJump()
+    {
+        _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, jumpingPower);
+        _animator.SetBool("isJumping", true);
+        doubleJump = true;          
+        coyoteTimeCounter = 0f;      
+        jumpBufferCounter = 0f;      
+    }
+    void AirJump()
+    {
+        _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, jumpingPower);
+        _animator.SetBool("isJumping", true);
+        doubleJump = false;          
+        jumpBufferCounter = 0f;
     }
 
     #endregion
