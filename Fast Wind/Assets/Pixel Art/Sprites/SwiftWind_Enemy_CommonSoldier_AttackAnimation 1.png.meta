@@ -1,0 +1,442 @@
+fileFormatVersion: 2
+guid: a4e0d1237ccd8984c9ed91b2f01167eb
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7726145547095507856
+    second: SwiftWind_Enemy_CommonSoldier_AttackAnimation 1_0
+  - first:
+      213: -8763251670597179949
+    second: SwiftWind_Enemy_CommonSoldier_AttackAnimation 1_1
+  - first:
+      213: -8868985352498474028
+    second: SwiftWind_Enemy_CommonSoldier_AttackAnimation 1_2
+  - first:
+      213: 2840435565900831751
+    second: SwiftWind_Enemy_CommonSoldier_AttackAnimation 1_3
+  - first:
+      213: -7967029610439442666
+    second: SwiftWind_Enemy_CommonSoldier_AttackAnimation 1_4
+  - first:
+      213: -8668063201295467470
+    second: SwiftWind_Enemy_CommonSoldier_AttackAnimation 1_5
+  - first:
+      213: 4446926057653299916
+    second: SwiftWind_Enemy_CommonSoldier_AttackAnimation 1_6
+  - first:
+      213: -3537846360088088178
+    second: SwiftWind_Enemy_CommonSoldier_AttackAnimation 1_7
+  - first:
+      213: 1780384182377705349
+    second: SwiftWind_Enemy_CommonSoldier_AttackAnimation 1_8
+  - first:
+      213: -553095578018830093
+    second: SwiftWind_Enemy_CommonSoldier_AttackAnimation 1_9
+  - first:
+      213: -2234270511823197327
+    second: SwiftWind_Enemy_CommonSoldier_AttackAnimation 1_10
+  - first:
+      213: -3308832319566637969
+    second: SwiftWind_Enemy_CommonSoldier_AttackAnimation 1_11
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: SwiftWind_Enemy_CommonSoldier_AttackAnimation 1_0
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 0
+        width: 34
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07cf76e4f8737c490800000000000000
+      internalID: -7726145547095507856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SwiftWind_Enemy_CommonSoldier_AttackAnimation 1_1
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 0
+        width: 34
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d5e4b8090da26680800000000000000
+      internalID: -8763251670597179949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SwiftWind_Enemy_CommonSoldier_AttackAnimation 1_2
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 0
+        width: 32
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d39f22dfc80be480800000000000000
+      internalID: -8868985352498474028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SwiftWind_Enemy_CommonSoldier_AttackAnimation 1_3
+      rect:
+        serializedVersion: 2
+        x: 434
+        y: 0
+        width: 31
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70c97e019114b6720800000000000000
+      internalID: 2840435565900831751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SwiftWind_Enemy_CommonSoldier_AttackAnimation 1_4
+      rect:
+        serializedVersion: 2
+        x: 562
+        y: 0
+        width: 31
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61ffcbac7cc6f6190800000000000000
+      internalID: -7967029610439442666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SwiftWind_Enemy_CommonSoldier_AttackAnimation 1_5
+      rect:
+        serializedVersion: 2
+        x: 691
+        y: 0
+        width: 30
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23cf52c917ad4b780800000000000000
+      internalID: -8668063201295467470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SwiftWind_Enemy_CommonSoldier_AttackAnimation 1_6
+      rect:
+        serializedVersion: 2
+        x: 819
+        y: 0
+        width: 31
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cca6ad840b7a6bd30800000000000000
+      internalID: 4446926057653299916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SwiftWind_Enemy_CommonSoldier_AttackAnimation 1_7
+      rect:
+        serializedVersion: 2
+        x: 925
+        y: 0
+        width: 54
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e817a05da7b07eec0800000000000000
+      internalID: -3537846360088088178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SwiftWind_Enemy_CommonSoldier_AttackAnimation 1_8
+      rect:
+        serializedVersion: 2
+        x: 1032
+        y: 0
+        width: 75
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58fe8522bf135b810800000000000000
+      internalID: 1780384182377705349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SwiftWind_Enemy_CommonSoldier_AttackAnimation 1_9
+      rect:
+        serializedVersion: 2
+        x: 1161
+        y: 0
+        width: 74
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f8295190820358f0800000000000000
+      internalID: -553095578018830093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SwiftWind_Enemy_CommonSoldier_AttackAnimation 1_10
+      rect:
+        serializedVersion: 2
+        x: 1292
+        y: 0
+        width: 71
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17be5a2aec64ef0e0800000000000000
+      internalID: -2234270511823197327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SwiftWind_Enemy_CommonSoldier_AttackAnimation 1_11
+      rect:
+        serializedVersion: 2
+        x: 1423
+        y: 0
+        width: 71
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6416ea498aa412d0800000000000000
+      internalID: -3308832319566637969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      SwiftWind_Enemy_CommonSoldier_AttackAnimation 1_0: -7726145547095507856
+      SwiftWind_Enemy_CommonSoldier_AttackAnimation 1_1: -8763251670597179949
+      SwiftWind_Enemy_CommonSoldier_AttackAnimation 1_10: -2234270511823197327
+      SwiftWind_Enemy_CommonSoldier_AttackAnimation 1_11: -3308832319566637969
+      SwiftWind_Enemy_CommonSoldier_AttackAnimation 1_2: -8868985352498474028
+      SwiftWind_Enemy_CommonSoldier_AttackAnimation 1_3: 2840435565900831751
+      SwiftWind_Enemy_CommonSoldier_AttackAnimation 1_4: -7967029610439442666
+      SwiftWind_Enemy_CommonSoldier_AttackAnimation 1_5: -8668063201295467470
+      SwiftWind_Enemy_CommonSoldier_AttackAnimation 1_6: 4446926057653299916
+      SwiftWind_Enemy_CommonSoldier_AttackAnimation 1_7: -3537846360088088178
+      SwiftWind_Enemy_CommonSoldier_AttackAnimation 1_8: 1780384182377705349
+      SwiftWind_Enemy_CommonSoldier_AttackAnimation 1_9: -553095578018830093
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

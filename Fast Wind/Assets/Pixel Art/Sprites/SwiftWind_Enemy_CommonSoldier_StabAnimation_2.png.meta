@@ -1,88 +1,76 @@
 fileFormatVersion: 2
-guid: ef2080c9a7d68b641bb07c6f26ae8d0a
+guid: c638a03715807cd4f95039fbe9a3d27e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -299323527429910560
-    second: Jump_Animation_0
+      213: 4391948345796359059
+    second: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_0
   - first:
-      213: 7181610821578419418
-    second: Jump_Animation_1
+      213: 8602840180205343998
+    second: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_1
   - first:
-      213: 8715317924084028672
-    second: Jump_Animation_2
+      213: -8857556286203340134
+    second: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_2
   - first:
-      213: 3355263662815142921
-    second: Jump_Animation_3
+      213: 3171814515290871615
+    second: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_3
   - first:
-      213: 544868310495185722
-    second: Jump_Animation_4
+      213: -247563094208933529
+    second: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_4
   - first:
-      213: -1230862217403698416
-    second: Jump_Animation_5
+      213: 8931308856044288799
+    second: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_5
   - first:
-      213: -1467028648709162068
-    second: Jump_Animation_6
+      213: -6341492527849216607
+    second: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_6
   - first:
-      213: 4940290947999740487
-    second: Jump_Animation_7
+      213: 3846768443488608201
+    second: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_7
   - first:
-      213: 8579566339041160013
-    second: Jump_Animation_8
+      213: -7351471920042223353
+    second: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_8
   - first:
-      213: 2109646870480733918
-    second: Jump_Animation_9
+      213: -1548587740340082637
+    second: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_9
   - first:
-      213: -1651095927058232103
-    second: Jump_Animation_10
+      213: -5776092333378685567
+    second: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_10
   - first:
-      213: 9039457546153230699
-    second: Jump_Animation_11
+      213: 4670944819772710360
+    second: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_11
   - first:
-      213: -926355693105618388
-    second: Jump_Animation_12
+      213: -2739959763279043289
+    second: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_12
   - first:
-      213: 1686418998049166837
-    second: Jump_Animation_13
+      213: -7984446408763797343
+    second: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_13
   - first:
-      213: -6215290966227226716
-    second: Jump_Animation_14
+      213: -1554829349846587662
+    second: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_14
   - first:
-      213: -8849562168089121671
-    second: Jump_Animation_15
+      213: 2014796146964483032
+    second: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_15
   - first:
-      213: 7745475412448453845
-    second: Jump_Animation_16
+      213: 7469919105398498750
+    second: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_16
   - first:
-      213: 2178670987329040141
-    second: Jump_Animation_17
+      213: 6904933948761106301
+    second: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_17
   - first:
-      213: -906967449224708682
-    second: Jump_Animation_18
+      213: 6533473797723379637
+    second: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_18
   - first:
-      213: 7397331273639833228
-    second: Jump_Animation_19
+      213: 2474640741504234988
+    second: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_19
   - first:
-      213: 309928146922866424
-    second: Jump_Animation_20
+      213: 2252818329480836805
+    second: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_20
   - first:
-      213: 1209732418898754687
-    second: Jump_Animation_21
+      213: 3987575514124222621
+    second: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_21
   - first:
-      213: 3238373886445811620
-    second: Jump_Animation_22
-  - first:
-      213: 6279834680263207012
-    second: Jump_Animation_23
-  - first:
-      213: -8344299209321126239
-    second: Jump_Animation_24
-  - first:
-      213: -416391343382989426
-    second: Jump_Animation_25
-  - first:
-      213: -3661573893713718774
-    second: Jump_Animation_26
+      213: 4952680755602446309
+    second: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_22
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -191,13 +179,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Jump_Animation_0
+      name: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_0
       rect:
         serializedVersion: 2
-        x: 14
-        y: 20
-        width: 39
-        height: 63
+        x: 55
+        y: 0
+        width: 71
+        height: 54
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -206,20 +194,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0ef8f9276d698dbf0800000000000000
-      internalID: -299323527429910560
+      spriteID: 3937e0f30c553fc30800000000000000
+      internalID: 4391948345796359059
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_Animation_1
+      name: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_1
       rect:
         serializedVersion: 2
-        x: 101
-        y: 20
-        width: 31
-        height: 63
+        x: 225
+        y: 0
+        width: 71
+        height: 54
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -228,20 +216,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: adc684f0ef43aa360800000000000000
-      internalID: 7181610821578419418
+      spriteID: ef4d898609d636770800000000000000
+      internalID: 8602840180205343998
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_Animation_2
+      name: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_2
       rect:
         serializedVersion: 2
-        x: 182
-        y: 20
-        width: 29
-        height: 60
+        x: 395
+        y: 0
+        width: 71
+        height: 54
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -250,20 +238,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0059f99e97703f870800000000000000
-      internalID: 8715317924084028672
+      spriteID: a9a52deac73a31580800000000000000
+      internalID: -8857556286203340134
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_Animation_3
+      name: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_3
       rect:
         serializedVersion: 2
-        x: 264
-        y: 20
-        width: 28
-        height: 48
+        x: 565
+        y: 0
+        width: 71
+        height: 53
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -272,20 +260,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9046fdd368a409e20800000000000000
-      internalID: 3355263662815142921
+      spriteID: f3717552f7c840c20800000000000000
+      internalID: 3171814515290871615
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_Animation_4
+      name: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_4
       rect:
         serializedVersion: 2
-        x: 341
-        y: 20
-        width: 30
-        height: 44
+        x: 733
+        y: 0
+        width: 71
+        height: 53
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -294,20 +282,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a3bce6077d2cf8700800000000000000
-      internalID: 544868310495185722
+      spriteID: 7611e2e6daa709cf0800000000000000
+      internalID: -247563094208933529
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_Animation_5
+      name: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_5
       rect:
         serializedVersion: 2
-        x: 416
-        y: 20
-        width: 34
-        height: 50
+        x: 904
+        y: 0
+        width: 69
+        height: 53
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -316,20 +304,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 013f33ca5591beee0800000000000000
-      internalID: -1230862217403698416
+      spriteID: f1bf1df951262fb70800000000000000
+      internalID: 8931308856044288799
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_Animation_6
+      name: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_6
       rect:
         serializedVersion: 2
-        x: 493
-        y: 20
-        width: 36
-        height: 56
+        x: 1073
+        y: 0
+        width: 67
+        height: 53
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -338,20 +326,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cab7e56773114abe0800000000000000
-      internalID: -1467028648709162068
+      spriteID: 1a5e0c3052e7ef7a0800000000000000
+      internalID: -6341492527849216607
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_Animation_7
+      name: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_7
       rect:
         serializedVersion: 2
-        x: 572
-        y: 20
-        width: 36
-        height: 62
+        x: 1242
+        y: 0
+        width: 65
+        height: 53
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -360,20 +348,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7423a9241707f8440800000000000000
-      internalID: 4940290947999740487
+      spriteID: 9cf125fa487726530800000000000000
+      internalID: 3846768443488608201
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_Animation_8
+      name: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_8
       rect:
         serializedVersion: 2
-        x: 651
-        y: 20
-        width: 36
-        height: 64
+        x: 1413
+        y: 0
+        width: 60
+        height: 53
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -382,20 +370,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d4b627df02eb01770800000000000000
-      internalID: 8579566339041160013
+      spriteID: 709df9d0d335af990800000000000000
+      internalID: -7351471920042223353
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_Animation_9
+      name: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_9
       rect:
         serializedVersion: 2
-        x: 731
-        y: 23
-        width: 36
-        height: 61
+        x: 1570
+        y: 0
+        width: 74
+        height: 53
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -404,20 +392,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ed6c48cb6a8f64d10800000000000000
-      internalID: 2109646870480733918
+      spriteID: 3382189a7af428ae0800000000000000
+      internalID: -1548587740340082637
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_Animation_10
+      name: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_10
       rect:
         serializedVersion: 2
-        x: 810
-        y: 26
-        width: 40
-        height: 63
+        x: 1722
+        y: 0
+        width: 81
+        height: 53
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -426,20 +414,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9dc899190012619e0800000000000000
-      internalID: -1651095927058232103
+      spriteID: 1853b1730a237dfa0800000000000000
+      internalID: -5776092333378685567
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_Animation_11
+      name: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_11
       rect:
         serializedVersion: 2
-        x: 887
-        y: 26
-        width: 42
-        height: 63
+        x: 1868
+        y: 0
+        width: 101
+        height: 52
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -448,20 +436,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b6100b0ceba927d70800000000000000
-      internalID: 9039457546153230699
+      spriteID: 8ddd00cd09782d040800000000000000
+      internalID: 4670944819772710360
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_Animation_12
+      name: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_12
       rect:
         serializedVersion: 2
-        x: 967
-        y: 26
-        width: 41
-        height: 63
+        x: 2046
+        y: 0
+        width: 91
+        height: 52
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -470,20 +458,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c2267c8b76ce423f0800000000000000
-      internalID: -926355693105618388
+      spriteID: 725a3eabc15b9f9d0800000000000000
+      internalID: -2739959763279043289
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_Animation_13
+      name: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_13
       rect:
         serializedVersion: 2
-        x: 1046
-        y: 26
-        width: 41
-        height: 63
+        x: 2214
+        y: 0
+        width: 91
+        height: 52
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -492,20 +480,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5f5d039c42d576710800000000000000
-      internalID: 1686418998049166837
+      spriteID: 1a09d7d6b4c813190800000000000000
+      internalID: -7984446408763797343
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_Animation_14
+      name: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_14
       rect:
         serializedVersion: 2
-        x: 1127
-        y: 30
-        width: 39
-        height: 59
+        x: 2386
+        y: 0
+        width: 87
+        height: 52
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -514,20 +502,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4afe456dbc9deb9a0800000000000000
-      internalID: -6215290966227226716
+      spriteID: 2f6ea04b1f22c6ae0800000000000000
+      internalID: -1554829349846587662
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_Animation_15
+      name: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_15
       rect:
         serializedVersion: 2
-        x: 1205
-        y: 27
-        width: 41
-        height: 62
+        x: 2555
+        y: 0
+        width: 86
+        height: 52
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -536,20 +524,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 97cef49581a003580800000000000000
-      internalID: -8849562168089121671
+      spriteID: 8dbc4aabb6ef5fb10800000000000000
+      internalID: 2014796146964483032
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_Animation_16
+      name: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_16
       rect:
         serializedVersion: 2
-        x: 1285
-        y: 27
-        width: 40
-        height: 62
+        x: 2724
+        y: 0
+        width: 84
+        height: 52
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -558,20 +546,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5d4238fa9d47d7b60800000000000000
-      internalID: 7745475412448453845
+      spriteID: eb56e2a59db7aa760800000000000000
+      internalID: 7469919105398498750
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_Animation_17
+      name: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_17
       rect:
         serializedVersion: 2
-        x: 1364
-        y: 27
-        width: 40
-        height: 62
+        x: 2893
+        y: 0
+        width: 82
+        height: 52
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -580,20 +568,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d0f623a48b13c3e10800000000000000
-      internalID: 2178670987329040141
+      spriteID: d77e07da7d043df50800000000000000
+      internalID: 6904933948761106301
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_Animation_18
+      name: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_18
       rect:
         serializedVersion: 2
-        x: 1443
-        y: 27
-        width: 40
-        height: 62
+        x: 3064
+        y: 0
+        width: 81
+        height: 52
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -602,20 +590,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6bd7e1609edc963f0800000000000000
-      internalID: -906967449224708682
+      spriteID: 5b7df9e9dcf8baa50800000000000000
+      internalID: 6533473797723379637
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_Animation_19
+      name: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_19
       rect:
         serializedVersion: 2
-        x: 1525
-        y: 20
-        width: 40
-        height: 62
+        x: 3235
+        y: 0
+        width: 78
+        height: 52
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -624,20 +612,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c8ea033c99998a660800000000000000
-      internalID: 7397331273639833228
+      spriteID: ce5b118a4a0b75220800000000000000
+      internalID: 2474640741504234988
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_Animation_20
+      name: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_20
       rect:
         serializedVersion: 2
-        x: 1604
-        y: 20
-        width: 40
-        height: 64
+        x: 3407
+        y: 0
+        width: 73
+        height: 53
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -646,20 +634,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8f68b3fe1061d4400800000000000000
-      internalID: 309928146922866424
+      spriteID: 5c6b130b55e934f10800000000000000
+      internalID: 2252818329480836805
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_Animation_21
+      name: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_21
       rect:
         serializedVersion: 2
-        x: 1683
-        y: 20
-        width: 40
-        height: 64
+        x: 3578
+        y: 0
+        width: 72
+        height: 54
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -668,20 +656,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f7cfbbdb935d9c010800000000000000
-      internalID: 1209732418898754687
+      spriteID: d908b629dc6b65730800000000000000
+      internalID: 3987575514124222621
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_Animation_22
+      name: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_22
       rect:
         serializedVersion: 2
-        x: 1762
-        y: 20
-        width: 40
-        height: 64
+        x: 3751
+        y: 0
+        width: 71
+        height: 54
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -690,96 +678,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4a7f08f54e301fc20800000000000000
-      internalID: 3238373886445811620
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Jump_Animation_23
-      rect:
-        serializedVersion: 2
-        x: 1841
-        y: 20
-        width: 40
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4686445ae54762750800000000000000
-      internalID: 6279834680263207012
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Jump_Animation_24
-      rect:
-        serializedVersion: 2
-        x: 1922
-        y: 20
-        width: 35
-        height: 59
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1a667d04418133c80800000000000000
-      internalID: -8344299209321126239
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Jump_Animation_25
-      rect:
-        serializedVersion: 2
-        x: 2001
-        y: 20
-        width: 35
-        height: 59
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e85fb12874ea83af0800000000000000
-      internalID: -416391343382989426
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Jump_Animation_26
-      rect:
-        serializedVersion: 2
-        x: 2081
-        y: 20
-        width: 33
-        height: 62
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a02995a81f97f2dc0800000000000000
-      internalID: -3661573893713718774
+      spriteID: 5e7d89328e47bb440800000000000000
+      internalID: 4952680755602446309
       vertices: []
       indices: 
       edges: []
@@ -798,33 +698,29 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Jump_Animation_0: -299323527429910560
-      Jump_Animation_1: 7181610821578419418
-      Jump_Animation_10: -1651095927058232103
-      Jump_Animation_11: 9039457546153230699
-      Jump_Animation_12: -926355693105618388
-      Jump_Animation_13: 1686418998049166837
-      Jump_Animation_14: -6215290966227226716
-      Jump_Animation_15: -8849562168089121671
-      Jump_Animation_16: 7745475412448453845
-      Jump_Animation_17: 2178670987329040141
-      Jump_Animation_18: -906967449224708682
-      Jump_Animation_19: 7397331273639833228
-      Jump_Animation_2: 8715317924084028672
-      Jump_Animation_20: 309928146922866424
-      Jump_Animation_21: 1209732418898754687
-      Jump_Animation_22: 3238373886445811620
-      Jump_Animation_23: 6279834680263207012
-      Jump_Animation_24: -8344299209321126239
-      Jump_Animation_25: -416391343382989426
-      Jump_Animation_26: -3661573893713718774
-      Jump_Animation_3: 3355263662815142921
-      Jump_Animation_4: 544868310495185722
-      Jump_Animation_5: -1230862217403698416
-      Jump_Animation_6: -1467028648709162068
-      Jump_Animation_7: 4940290947999740487
-      Jump_Animation_8: 8579566339041160013
-      Jump_Animation_9: 2109646870480733918
+      SwiftWind_Enemy_CommonSoldier_StabAnimation_2_0: 4391948345796359059
+      SwiftWind_Enemy_CommonSoldier_StabAnimation_2_1: 8602840180205343998
+      SwiftWind_Enemy_CommonSoldier_StabAnimation_2_10: -5776092333378685567
+      SwiftWind_Enemy_CommonSoldier_StabAnimation_2_11: 4670944819772710360
+      SwiftWind_Enemy_CommonSoldier_StabAnimation_2_12: -2739959763279043289
+      SwiftWind_Enemy_CommonSoldier_StabAnimation_2_13: -7984446408763797343
+      SwiftWind_Enemy_CommonSoldier_StabAnimation_2_14: -1554829349846587662
+      SwiftWind_Enemy_CommonSoldier_StabAnimation_2_15: 2014796146964483032
+      SwiftWind_Enemy_CommonSoldier_StabAnimation_2_16: 7469919105398498750
+      SwiftWind_Enemy_CommonSoldier_StabAnimation_2_17: 6904933948761106301
+      SwiftWind_Enemy_CommonSoldier_StabAnimation_2_18: 6533473797723379637
+      SwiftWind_Enemy_CommonSoldier_StabAnimation_2_19: 2474640741504234988
+      SwiftWind_Enemy_CommonSoldier_StabAnimation_2_2: -8857556286203340134
+      SwiftWind_Enemy_CommonSoldier_StabAnimation_2_20: 2252818329480836805
+      SwiftWind_Enemy_CommonSoldier_StabAnimation_2_21: 3987575514124222621
+      SwiftWind_Enemy_CommonSoldier_StabAnimation_2_22: 4952680755602446309
+      SwiftWind_Enemy_CommonSoldier_StabAnimation_2_3: 3171814515290871615
+      SwiftWind_Enemy_CommonSoldier_StabAnimation_2_4: -247563094208933529
+      SwiftWind_Enemy_CommonSoldier_StabAnimation_2_5: 8931308856044288799
+      SwiftWind_Enemy_CommonSoldier_StabAnimation_2_6: -6341492527849216607
+      SwiftWind_Enemy_CommonSoldier_StabAnimation_2_7: 3846768443488608201
+      SwiftWind_Enemy_CommonSoldier_StabAnimation_2_8: -7351471920042223353
+      SwiftWind_Enemy_CommonSoldier_StabAnimation_2_9: -1548587740340082637
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
