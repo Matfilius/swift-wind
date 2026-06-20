@@ -3,8 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoadTrigger : MonoBehaviour
 {
-    [SerializeField] private string[] scenesToLoad;
-    [SerializeField] private string[] scenesToUnload;
+    [SerializeField] private SceneField[] scenesToLoad;
+    [SerializeField] private SceneField[] scenesToUnload;
 
     private GameObject player;
 
