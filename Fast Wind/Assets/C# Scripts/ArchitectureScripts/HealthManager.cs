@@ -9,6 +9,7 @@ public class HealthManager : MonoBehaviour
     [SerializeField] Image healthBar;
     [SerializeField] float healthAmount = 100f;
     [SerializeField] string gameplaySceneName = "GameplayScene";
+    [SerializeField] string tutorialRegionName = "Tutorial_Region1";
 
     void Awake()
     {
@@ -44,6 +45,7 @@ public class HealthManager : MonoBehaviour
         healthAmount = 100f;
         healthBar.fillAmount = 1f;
         SceneManager.LoadScene(gameplaySceneName);
+        SceneManager.LoadSceneAsync(tutorialRegionName, LoadSceneMode.Additive);
     }
 
     public void TakeDamage(float damage)
