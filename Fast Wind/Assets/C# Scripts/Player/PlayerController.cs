@@ -42,9 +42,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float wallDepenetrateDistance = 0.03f;
 
     [Header("Ledge Climb")]
-    [SerializeField] Vector2 hangOffset = new Vector2(-0.77f, -1.17f);
-    [SerializeField] Vector2 climbOverOffset = new Vector2(0.54f, 1.1f);
-    [SerializeField] float ledgeClimbCooldown = 0.35f;
+    [SerializeField] Vector2 hangFineTune;
+    [SerializeField] Vector2 climbOverFineTune;
+    [SerializeField] float ledgeClimbCooldown = 0.2f;
+    [SerializeField] float mantleSnapPullBack = 0.12f;
+    [SerializeField] float mantleStepForward = 0.1f;
+    [Tooltip("Mantle sprites use a lower pivot than idle (0.33 vs 0.5). Negative pulls the player down visually.")]
+    [SerializeField] float mantleHangVisualYOffset = -0.75f;
+    [SerializeField] float mantleLandVisualYOffset = -1f;
 
     [Header("Wall Slide")]
     [SerializeField] Transform wallCheck;           
@@ -63,6 +68,19 @@ public class PlayerController : MonoBehaviour
     public int FacingSign => _isFacingRight ? 1 : -1;
     public Rigidbody2D Rigidbody => _rb;
     public Vector2 FeetPosition => groundCheck != null ? groundCheck.position : (Vector2)transform.position;
+
+    public bool IsMovingToward(int direction)
+    {
+        if (direction == 0)
+            return false;
+
+        return direction > 0 ? _horizontal > 0.05f : _horizontal < -0.05f;
+    }
+
+    public bool IsTouchingWallFacing(int direction)
+    {
+        return _isTouchingWall && _wallDirection == direction;
+    }
 
     private Rigidbody2D _rb;
     private Animator _animator;
@@ -92,6 +110,7 @@ public class PlayerController : MonoBehaviour
     private float _rollVisualDrop;
     private float _savedGravityScale;
     private RigidbodyType2D _savedBodyType;
+    private bool _colliderWasEnabled;
 
     private void Awake()
     {
@@ -132,7 +151,6 @@ public class PlayerController : MonoBehaviour
     {
         _horizontalInput = _horizontal;
         Flip();
-        TryStartLedgeClimb();
         jumpBufferCounter -= Time.deltaTime;
         if (IsGrounded)
         {
@@ -183,6 +201,11 @@ public class PlayerController : MonoBehaviour
         }
 
         CheckWalls();
+
+        if (_ledgeDetect != null)
+            _ledgeDetect.RefreshDetection();
+
+        TryStartLedgeClimb();
 
         float targetX = _horizontal * speed;
         float targetY = _rb.linearVelocity.y;
@@ -334,29 +357,61 @@ public class PlayerController : MonoBehaviour
         if (_ledgeDetect == null || !_canGrabLedge || _climbLock || _movementState != MovementState.Normal)
             return;
 
-        if (!_ledgeDetect.HasLedge)
+        if (!_ledgeDetect.CurrentGrab.IsValid)
             return;
 
-        BeginLedgeClimb(_ledgeDetect.LedgePoint);
+        BeginLedgeClimb(_ledgeDetect.CurrentGrab);
     }
 
-    private void BeginLedgeClimb(Vector2 ledgePoint)
+    public bool TryGetMantleHangPosition(Vector2 ledgeTop, int facing, out Vector2 hangPosition)
+    {
+        ComputeMantlePositions(ledgeTop, facing, out hangPosition, out _);
+        return true;
+    }
+
+    private void BeginLedgeClimb(LedgeGrabInfo grab)
     {
         _canGrabLedge = false;
         _movementState = MovementState.LedgeClimbing;
 
         int facing = FacingSign;
-        _ledgeHangPosition = ledgePoint + new Vector2(hangOffset.x * facing, hangOffset.y);
-        _climbOverPosition = ledgePoint + new Vector2(climbOverOffset.x * facing, climbOverOffset.y);
+        ComputeMantlePositions(grab.LedgeTop, facing, out _ledgeHangPosition, out _climbOverPosition);
 
         _savedGravityScale = _rb.gravityScale;
         _savedBodyType = _rb.bodyType;
+        _colliderWasEnabled = _playerCollider.enabled;
+
         _rb.gravityScale = 0f;
         _rb.bodyType = RigidbodyType2D.Kinematic;
         _rb.linearVelocity = Vector2.zero;
+
+        _playerCollider.enabled = false;
         transform.position = _ledgeHangPosition;
+        Physics2D.SyncTransforms();
 
         _animator.SetBool("canClimb", true);
+    }
+
+    private void ComputeMantlePositions(Vector2 ledgeTop, int facing, out Vector2 hang, out Vector2 climbOver)
+    {
+        Bounds bounds = _playerCollider.bounds;
+        float halfWidth = bounds.extents.x;
+
+        float handOffsetY = _ledgeCheckTransform != null
+            ? _ledgeCheckTransform.position.y - transform.position.y
+            : bounds.extents.y * 0.35f;
+
+        float feetOffsetY = FeetPosition.y - transform.position.y;
+
+        hang = new Vector2(
+            ledgeTop.x - facing * (halfWidth + mantleSnapPullBack) + hangFineTune.x * facing,
+            ledgeTop.y - handOffsetY + hangFineTune.y + mantleHangVisualYOffset
+        );
+
+        climbOver = new Vector2(
+            ledgeTop.x + facing * (halfWidth * 0.55f + mantleStepForward) + climbOverFineTune.x * facing,
+            ledgeTop.y - feetOffsetY + climbOverFineTune.y + mantleLandVisualYOffset
+        );
     }
 
     public void LedgeClimbOver()
@@ -368,6 +423,9 @@ public class PlayerController : MonoBehaviour
         _animator.SetBool("canClimb", false);
         transform.position = _climbOverPosition;
         _animator.SetBool("isJumping", false);
+
+        _playerCollider.enabled = _colliderWasEnabled;
+        Physics2D.SyncTransforms();
 
         _rb.bodyType = _savedBodyType;
         _rb.gravityScale = _savedGravityScale;
@@ -382,10 +440,10 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator LedgeCooldownRoutine()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.1f);
         _climbLock = false;
 
-        yield return new WaitForSeconds(ledgeClimbCooldown - 0.2f);
+        yield return new WaitForSeconds(ledgeClimbCooldown);
         _canGrabLedge = true;
         _ledgeCooldownRoutine = null;
     }

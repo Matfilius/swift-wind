@@ -1,55 +1,196 @@
 using UnityEngine;
 
+public struct LedgeGrabInfo
+{
+    public bool IsValid;
+    public Vector2 LedgeTop;
+    public Vector2 WallNormal;
+}
+
 [RequireComponent(typeof(Collider2D))]
+[DefaultExecutionOrder(-50)]
 public class LedgeDetect : MonoBehaviour
 {
-    [SerializeField] float radius = 0.18f;
     [SerializeField] LayerMask groundLayer;
-    [SerializeField] float wallCheckDistance = 0.15f;
-    [SerializeField] float clearAboveDistance = 0.2f;
+    [SerializeField] float wallCheckDistance = 0.35f;
+    [SerializeField] float lipSearchInset = 0.08f;
+    [SerializeField] float minLipAboveFeet = 0.12f;
+    [SerializeField] float maxLipAboveFeet = 2.4f;
+    [SerializeField] float headClearance = 0.35f;
+    [SerializeField] float grabMemoryDuration = 0.15f;
+    [SerializeField] bool requireInputTowardWall = true;
 
-    public bool HasLedge { get; private set; }
-    public Vector2 LedgePoint { get; private set; }
+    public LedgeGrabInfo CurrentGrab { get; private set; }
 
     private PlayerController _player;
-    private Collider2D _collider;
+    private BoxCollider2D _playerCollider;
+    private LedgeGrabInfo _bufferedGrab;
+    private float _grabValidUntil;
+
+    private static readonly RaycastHit2D[] LipHits = new RaycastHit2D[8];
 
     private void Awake()
     {
         _player = GetComponentInParent<PlayerController>();
-        _collider = GetComponent<Collider2D>();
-        _collider.isTrigger = true;
+        _playerCollider = _player != null ? _player.GetComponent<BoxCollider2D>() : null;
+
+        Collider2D probe = GetComponent<Collider2D>();
+        if (probe != null)
+            probe.isTrigger = true;
     }
 
-    private void FixedUpdate()
+    public void RefreshDetection()
     {
-        HasLedge = false;
-
-        if (_player == null || _player.IsLedgeClimbing)
+        if (TryDetectLedge(out LedgeGrabInfo grab))
+        {
+            CurrentGrab = grab;
             return;
+        }
 
-        if (_player.IsGrounded)
+        if (Time.time <= _grabValidUntil && _bufferedGrab.IsValid)
+        {
+            CurrentGrab = _bufferedGrab;
             return;
+        }
+
+        CurrentGrab = default;
+    }
+
+    private bool TryDetectLedge(out LedgeGrabInfo grab)
+    {
+        grab = default;
+
+        if (_player == null || _playerCollider == null)
+            return false;
+
+        if (_player.IsLedgeClimbing || _player.IsGrounded)
+            return false;
 
         int facing = _player.FacingSign;
-        Vector2 probePosition = transform.position;
 
-        if (!Physics2D.OverlapCircle(probePosition, radius, groundLayer))
-            return;
+        if (requireInputTowardWall
+            && !_player.IsMovingToward(facing)
+            && !_player.IsTouchingWallFacing(facing))
+            return false;
 
-        Vector2 wallOrigin = probePosition + Vector2.up * 0.05f;
-        if (!Physics2D.Raycast(wallOrigin, Vector2.right * facing, wallCheckDistance, groundLayer))
-            return;
+        Bounds bounds = _playerCollider.bounds;
+        float skin = 0.03f;
+        Vector2 castDir = Vector2.right * facing;
 
-        Vector2 aboveProbe = probePosition + Vector2.up * clearAboveDistance;
-        if (Physics2D.OverlapCircle(aboveProbe, radius * 0.45f, groundLayer))
-            return;
+        float lowY = bounds.min.y + bounds.size.y * 0.22f;
+        Vector2 lowOrigin = GetForwardOrigin(bounds, facing, skin, lowY);
 
-        if (probePosition.y < _player.FeetPosition.y + 0.05f)
-            return;
+        RaycastHit2D lowWallHit = Physics2D.Raycast(lowOrigin, castDir, wallCheckDistance, groundLayer);
+        if (!IsValidSurfaceHit(lowWallHit))
+            return false;
 
-        HasLedge = true;
-        LedgePoint = probePosition;
+        if (!TryFindLedgeTop(lowWallHit, facing, bounds, out Vector2 ledgeTop, out Vector2 wallNormal))
+            return false;
+
+        float feetY = _player.FeetPosition.y;
+        if (ledgeTop.y < feetY + minLipAboveFeet)
+            return false;
+
+        if (ledgeTop.y > feetY + maxLipAboveFeet)
+            return false;
+
+        Vector2 headCheckOrigin = new Vector2(
+            GetForwardOrigin(bounds, facing, skin, ledgeTop.y + headClearance).x,
+            ledgeTop.y + headClearance
+        );
+
+        RaycastHit2D headBlock = Physics2D.Raycast(headCheckOrigin, castDir, wallCheckDistance, groundLayer);
+        if (IsValidSurfaceHit(headBlock))
+            return false;
+
+        grab = new LedgeGrabInfo
+        {
+            IsValid = true,
+            LedgeTop = ledgeTop,
+            WallNormal = wallNormal
+        };
+
+        _bufferedGrab = grab;
+        _grabValidUntil = Time.time + grabMemoryDuration;
+        return true;
+    }
+
+    private bool TryFindLedgeTop(
+        RaycastHit2D lowWallHit,
+        int facing,
+        Bounds bounds,
+        out Vector2 ledgeTop,
+        out Vector2 wallNormal)
+    {
+        ledgeTop = default;
+        wallNormal = lowWallHit.normal;
+
+        Vector2 castDir = Vector2.right * facing;
+        float scanDepth = bounds.size.y + 1.2f;
+        float bestY = float.MinValue;
+        bool found = false;
+
+        for (int i = 0; i < 5; i++)
+        {
+            float inset = lipSearchInset + i * 0.05f;
+            Vector2 downStart = new Vector2(
+                lowWallHit.point.x + castDir.x * inset,
+                bounds.max.y + 0.25f
+            );
+
+            int hitCount = Physics2D.RaycastNonAlloc(
+                downStart,
+                Vector2.down,
+                LipHits,
+                scanDepth,
+                groundLayer
+            );
+
+            for (int h = 0; h < hitCount; h++)
+            {
+                RaycastHit2D lipHit = LipHits[h];
+                if (!IsValidSurfaceHit(lipHit))
+                    continue;
+
+                if (lipHit.normal.y < 0.65f)
+                    continue;
+
+                if (lipHit.point.y <= bestY)
+                    continue;
+
+                bestY = lipHit.point.y;
+                ledgeTop = lipHit.point;
+                wallNormal = lipHit.normal;
+                found = true;
+            }
+        }
+
+        return found;
+    }
+
+    private static Vector2 GetForwardOrigin(Bounds bounds, int facing, float skin, float y)
+    {
+        float x = facing == 1 ? bounds.max.x - skin : bounds.min.x + skin;
+        return new Vector2(x, y);
+    }
+
+    private static bool IsValidSurfaceHit(RaycastHit2D hit)
+    {
+        return hit.collider != null && IsValidCollider(hit.collider);
+    }
+
+    private static bool IsValidCollider(Collider2D col)
+    {
+        if (col == null)
+            return false;
+
+        if (col.GetComponent<GrabbableObject>() != null)
+            return false;
+
+        if (col.GetComponentInParent<GrabbableObject>() != null)
+            return false;
+
+        return true;
     }
 
     private void OnDrawGizmosSelected()
@@ -57,15 +198,35 @@ public class LedgeDetect : MonoBehaviour
         if (_player == null)
             _player = GetComponentInParent<PlayerController>();
 
-        int facing = _player != null ? _player.FacingSign : 1;
-        Gizmos.color = HasLedge ? Color.green : Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, radius);
+        if (_player == null)
+            return;
 
-        Vector2 wallOrigin = (Vector2)transform.position + Vector2.up * 0.05f;
-        Gizmos.DrawLine(wallOrigin, wallOrigin + Vector2.right * facing * wallCheckDistance);
+        BoxCollider2D col = _player.GetComponent<BoxCollider2D>();
+        if (col == null)
+            return;
 
-        Vector2 aboveProbe = (Vector2)transform.position + Vector2.up * clearAboveDistance;
+        int facing = _player.FacingSign;
+        Bounds bounds = col.bounds;
+        float skin = 0.03f;
+
+        float lowY = bounds.min.y + bounds.size.y * 0.22f;
+        Vector2 lowOrigin = GetForwardOrigin(bounds, facing, skin, lowY);
+        Vector2 castDir = Vector2.right * facing;
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(lowOrigin, lowOrigin + castDir * wallCheckDistance);
+
+        Vector2 lipScanStart = new Vector2(
+            lowOrigin.x + castDir.x * lipSearchInset,
+            bounds.max.y + 0.25f
+        );
         Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(aboveProbe, radius * 0.45f);
+        Gizmos.DrawLine(lipScanStart, lipScanStart + Vector2.down * (bounds.size.y + 1.2f));
+
+        if (CurrentGrab.IsValid)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(CurrentGrab.LedgeTop, 0.08f);
+        }
     }
 }

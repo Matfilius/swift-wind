@@ -1309,7 +1309,7 @@ Transform:
   m_GameObject: {fileID: 881545149}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.198, y: 0.201, z: 0}
+  m_LocalPosition: {x: 0.18, y: 0.02, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1327,12 +1327,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eedebf6676d1af44afa75a5b137dc5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  radius: 0.18
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  wallCheckDistance: 0.15
-  clearAboveDistance: 0.2
+  wallCheckDistance: 0.3
+  lipSearchInset: 0.08
+  minLipAboveFeet: 0.12
+  maxLipAboveFeet: 2.4
+  headClearance: 0.45
+  grabMemoryDuration: 0.15
+  requireInputTowardWall: 0
 --- !u!61 &881545152
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2073,9 +2077,13 @@ MonoBehaviour:
     m_Bits: 64
   groundCheckSize: {x: 0.64, y: 0.1}
   wallDepenetrateDistance: 0.02
-  hangOffset: {x: -0.4734, y: -0.9675}
-  climbOverOffset: {x: 0.435, y: 1.253}
-  ledgeClimbCooldown: 0.35
+  hangFineTune: {x: -0.15, y: -0.25}
+  climbOverFineTune: {x: 0, y: 0.9}
+  ledgeClimbCooldown: 0.2
+  mantleSnapPullBack: 0.12
+  mantleStepForward: 0.1
+  mantleHangVisualYOffset: -0.75
+  mantleLandVisualYOffset: -1
   wallCheck: {fileID: 1528552974}
   wallCheckDistance: 0.2
   wallSlideSpeed: 3.5
