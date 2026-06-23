@@ -34,4 +34,12 @@ public class Attack : MonoBehaviour
 
     }
 
+    public void OnEnemyDetected(Collider playerCollider)
+    {
+
+        animator.SetBool("CanAttack", true);
+        Debug.Log($"Player detected by child: Executing attack!");
+
+    }
+
 }
