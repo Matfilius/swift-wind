@@ -41,6 +41,12 @@ public class LedgeDetect : MonoBehaviour
 
     public void RefreshDetection()
     {
+        if (_player != null && _player.IsInClimbMode)
+        {
+            ClearBufferedGrab();
+            return;
+        }
+
         if (TryDetectLedge(out LedgeGrabInfo grab))
         {
             CurrentGrab = grab;
@@ -49,11 +55,25 @@ public class LedgeDetect : MonoBehaviour
 
         if (Time.time <= _grabValidUntil && _bufferedGrab.IsValid)
         {
+            // Buffer must respect the same blocks as live detection (added for ladder work — was missing)
+            if (_player.IsInClimbMode || _player.IsTouchingClimbable())
+            {
+                ClearBufferedGrab();
+                return;
+            }
+
             CurrentGrab = _bufferedGrab;
             return;
         }
 
         CurrentGrab = default;
+    }
+
+    public void ClearBufferedGrab()
+    {
+        CurrentGrab = default;
+        _bufferedGrab = default;
+        _grabValidUntil = 0f;
     }
 
     private bool TryDetectLedge(out LedgeGrabInfo grab)
@@ -63,7 +83,10 @@ public class LedgeDetect : MonoBehaviour
         if (_player == null || _playerCollider == null)
             return false;
 
-        if (_player.IsLedgeClimbing || _player.IsGrounded)
+        if (_player.IsInClimbMode || _player.IsGrounded)
+            return false;
+
+        if (_player.IsTouchingClimbable())
             return false;
 
         int facing = _player.FacingSign;

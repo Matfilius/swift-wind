@@ -1884,6 +1884,7 @@ GameObject:
   - component: {fileID: 1068501825}
   - component: {fileID: 1068501826}
   - component: {fileID: 1068501827}
+  - component: {fileID: 1068501828}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -2076,6 +2077,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   groundCheckSize: {x: 0.64, y: 0.1}
+  groundCheckProbeLift: 0.04
   wallDepenetrateDistance: 0.02
   hangFineTune: {x: -0.15, y: -0.25}
   climbOverFineTune: {x: 0, y: 0.9}
@@ -2088,6 +2090,13 @@ MonoBehaviour:
   wallCheckDistance: 0.2
   wallSlideSpeed: 3.5
   requireInputForSlide: 1
+  climbSpeed: 6
+  ladderSnapSpeed: 24
+  ladderSnapXOffset: 0
+  ladderDismountHorizontalSpeed: 20
+  ladderDismountUpSpeed: 14
+  ladderRegrabCooldown: 0.25
+  ladderInputThreshold: 0.1
 --- !u!95 &1068501820
 Animator:
   serializedVersion: 7
@@ -2551,6 +2560,24 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1068501828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1068501813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c66b1f6b8520ca4dbf60a3837568fc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ClimbableDetector
+  climbableLayer:
+    serializedVersion: 2
+    m_Bits: 2048
+  probeSize: {x: 1.15, y: 0.8}
+  probeOffset: {x: 0, y: 0.25}
+  maxHorizontalAlignDistance: 0.7
 --- !u!1 &1079038820
 GameObject:
   m_ObjectHideFlags: 0
