@@ -40,7 +40,6 @@ public class PlayerController : MonoBehaviour
     [Header("Collision")]
     [SerializeField] LayerMask groundLayer;
     [SerializeField] Vector2 groundCheckSize = new Vector2(0.64f, 0.1f);
-    [Tooltip("Lifts the ground overlap probe slightly so it straddles the floor surface instead of sitting fully inside a tile.")]
     [SerializeField] float groundCheckProbeLift = 0.04f;
     [SerializeField] float wallDepenetrateDistance = 0.03f;
 
@@ -50,7 +49,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float ledgeClimbCooldown = 0.2f;
     [SerializeField] float mantleSnapPullBack = 0.12f;
     [SerializeField] float mantleStepForward = 0.1f;
-    [Tooltip("Mantle sprites use a lower pivot than idle (0.33 vs 0.5). Negative pulls the player down visually.")]
     [SerializeField] float mantleHangVisualYOffset = -0.75f;
     [SerializeField] float mantleLandVisualYOffset = -1f;
 
@@ -63,12 +61,12 @@ public class PlayerController : MonoBehaviour
     [Header("Ladder Climb")]
     [SerializeField] float climbSpeed = 6f;
     [SerializeField] float ladderSnapSpeed = 24f;
-    [Tooltip("World-space X added to the ladder collider center when snapping. Use negative to shift left, positive to shift right.")]
     [SerializeField] float ladderSnapXOffset = 0f;
     [SerializeField] float ladderDismountHorizontalSpeed = 10f;
     [SerializeField] float ladderDismountUpSpeed = 14f;
     [SerializeField] float ladderRegrabCooldown = 0.25f;
     [SerializeField] float ladderInputThreshold = 0.1f;
+    [SerializeField] float ladderMountDismountGrace = 0.12f;
 
     bool _isTouchingWall;
     int _wallDirection;
@@ -137,6 +135,7 @@ public class PlayerController : MonoBehaviour
     private bool _colliderWasEnabled;
     private float _ladderSnapX;
     private float _ladderRegrabUntil;
+    private float _ladderDismountAllowedAfter;
     private float _defaultGravityScale;
 
     private void Awake()
@@ -289,7 +288,6 @@ public class PlayerController : MonoBehaviour
         Vector2 move = context.ReadValue<Vector2>();
         _horizontal = move.x;
 
-        // Match pre-ladder behavior: W is Jump only unless on/near a ladder
         if (_movementState == MovementState.LadderClimbing || _inClimbableZone)
             _climbInputY = move.y;
         else
@@ -316,11 +314,9 @@ public class PlayerController : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
-        // W is also Move-up; on a ladder, W/S climb via Move — do not treat Jump as dismount
         if (_movementState == MovementState.LadderClimbing)
             return;
 
-        // Use started (press down only) — performed can fire again on release with some interactions
         if (context.started)
         {
             jumpBufferCounter = jumpBufferTime;
@@ -393,7 +389,6 @@ public class PlayerController : MonoBehaviour
         if (IsInClimbMode || _inClimbableZone)
             return;
 
-        // Cast from collider edges so asymmetric offset / flipX work on both sides
         Bounds bounds = _playerCollider.bounds;
         float skin = 0.02f;
         float castY = wallCheck != null ? wallCheck.position.y : bounds.center.y;
@@ -434,7 +429,6 @@ public class PlayerController : MonoBehaviour
         if (Mathf.Abs(_climbInputY) < ladderInputThreshold)
             return;
 
-        // On ground: S mounts the ladder, W stays jump-only (Move.y ignored away from ladders)
         if (_isGrounded && _climbInputY > -ladderInputThreshold)
             return;
 
@@ -448,6 +442,7 @@ public class PlayerController : MonoBehaviour
     {
         _movementState = MovementState.LadderClimbing;
         _ladderSnapX = snapX + ladderSnapXOffset;
+        _ladderDismountAllowedAfter = Time.time + ladderMountDismountGrace;
         _rb.gravityScale = 0f;
         _rb.linearVelocity = Vector2.zero;
         jumpBufferCounter = 0f;
@@ -466,14 +461,12 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (Mathf.Abs(_horizontal) > ladderInputThreshold)
+        if (Mathf.Abs(_horizontal) > ladderInputThreshold
+            && Time.time >= _ladderDismountAllowedAfter)
         {
             int dir = _horizontal > 0f ? 1 : -1;
-            DismountLadder(new Vector2(
-                dir * ladderDismountHorizontalSpeed,
-                ladderDismountUpSpeed * 0.5f
-            ));
-            return;
+            if (TryDismountLadderHorizontal(dir))
+                return;
         }
 
         if (!_inClimbableZone)
@@ -494,9 +487,60 @@ public class PlayerController : MonoBehaviour
         float climbY = Mathf.Abs(_climbInputY) >= ladderInputThreshold
             ? _climbInputY * climbSpeed
             : 0f;
-        _rb.linearVelocity = new Vector2(0f, climbY);
-        transform.position = new Vector3(snapX, transform.position.y, transform.position.z);
-        UpdateAnimatorVelocity();
+
+        float newY = transform.position.y + climbY * Time.fixedDeltaTime;
+        transform.position = new Vector3(snapX, newY, transform.position.z);
+        _rb.linearVelocity = Vector2.zero;
+        Physics2D.SyncTransforms();
+
+        _animator.SetFloat("xVelocity", 0f);
+        _animator.SetFloat("yVelocity", climbY);
+    }
+
+    private bool TryDismountLadderHorizontal(int dir)
+    {
+        int wallSide = DetectAdjacentWallSide();
+        if (wallSide != 0 && dir == wallSide)
+            return false;
+
+        if (_isFacingRight != dir > 0)
+        {
+            _isFacingRight = dir > 0;
+            ApplyFacing();
+        }
+
+        DismountLadder(new Vector2(
+            dir * ladderDismountHorizontalSpeed,
+            ladderDismountUpSpeed * 0.5f
+        ));
+        return true;
+    }
+
+    private int DetectAdjacentWallSide()
+    {
+        Bounds bounds = _playerCollider.bounds;
+        float castY = wallCheck != null ? wallCheck.position.y : bounds.center.y;
+        Vector2 center = new Vector2(bounds.center.x, castY);
+        float reach = bounds.extents.x + wallCheckDistance;
+
+        RaycastHit2D leftHit = Physics2D.Raycast(center, Vector2.left, reach, groundLayer);
+        RaycastHit2D rightHit = Physics2D.Raycast(center, Vector2.right, reach, groundLayer);
+
+        float leftDist = leftHit.collider != null ? leftHit.distance : float.PositiveInfinity;
+        float rightDist = rightHit.collider != null ? rightHit.distance : float.PositiveInfinity;
+
+
+        const float overlapProbeRadius = 0.06f;
+        float probeOffset = bounds.extents.x * 0.75f;
+        if (Physics2D.OverlapCircle(center + Vector2.left * probeOffset, overlapProbeRadius, groundLayer))
+            leftDist = Mathf.Min(leftDist, 0f);
+        if (Physics2D.OverlapCircle(center + Vector2.right * probeOffset, overlapProbeRadius, groundLayer))
+            rightDist = Mathf.Min(rightDist, 0f);
+
+        if (float.IsPositiveInfinity(leftDist) && float.IsPositiveInfinity(rightDist))
+            return 0;
+
+        return leftDist <= rightDist ? -1 : 1;
     }
 
     private void DismountLadder(Vector2 velocity)
@@ -734,7 +778,11 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        _climbableDetect.Refresh();
+        if (_movementState == MovementState.LadderClimbing)
+            _climbableDetect.RefreshAtColumn(_ladderSnapX);
+        else
+            _climbableDetect.Refresh();
+
         _inClimbableZone = _climbableDetect.IsInZone;
     }
 
@@ -748,9 +796,6 @@ public class PlayerController : MonoBehaviour
         if (groundCheck == null)
             return false;
 
-        // Feet-only check (OverlapCapsule). Do NOT use IsTouchingLayers(groundLayer) here —
-        // walls are on the ground layer too, and that made LedgeDetect think the player was grounded
-        // while falling past a ledge.
         Vector2 probeCenter = (Vector2)groundCheck.position + Vector2.up * groundCheckProbeLift;
         return Physics2D.OverlapCapsule(
             probeCenter,
@@ -826,9 +871,22 @@ public class PlayerController : MonoBehaviour
 
         if ((_isFacingRight && _horizontalInput < 0f) || (!_isFacingRight && _horizontalInput > 0f))
         {
+            if (_inClimbableZone && !IsGrounded && WouldFlipTowardAdjacentWall())
+                return;
+
             _isFacingRight = !_isFacingRight;
             ApplyFacing();
         }
+    }
+
+    private bool WouldFlipTowardAdjacentWall()
+    {
+        int wallSide = DetectAdjacentWallSide();
+        if (wallSide == 0)
+            return false;
+
+        int facingAfterFlip = _isFacingRight ? -1 : 1;
+        return facingAfterFlip == wallSide;
     }
 
     private void ApplyFacing()
