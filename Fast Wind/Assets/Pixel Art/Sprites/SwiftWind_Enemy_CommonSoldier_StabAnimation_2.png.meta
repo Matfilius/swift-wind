@@ -336,7 +336,7 @@ TextureImporter:
       name: SwiftWind_Enemy_CommonSoldier_StabAnimation_2_7
       rect:
         serializedVersion: 2
-        x: 1241
+        x: 1240
         y: 0
         width: 65
         height: 90
@@ -404,7 +404,7 @@ TextureImporter:
         serializedVersion: 2
         x: 1722
         y: 0
-        width: 81
+        width: 110
         height: 90
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -426,7 +426,7 @@ TextureImporter:
         serializedVersion: 2
         x: 1868
         y: 0
-        width: 101
+        width: 148
         height: 90
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -448,7 +448,7 @@ TextureImporter:
         serializedVersion: 2
         x: 2046
         y: 0
-        width: 91
+        width: 129
         height: 90
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -470,7 +470,7 @@ TextureImporter:
         serializedVersion: 2
         x: 2214
         y: 0
-        width: 91
+        width: 129
         height: 90
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -492,7 +492,7 @@ TextureImporter:
         serializedVersion: 2
         x: 2386
         y: 0
-        width: 87
+        width: 121
         height: 90
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -514,7 +514,7 @@ TextureImporter:
         serializedVersion: 2
         x: 2555
         y: 0
-        width: 86
+        width: 122
         height: 90
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -536,7 +536,7 @@ TextureImporter:
         serializedVersion: 2
         x: 2724
         y: 0
-        width: 84
+        width: 117
         height: 90
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -558,7 +558,7 @@ TextureImporter:
         serializedVersion: 2
         x: 2893
         y: 0
-        width: 82
+        width: 113
         height: 90
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -580,7 +580,7 @@ TextureImporter:
         serializedVersion: 2
         x: 3064
         y: 0
-        width: 81
+        width: 108
         height: 90
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -602,7 +602,7 @@ TextureImporter:
         serializedVersion: 2
         x: 3235
         y: 0
-        width: 78
+        width: 102
         height: 90
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -624,7 +624,7 @@ TextureImporter:
         serializedVersion: 2
         x: 3407
         y: 0
-        width: 73
+        width: 95
         height: 90
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -646,7 +646,7 @@ TextureImporter:
         serializedVersion: 2
         x: 3578
         y: 0
-        width: 72
+        width: 81
         height: 90
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
