@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -137,6 +138,7 @@ public class PlayerController : MonoBehaviour
     private float _ladderRegrabUntil;
     private float _ladderDismountAllowedAfter;
     private float _defaultGravityScale;
+    private readonly Dictionary<int, float> _slowZones = new();
 
     private void Awake()
     {
@@ -256,7 +258,7 @@ public class PlayerController : MonoBehaviour
 
         TryStartLedgeClimb();
 
-        float targetX = _horizontal * speed;
+        float targetX = _horizontal * speed * GetSpeedMultiplier();
         float targetY = _rb.linearVelocity.y;
         if (!IsGrounded && _isTouchingWall && !IsTouchingClimbable())
         {
@@ -280,6 +282,32 @@ public class PlayerController : MonoBehaviour
         _animator.SetFloat("xVelocity", Math.Abs(_rb.linearVelocity.x));
         _animator.SetFloat("yVelocity", _rb.linearVelocity.y);
     }
+
+    #region Slow Effects
+
+    public void ApplySlow(int sourceId, float multiplier)
+    {
+        _slowZones[sourceId] = multiplier;
+    }
+
+    public void RemoveSlow(int sourceId)
+    {
+        _slowZones.Remove(sourceId);
+    }
+
+    float GetSpeedMultiplier()
+    {
+        if (_slowZones.Count == 0)
+            return 1f;
+
+        float min = 1f;
+        foreach (float multiplier in _slowZones.Values)
+            min = Mathf.Min(min, multiplier);
+
+        return min;
+    }
+
+    #endregion
 
     #region Input
 
