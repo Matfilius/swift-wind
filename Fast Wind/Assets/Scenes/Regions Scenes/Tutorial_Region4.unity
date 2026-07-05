@@ -453,7 +453,7 @@ GameObject:
   - component: {fileID: 403268253}
   - component: {fileID: 403268252}
   m_Layer: 10
-  m_Name: Hazzards3
+  m_Name: Hazzards_Spikes3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
