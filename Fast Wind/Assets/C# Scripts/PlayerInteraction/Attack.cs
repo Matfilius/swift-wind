@@ -34,7 +34,7 @@ public class Attack : MonoBehaviour
 
     }
 
-    public void OnEnemyDetected(Collider playerCollider)
+    public void OnEnemyDetected(Collider2D playerCollider)
     {
 
         animator.SetBool("CanAttack", true);
