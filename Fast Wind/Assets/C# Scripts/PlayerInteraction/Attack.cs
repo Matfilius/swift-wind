@@ -10,6 +10,14 @@ public class Attack : MonoBehaviour
         animator = GetComponent<Animator>(); 
     }
 
+    void Update()
+    {
+        //while (OnEnemyDetected())
+        //{
+        //    animator.SetBool("CanAttack", false);
+        //}
+    }
+
     // Update is called once per frame
 
 
@@ -36,10 +44,26 @@ public class Attack : MonoBehaviour
 
     public void OnEnemyDetected(Collider2D playerCollider)
     {
+        //if(IsDetected(other)){
 
-        animator.SetBool("CanAttack", true);
-        Debug.Log($"Player detected by child: Executing attack!");
+        //}
+       
+        if (true)
+        {
+            animator.SetBool("CanAttack", true);
+            Debug.Log($"Player detected by child: Executing attack!");
+
+        }
+       
+       
 
     }
+
+    //bool IsDetected(Collider2D collision)
+    //{
+        
+
+    //}
+
 
 }

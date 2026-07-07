@@ -13,4 +13,9 @@ public class Detection : MonoBehaviour
             attackScript.OnEnemyDetected(other);
         }
     }
+
+    private void Awake()
+    {
+        attackScript = GetComponentInParent<Attack>();
+    }
 }
