@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: Spikes1_0
+  m_Name: ArrowDispensers_1
   m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.Tilemaps.Tile
-  m_Sprite: {fileID: 2578437290475457129, guid: 3af35a4a0ec8bcd4cb883d97dc99b2dc, type: 3}
+  m_Sprite: {fileID: -1177618863, guid: 06bd99d2f853a694cac368b9aba46dfe, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
