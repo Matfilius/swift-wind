@@ -14,12 +14,10 @@ public class Detection : MonoBehaviour
         }
     }
 
-<<<<<<< Updated upstream
     private void Awake()
     {
         attackScript = GetComponentInParent<Attack>();
     }
-=======
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -29,5 +27,4 @@ public class Detection : MonoBehaviour
 
     }
 
->>>>>>> Stashed changes
 }

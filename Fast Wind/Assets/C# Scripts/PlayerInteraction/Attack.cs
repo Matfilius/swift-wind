@@ -10,18 +10,6 @@ public class Attack : MonoBehaviour
         animator = GetComponent<Animator>(); 
     }
 
-<<<<<<< Updated upstream
-    void Update()
-    {
-        //while (OnEnemyDetected())
-        //{
-        //    animator.SetBool("CanAttack", false);
-        //}
-    }
-
-    // Update is called once per frame
-=======
->>>>>>> Stashed changes
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -43,37 +31,15 @@ public class Attack : MonoBehaviour
 
     public void OnEnemyDetected(Collider2D playerCollider)
     {
-        //if(IsDetected(other)){
-
-        //}
-       
-        if (true)
-        {
-            animator.SetBool("CanAttack", true);
-            Debug.Log($"Player detected by child: Executing attack!");
-
-        }
-       
-       
-
+        animator.SetBool("CanAttack", true);
+         Debug.Log($"Player detected by child: Executing attack!");
     }
 
-<<<<<<< Updated upstream
-    //bool IsDetected(Collider2D collision)
-    //{
-        
-
-    //}
-
-
-=======
     public void OnEnemyNotDetected(Collider2D playerCollider)
     {
 
         animator.SetBool("CanAttack", false);
 
-
     }
 
->>>>>>> Stashed changes
 }
