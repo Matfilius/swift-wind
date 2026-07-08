@@ -10,6 +10,7 @@ public class Attack : MonoBehaviour
         animator = GetComponent<Animator>(); 
     }
 
+<<<<<<< Updated upstream
     void Update()
     {
         //while (OnEnemyDetected())
@@ -19,27 +20,25 @@ public class Attack : MonoBehaviour
     }
 
     // Update is called once per frame
+=======
+>>>>>>> Stashed changes
 
-
-
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
             animator.SetBool("hasTarget", true);
         }
 
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D other)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
             animator.SetBool("hasTarget", false);
         }
-        
-
+       
     }
 
     public void OnEnemyDetected(Collider2D playerCollider)
@@ -59,6 +58,7 @@ public class Attack : MonoBehaviour
 
     }
 
+<<<<<<< Updated upstream
     //bool IsDetected(Collider2D collision)
     //{
         
@@ -66,4 +66,14 @@ public class Attack : MonoBehaviour
     //}
 
 
+=======
+    public void OnEnemyNotDetected(Collider2D playerCollider)
+    {
+
+        animator.SetBool("CanAttack", false);
+
+
+    }
+
+>>>>>>> Stashed changes
 }
