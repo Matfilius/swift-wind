@@ -14,10 +14,6 @@ public class WindController : MonoBehaviour
     public float maxHoldDistance = 5f;
     public float damping = 0.85f;
 
-    [Header("Anti-Lift Settings")]
-    public float belowPlayerThreshold = 0.3f;  // Koliko ispod igraca na Y osi mora biti objekat da izgubi silu dizanja
-    public float liftAngleThreshold = 60f;      // Ugao konusa ispod igrača unutar kojeg se uklanja sila prema gore
-
     [Header("Mana Settings")]
     public float grabManaCost = 15f;    // Mana potrosena tek kad se zgrabi objekat
     public float holdManaCostPerSec = 10f;
@@ -29,6 +25,7 @@ public class WindController : MonoBehaviour
     public float spiralFrequency = 3f;
 
     private PlayerInput _playerInput;
+    private PlayerController _playerController;
     private InputAction _windAction;
     private Rigidbody2D _heldObject;
     private LineRenderer[] _windLines;
@@ -37,6 +34,7 @@ public class WindController : MonoBehaviour
     void Awake()
     {
         _playerInput = player.GetComponent<PlayerInput>();
+        _playerController = player.GetComponent<PlayerController>();
         _windAction = _playerInput.actions["Wind"];
 
         _windLines = new LineRenderer[lineCount];
@@ -128,17 +126,9 @@ public class WindController : MonoBehaviour
             lr.enabled = false;
     }
 
-    private bool IsObjectBelowPlayer(Vector2 objectPos)
+    private bool IsObjectUnderPlayerFeet()
     {
-        Vector2 playerPos = player.transform.position;
-
-        // Provjeri da li je igrac iznad objekta
-        if (objectPos.y >= playerPos.y - belowPlayerThreshold) return false;
-
-        Vector2 directionToObject = (objectPos - playerPos).normalized;
-        float angle = Vector2.Angle(Vector2.down, directionToObject);
-
-        return angle < liftAngleThreshold;
+        return _playerController != null && _playerController.IsRigidbodyOverlappingGroundCheck(_heldObject);
     }
 
     void FixedUpdate()
@@ -161,7 +151,7 @@ public class WindController : MonoBehaviour
         Vector2 toTarget = targetPos - _heldObject.position;
         Vector2 force = toTarget * followForce;
 
-        if (IsObjectBelowPlayer(_heldObject.position))
+        if (IsObjectUnderPlayerFeet())
         {
             force.y = Mathf.Min(force.y, 0f);
         }

@@ -824,14 +824,59 @@ public class PlayerController : MonoBehaviour
         if (groundCheck == null)
             return false;
 
-        Vector2 probeCenter = (Vector2)groundCheck.position + Vector2.up * groundCheckProbeLift;
         return Physics2D.OverlapCapsule(
-            probeCenter,
+            GetGroundCheckProbeCenter(),
             groundCheckSize,
             CapsuleDirection2D.Horizontal,
             0f,
             groundLayer
         );
+    }
+
+    public bool IsRigidbodyOverlappingGroundCheck(Rigidbody2D rb)
+    {
+        if (rb == null)
+            return false;
+
+        foreach (Collider2D col in rb.GetComponentsInChildren<Collider2D>())
+        {
+            if (IsColliderOverlappingGroundCheck(col))
+                return true;
+        }
+
+        return false;
+    }
+
+    public bool IsColliderOverlappingGroundCheck(Collider2D collider)
+    {
+        if (groundCheck == null || collider == null)
+            return false;
+
+        ContactFilter2D filter = ContactFilter2D.noFilter;
+        filter.useTriggers = true;
+
+        Collider2D[] results = new Collider2D[16];
+        int count = Physics2D.OverlapCapsule(
+            GetGroundCheckProbeCenter(),
+            groundCheckSize,
+            CapsuleDirection2D.Horizontal,
+            0f,
+            filter,
+            results
+        );
+
+        for (int i = 0; i < count; i++)
+        {
+            if (results[i] == collider)
+                return true;
+        }
+
+        return false;
+    }
+
+    private Vector2 GetGroundCheckProbeCenter()
+    {
+        return (Vector2)groundCheck.position + Vector2.up * groundCheckProbeLift;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
