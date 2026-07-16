@@ -260,18 +260,24 @@ public class PlayerController : MonoBehaviour
 
         float targetX = _horizontal * speed * GetSpeedMultiplier();
         float targetY = _rb.linearVelocity.y;
-        if (!IsGrounded && _isTouchingWall && !IsTouchingClimbable())
+        if (!IsTouchingClimbable())
         {
-            bool holdingTowardWall = (_wallDirection == 1 && _horizontal > 0f)
-                || (_wallDirection == -1 && _horizontal < 0f);
+            int wallSide = _isTouchingWall ? _wallDirection : DetectAdjacentWallSide();
+            if (wallSide != 0)
+            {
+                bool holdingTowardWall = (wallSide == 1 && _horizontal > 0f)
+                    || (wallSide == -1 && _horizontal < 0f);
 
-            if (holdingTowardWall)
-                targetX = 0f;
+                if (holdingTowardWall)
+                    targetX = 0f;
 
-            bool shouldSlide = requireInputForSlide ? holdingTowardWall : true;
-
-            if (shouldSlide && targetY < -wallSlideSpeed)
-                targetY = -wallSlideSpeed;
+                if (!IsGrounded && _isTouchingWall)
+                {
+                    bool shouldSlide = requireInputForSlide ? holdingTowardWall : true;
+                    if (shouldSlide && targetY < -wallSlideSpeed)
+                        targetY = -wallSlideSpeed;
+                }
+            }
         }
         _rb.linearVelocity = new Vector2(targetX, targetY);
         UpdateAnimatorVelocity();
@@ -944,32 +950,29 @@ public class PlayerController : MonoBehaviour
 
         if ((_isFacingRight && _horizontalInput < 0f) || (!_isFacingRight && _horizontalInput > 0f))
         {
-            if (_inClimbableZone && !IsGrounded && WouldFlipTowardAdjacentWall())
-                return;
-
             _isFacingRight = !_isFacingRight;
             ApplyFacing();
         }
     }
 
-    private bool WouldFlipTowardAdjacentWall()
-    {
-        int wallSide = DetectAdjacentWallSide();
-        if (wallSide == 0)
-            return false;
-
-        int facingAfterFlip = _isFacingRight ? -1 : 1;
-        return facingAfterFlip == wallSide;
-    }
-
     private void ApplyFacing()
     {
+        float prevOffsetX = _playerCollider.offset.x;
+
         _playerSR.flipX = !_isFacingRight;
 
-        _playerCollider.offset = new Vector2(
-            GetColliderOffsetX(),
-            _playerCollider.offset.y
-        );
+        float newOffsetX = GetColliderOffsetX();
+        _playerCollider.offset = new Vector2(newOffsetX, _playerCollider.offset.y);
+
+        // Offset sign flip teleports the collider; nudge transform so it stays put when near a wall
+        if (DetectAdjacentWallSide() != 0)
+        {
+            transform.position += new Vector3(
+                -(newOffsetX - prevOffsetX) * Mathf.Abs(transform.localScale.x),
+                0f,
+                0f);
+            Physics2D.SyncTransforms();
+        }
 
         if (_ledgeCheckTransform != null)
         {

@@ -2078,7 +2078,7 @@ MonoBehaviour:
     m_Bits: 64
   groundCheckSize: {x: 0.64, y: 0.1}
   groundCheckProbeLift: 0.04
-  wallDepenetrateDistance: 0.02
+  wallDepenetrateDistance: 0.05
   hangFineTune: {x: -0.15, y: -0.25}
   climbOverFineTune: {x: 0, y: 0.9}
   ledgeClimbCooldown: 0.2
@@ -2319,8 +2319,6 @@ MonoBehaviour:
   followForce: 20
   maxHoldDistance: 10
   damping: 0.85
-  belowPlayerThreshold: 0.3
-  liftAngleThreshold: 60
   grabManaCost: 15
   holdManaCostPerSec: 10
   lineCount: 3
