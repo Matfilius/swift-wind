@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BootScene.unity
     guid: 65a62990d86a9964ebd27ffb1d7d3aaa
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/CoreScene.unity
     guid: 6e39473425d3562408faa891a8959ce4
   - enabled: 1
@@ -17,6 +17,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameplayScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Scenes/Regions Scenes/Tutorial_Region1.unity
+    guid: 04d5f4fcd389d3741ba381a5efce4f9e
+  - enabled: 1
+    path: Assets/Scenes/Regions Scenes/Tutorial_Region2.unity
+    guid: 81a27e7c286da684a8bb932bb8365592
+  - enabled: 1
+    path: Assets/Scenes/Regions Scenes/Tutorial_Region3.unity
+    guid: 1a59e1c7c8bb92444ac305b31e93273d
+  - enabled: 1
+    path: Assets/Scenes/Regions Scenes/Tutorial_Region4.unity
+    guid: 4fc7e35b66cf896409c3c68684288654
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

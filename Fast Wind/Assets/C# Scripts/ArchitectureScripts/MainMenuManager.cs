@@ -12,6 +12,7 @@ public class MainMenuManager : MonoBehaviour
 
     [Header("Scenes")]
     [SerializeField] private string gameplayScene = "GameplayScene";
+    [SerializeField] private string regionScene = "Tutorial_Region1";
 
     [Header("Core")]
     [SerializeField] private GameObject corePrefab;
@@ -54,22 +55,30 @@ public class MainMenuManager : MonoBehaviour
 
     private IEnumerator LoadGameplay()
     {
-        AsyncOperation operation = SceneManager.LoadSceneAsync(gameplayScene);
-        operation.allowSceneActivation = false;
+        Scene menuScene = SceneManager.GetActiveScene();
 
-        while (!operation.isDone)
+        AsyncOperation gameplayOp = SceneManager.LoadSceneAsync(gameplayScene, LoadSceneMode.Additive);
+
+        gameplayOp.allowSceneActivation = false;
+
+        AsyncOperation regionOp = SceneManager.LoadSceneAsync(regionScene, LoadSceneMode.Additive);
+
+
+        while (gameplayOp.progress < 0.9f)
         {
-            float progress = Mathf.Clamp01(operation.progress / 0.9f);
-            loadingBar.fillAmount = progress;
-
-            // Aktiviraj scenu kad je skroz ucitano
-            if (operation.progress >= 0.9f)
-            {
-                yield return new WaitForSeconds(0.2f);
-                operation.allowSceneActivation = true;
-            }
-
+            loadingBar.fillAmount = gameplayOp.progress / 0.9f;
             yield return null;
         }
+
+        gameplayOp.allowSceneActivation = true;
+
+        while (!gameplayOp.isDone || !regionOp.isDone)
+        {
+            yield return null;
+        }
+
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName(gameplayScene));
+
+        yield return SceneManager.UnloadSceneAsync(menuScene);
     }
 }
