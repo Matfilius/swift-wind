@@ -3,7 +3,8 @@ using TMPro;
 
 public class DeathCountText : MonoBehaviour
 {
-    private int deathCount = 0;
+    private static int deathCount = 0;
+
 
     private TextMeshProUGUI deathCountText;
 
@@ -13,14 +14,13 @@ public class DeathCountText : MonoBehaviour
     }
 
 
-    void Start()
+    public void OnPlayerDeath()
     {
-        
+        deathCount++;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        deathCountText.text = "Deaths: " + deathCount;
     }
 }

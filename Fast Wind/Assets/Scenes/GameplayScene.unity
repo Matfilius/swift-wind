@@ -453,6 +453,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32003f9190d25de4a82735959383d463, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthManager
+  _deathCount: {fileID: 94155080}
   healthBar: {fileID: 91959403}
   healthAmount: 100
   gameplaySceneName: GameplayScene

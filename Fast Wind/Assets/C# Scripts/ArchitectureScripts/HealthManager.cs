@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class HealthManager : MonoBehaviour
 {
     public static HealthManager Instance { get; private set; }
+    [SerializeField] private DeathCountText _deathCount;
 
     [SerializeField] Image healthBar;
     [SerializeField] float healthAmount = 100f;
@@ -31,7 +32,11 @@ public class HealthManager : MonoBehaviour
     void Update()
     {
         if (healthAmount <= 0)
+        {
             ReloadScene();
+            _deathCount.OnPlayerDeath();
+        }
+            
 
         if (Input.GetKeyDown(KeyCode.Return))
             TakeDamage(20);
