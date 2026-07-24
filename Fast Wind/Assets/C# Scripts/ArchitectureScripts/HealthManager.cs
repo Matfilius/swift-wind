@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class HealthManager : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class HealthManager : MonoBehaviour
     [SerializeField] Image healthBar;
     [SerializeField] float healthAmount = 100f;
     [SerializeField] Transform respawnPoint;
+    [SerializeField] SceneField respawnScene;
 
     private bool isDead;
 
@@ -49,6 +51,14 @@ public class HealthManager : MonoBehaviour
         healthAmount = 100f;
         if (healthBar != null)
             healthBar.fillAmount = 1f;
+
+        if(SceneManager.GetSceneByName(respawnScene).isLoaded)
+        {
+            SceneManager.UnloadSceneAsync(respawnScene);
+        }
+
+        SceneManager.LoadSceneAsync(respawnScene, LoadSceneMode.Additive);
+
 
         if (respawnPoint != null)
         {
