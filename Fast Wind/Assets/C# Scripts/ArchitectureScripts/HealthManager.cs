@@ -12,6 +12,9 @@ public class HealthManager : MonoBehaviour
     [SerializeField] string gameplaySceneName = "GameplayScene";
     [SerializeField] string tutorialRegionName = "Tutorial_Region1";
 
+    private bool isDead;
+
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -31,12 +34,14 @@ public class HealthManager : MonoBehaviour
 
     void Update()
     {
-        if (healthAmount <= 0)
+        if (healthAmount <= 0 && !isDead)
         {
-            ReloadScene();
-            _deathCount.OnPlayerDeath();
+            isDead = true;
+            GameEventsManager.instance.PlayerDied();              
+            DataPersistenceManager.instance.SaveGame();          
+            ReloadScene();                                        
         }
-            
+
 
         if (Input.GetKeyDown(KeyCode.Return))
             TakeDamage(20);
