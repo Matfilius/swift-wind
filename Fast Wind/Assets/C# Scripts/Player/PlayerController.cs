@@ -287,6 +287,16 @@ public class PlayerController : MonoBehaviour
     {
         _animator.SetFloat("xVelocity", Math.Abs(_rb.linearVelocity.x));
         _animator.SetFloat("yVelocity", _rb.linearVelocity.y);
+
+        bool isWallSliding = !_isGrounded && _isTouchingWall;
+
+        _animator.SetBool("isWallSliding", isWallSliding);
+
+        if (isWallSliding)
+        {
+            _animator.SetFloat("WallSlideSpeed", Mathf.Lerp(_animator.GetFloat("WallSlideSpeed"), Mathf.Clamp01(Mathf.Abs(_rb.linearVelocity.y) / 10f), 0.1f));
+        }
+
     }
 
     #region Slow Effects
