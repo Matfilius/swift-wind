@@ -1,19 +1,15 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class HealthManager : MonoBehaviour
 {
     public static HealthManager Instance { get; private set; }
-    [SerializeField] private DeathCountText _deathCount;
 
     [SerializeField] Image healthBar;
     [SerializeField] float healthAmount = 100f;
-    [SerializeField] string gameplaySceneName = "GameplayScene";
-    [SerializeField] string tutorialRegionName = "Tutorial_Region1";
+    [SerializeField] Transform respawnPoint;
 
     private bool isDead;
-
 
     void Awake()
     {
@@ -35,13 +31,7 @@ public class HealthManager : MonoBehaviour
     void Update()
     {
         if (healthAmount <= 0 && !isDead)
-        {
-            isDead = true;
-            GameEventsManager.instance.PlayerDied();              
-            DataPersistenceManager.instance.SaveGame();          
-            ReloadScene();                                        
-        }
-
+            HandleDeath();
 
         if (Input.GetKeyDown(KeyCode.Return))
             TakeDamage(20);
@@ -50,12 +40,24 @@ public class HealthManager : MonoBehaviour
             Heal(5);
     }
 
-    public void ReloadScene()
+    private void HandleDeath()
     {
+        isDead = true;
+
+        GameEventsManager.instance.PlayerDeath();
+
         healthAmount = 100f;
-        healthBar.fillAmount = 1f;
-        SceneManager.LoadScene(gameplaySceneName);
-        SceneManager.LoadSceneAsync(tutorialRegionName, LoadSceneMode.Additive);
+        if (healthBar != null)
+            healthBar.fillAmount = 1f;
+
+        if (respawnPoint != null)
+        {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+                player.transform.position = respawnPoint.position;
+        }
+
+        isDead = false;
     }
 
     public void TakeDamage(float damage)

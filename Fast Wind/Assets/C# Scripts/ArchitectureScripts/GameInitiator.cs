@@ -10,8 +10,6 @@ public class GameInitiator : MonoBehaviour
     [Header("First Scene")]
     [SerializeField] private string firstSceneName = "MainMenuScene";
 
-    private static bool coreSpawned = false;
-
     private void Start()
     {
         StartCoroutine(BootFlow());
@@ -19,14 +17,8 @@ public class GameInitiator : MonoBehaviour
 
     private IEnumerator BootFlow()
     {
-        // Zaustavlja duplo kporianje korijena
-        if (!coreSpawned)
-        {
-            Instantiate(corePrefab);
-            coreSpawned = true;
-        }
+        CoreBootstrapper.EnsureExists(corePrefab);
 
-        
         yield return null;
 
         // Mala pauza u vremenu za stabilnost

@@ -83,7 +83,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ccd9ce15749bea34daa133f228c26987, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: '::'
+  m_EditorClassIdentifier: Assembly-CSharp::CoreBootstrap
 --- !u!114 &8341934926183803801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,4 +95,4 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ab29eeef31445f047a98964f753396d0, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: '::'
+  m_EditorClassIdentifier: Assembly-CSharp::GameEventsManager

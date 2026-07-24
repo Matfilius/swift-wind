@@ -14,10 +14,11 @@ public class GameEventsManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
         instance = this;
     }
 
-    public void PlayerDied()
+    public void PlayerDeath()
     {
         onPlayerDeath?.Invoke();
     }

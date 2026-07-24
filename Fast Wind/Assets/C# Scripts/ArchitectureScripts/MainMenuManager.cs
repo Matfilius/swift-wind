@@ -27,13 +27,9 @@ public class MainMenuManager : MonoBehaviour
         EnsureCoreExists();
     }
 
-    // Provjerava da korjien postoji
     private void EnsureCoreExists()
     {
-        if (FindFirstObjectByType<GameManager>() == null)
-        {
-            Instantiate(corePrefab);
-        }
+        CoreBootstrapper.EnsureExists(corePrefab);
     }
 
     public void StartGame()
@@ -55,14 +51,10 @@ public class MainMenuManager : MonoBehaviour
 
     private IEnumerator LoadGameplay()
     {
-        Scene menuScene = SceneManager.GetActiveScene();
-
-        AsyncOperation gameplayOp = SceneManager.LoadSceneAsync(gameplayScene, LoadSceneMode.Additive);
-
+        AsyncOperation gameplayOp = SceneManager.LoadSceneAsync(gameplayScene, LoadSceneMode.Single);
         gameplayOp.allowSceneActivation = false;
 
         AsyncOperation regionOp = SceneManager.LoadSceneAsync(regionScene, LoadSceneMode.Additive);
-
 
         while (gameplayOp.progress < 0.9f)
         {
@@ -70,15 +62,15 @@ public class MainMenuManager : MonoBehaviour
             yield return null;
         }
 
+        loadingBar.fillAmount = 1f;
         gameplayOp.allowSceneActivation = true;
 
-        while (!gameplayOp.isDone || !regionOp.isDone)
-        {
+        while (!gameplayOp.isDone)
             yield return null;
-        }
+
+        while (regionOp != null && !regionOp.isDone)
+            yield return null;
 
         SceneManager.SetActiveScene(SceneManager.GetSceneByName(gameplayScene));
-
-        yield return SceneManager.UnloadSceneAsync(menuScene);
     }
 }
