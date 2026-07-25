@@ -33,6 +33,9 @@ public class DataPersistenceManager : MonoBehaviour
 
         instance = this;
         DontDestroyOnLoad(gameObject);
+
+        dataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
+        Debug.Log("Save file path: " + Path.Combine(Application.persistentDataPath, fileName));
     }
 
     private void OnEnable()
@@ -47,9 +50,7 @@ public class DataPersistenceManager : MonoBehaviour
 
     private void Start()
     {
-        this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
-        Debug.Log("Save file path: " + Path.Combine(Application.persistentDataPath, fileName));
-        this.dataPersistenceObjects = FindAllDataPersistenceObjects();
+        dataPersistenceObjects = FindAllDataPersistenceObjects();
         LoadGame();
     }
 

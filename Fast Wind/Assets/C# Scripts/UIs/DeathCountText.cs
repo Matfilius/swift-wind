@@ -35,7 +35,6 @@ public class DeathCountText : MonoBehaviour, IDataPersistence
 
     private void OnPlayerDeath()
     {
-        Debug.Log("Player Death happened");
         deathCount++;
     }
 
