@@ -4037,6 +4037,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DataPersistenceManager
   corePrefab: {fileID: 7462057916240261413, guid: 2569d21080269f74cbdd5b9c9ad093fe, type: 3}
+  gameplaySceneName: GameplayScene
 --- !u!1 &2132054963
 GameObject:
   m_ObjectHideFlags: 0

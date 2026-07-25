@@ -1,14 +1,23 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class DataPersistenceManager : MonoBehaviour
 {
+
+    [Header("File Storage Config")]
+
+    [SerializeField] private string fileName;
+
     [SerializeField] private GameObject corePrefab;
+    [SerializeField] private string gameplaySceneName = "GameplayScene";
 
     private GameData gameData;
     private List<IDataPersistence> dataPersistenceObjects;
+
+    private FileDataHandler dataHandler;
 
     public static DataPersistenceManager instance { get; private set; }
 
@@ -38,24 +47,33 @@ public class DataPersistenceManager : MonoBehaviour
 
     private void Start()
     {
-        dataPersistenceObjects = FindAllDataPersistenceObjects();
+        this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
+        Debug.Log("Save file path: " + Path.Combine(Application.persistentDataPath, fileName));
+        this.dataPersistenceObjects = FindAllDataPersistenceObjects();
         LoadGame();
     }
 
-    public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        if (scene.name != gameplaySceneName)
+            return;
+
         dataPersistenceObjects = FindAllDataPersistenceObjects();
         LoadGame();
     }
 
     public void NewGame()
     {
-        gameData = new GameData();
+        this.gameData = new GameData();
     }
 
     public void LoadGame()
     {
-        if (gameData == null)
+
+        this.gameData = dataHandler.Load();
+
+
+        if (this.gameData == null)
         {
             Debug.Log("No game data found. Initializing default values.");
             NewGame();
@@ -66,8 +84,6 @@ public class DataPersistenceManager : MonoBehaviour
 
         foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
             dataPersistenceObj.LoadData(gameData);
-
-        Debug.Log("Loaded death count = " + gameData.deathCount);
     }
 
     public void SaveGame()
@@ -84,7 +100,7 @@ public class DataPersistenceManager : MonoBehaviour
         foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
             dataPersistenceObj.SaveData(ref gameData);
 
-        Debug.Log("Saved death count = " + gameData.deathCount);
+        dataHandler.Save(gameData);
     }
 
     private void OnApplicationQuit()
