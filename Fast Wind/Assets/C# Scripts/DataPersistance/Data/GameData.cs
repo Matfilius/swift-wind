@@ -1,14 +1,18 @@
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
 [System.Serializable]
 public class GameData
 {
     public int deathCount;
+    public Vector3 playerPosition;
+    public string currentRegionScene;
+    public string lastCheckpointId;
 
     public GameData()
     {
-        this.deathCount = 0;
+        deathCount = 0;
+        playerPosition = Vector3.zero;
+        currentRegionScene = "";
+        lastCheckpointId = "";
     }
 }

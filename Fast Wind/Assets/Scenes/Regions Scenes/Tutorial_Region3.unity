@@ -25495,20 +25495,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5396340410006598659, guid: 59bf4b4442f745344a04af9abaf6da22, type: 3}
       propertyPath: scenesToLoad.Array.data[0].m_SceneName
-      value: Tutorial_Region4
+      value: Tutorial_Region2
       objectReference: {fileID: 0}
     - target: {fileID: 5396340410006598659, guid: 59bf4b4442f745344a04af9abaf6da22, type: 3}
       propertyPath: scenesToLoad.Array.data[1].m_SceneName
-      value: Tutorial_Region2
+      value: Tutorial_Region4
       objectReference: {fileID: 0}
     - target: {fileID: 5396340410006598659, guid: 59bf4b4442f745344a04af9abaf6da22, type: 3}
       propertyPath: scenesToLoad.Array.data[0].m_SceneAsset
       value: 
-      objectReference: {fileID: 102900000, guid: 4fc7e35b66cf896409c3c68684288654, type: 3}
+      objectReference: {fileID: 102900000, guid: 81a27e7c286da684a8bb932bb8365592, type: 3}
     - target: {fileID: 5396340410006598659, guid: 59bf4b4442f745344a04af9abaf6da22, type: 3}
       propertyPath: scenesToLoad.Array.data[1].m_SceneAsset
       value: 
-      objectReference: {fileID: 102900000, guid: 81a27e7c286da684a8bb932bb8365592, type: 3}
+      objectReference: {fileID: 102900000, guid: 4fc7e35b66cf896409c3c68684288654, type: 3}
     - target: {fileID: 5396340410006598659, guid: 59bf4b4442f745344a04af9abaf6da22, type: 3}
       propertyPath: scenesToUnload.Array.data[0].m_SceneName
       value: Tutorial_Region1
@@ -25540,8 +25540,32 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6134952088575724270, guid: 59bf4b4442f745344a04af9abaf6da22, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1607932963}
   m_SourcePrefab: {fileID: 100100000, guid: 59bf4b4442f745344a04af9abaf6da22, type: 3}
+--- !u!1 &1607932962 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6134952088575724270, guid: 59bf4b4442f745344a04af9abaf6da22, type: 3}
+  m_PrefabInstance: {fileID: 1607932961}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1607932963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1607932962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53a0b694f1494bd489c1c6ee9b607162, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Checkpoint
+  id: 6ce1d589-cc9c-4394-8807-44c71a7066e2
+  regionScene:
+    m_SceneAsset: {fileID: 102900000, guid: 1a59e1c7c8bb92444ac305b31e93273d, type: 3}
+    m_SceneName: Tutorial_Region3
 --- !u!1 &1688821861
 GameObject:
   m_ObjectHideFlags: 0
@@ -26236,8 +26260,32 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6134952088575724270, guid: 59bf4b4442f745344a04af9abaf6da22, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2037867689}
   m_SourcePrefab: {fileID: 100100000, guid: 59bf4b4442f745344a04af9abaf6da22, type: 3}
+--- !u!1 &2037867688 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6134952088575724270, guid: 59bf4b4442f745344a04af9abaf6da22, type: 3}
+  m_PrefabInstance: {fileID: 2037867687}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2037867689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2037867688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53a0b694f1494bd489c1c6ee9b607162, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Checkpoint
+  id: 042b60d7-a379-4515-9b42-6c1a93f7fc75
+  regionScene:
+    m_SceneAsset: {fileID: 102900000, guid: 1a59e1c7c8bb92444ac305b31e93273d, type: 3}
+    m_SceneName: Tutorial_Region3
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

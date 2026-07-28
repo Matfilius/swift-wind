@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(BoxCollider2D))]
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDataPersistence
 {
     private enum MovementState
     {
@@ -281,6 +281,18 @@ public class PlayerController : MonoBehaviour
         }
         _rb.linearVelocity = new Vector2(targetX, targetY);
         UpdateAnimatorVelocity();
+    }
+
+    public void LoadData(GameData data)
+    {
+        if (string.IsNullOrEmpty(data.lastCheckpointId))
+            return;
+
+        transform.position = data.playerPosition;
+    }
+
+    public void SaveData(ref GameData data)
+    {
     }
 
     private void UpdateAnimatorVelocity()

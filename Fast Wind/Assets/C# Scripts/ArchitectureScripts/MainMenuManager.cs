@@ -12,7 +12,6 @@ public class MainMenuManager : MonoBehaviour
 
     [Header("Scenes")]
     [SerializeField] private string gameplayScene = "GameplayScene";
-    [SerializeField] private string regionScene = "Tutorial_Region1";
 
     [Header("Core")]
     [SerializeField] private GameObject corePrefab;
@@ -54,8 +53,6 @@ public class MainMenuManager : MonoBehaviour
         AsyncOperation gameplayOp = SceneManager.LoadSceneAsync(gameplayScene, LoadSceneMode.Single);
         gameplayOp.allowSceneActivation = false;
 
-        AsyncOperation regionOp = SceneManager.LoadSceneAsync(regionScene, LoadSceneMode.Additive);
-
         while (gameplayOp.progress < 0.9f)
         {
             loadingBar.fillAmount = gameplayOp.progress / 0.9f;
@@ -66,9 +63,6 @@ public class MainMenuManager : MonoBehaviour
         gameplayOp.allowSceneActivation = true;
 
         while (!gameplayOp.isDone)
-            yield return null;
-
-        while (regionOp != null && !regionOp.isDone)
             yield return null;
 
         SceneManager.SetActiveScene(SceneManager.GetSceneByName(gameplayScene));

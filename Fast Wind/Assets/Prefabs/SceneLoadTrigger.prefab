@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5377708245060875681}
   - component: {fileID: 6679653782410398587}
   - component: {fileID: 5396340410006598659}
+  - component: {fileID: 8713370242179338077}
   m_Layer: 0
   m_Name: SceneLoadTrigger
   m_TagString: Untagged
@@ -92,6 +93,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
   scenesToLoad:
-  - 
+  - m_SceneAsset: {fileID: 0}
+    m_SceneName: 
   scenesToUnload:
-  - 
+  - m_SceneAsset: {fileID: 0}
+    m_SceneName: 
+--- !u!114 &8713370242179338077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6134952088575724270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53a0b694f1494bd489c1c6ee9b607162, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Checkpoint
+  id: 
+  regionScene:
+    m_SceneAsset: {fileID: 0}
+    m_SceneName: 

@@ -58,7 +58,7 @@ public class HealthManager : MonoBehaviour
         }
 
         SceneManager.LoadSceneAsync(respawnScene, LoadSceneMode.Additive);
-
+        RegionTracker.SetCurrentRegion(respawnScene);
 
         if (respawnPoint != null)
         {

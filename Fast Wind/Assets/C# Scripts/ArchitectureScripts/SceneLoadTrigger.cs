@@ -39,7 +39,10 @@ public class SceneLoadTrigger : MonoBehaviour
             }
 
             if (!isSceneLoaded)
+            {
                 SceneManager.LoadSceneAsync(scenesToLoad[i], LoadSceneMode.Additive);
+                RegionTracker.SetCurrentRegion(scenesToLoad[i]);
+            }
         }
     }
 

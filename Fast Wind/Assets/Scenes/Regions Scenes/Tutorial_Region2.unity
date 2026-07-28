@@ -11660,8 +11660,32 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6134952088575724270, guid: 59bf4b4442f745344a04af9abaf6da22, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1607932963}
   m_SourcePrefab: {fileID: 100100000, guid: 59bf4b4442f745344a04af9abaf6da22, type: 3}
+--- !u!1 &1607932962 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6134952088575724270, guid: 59bf4b4442f745344a04af9abaf6da22, type: 3}
+  m_PrefabInstance: {fileID: 1607932961}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1607932963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1607932962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53a0b694f1494bd489c1c6ee9b607162, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Checkpoint
+  id: 8c9f8d9c-1b39-4de4-a3e6-30bddecebab9
+  regionScene:
+    m_SceneAsset: {fileID: 102900000, guid: 81a27e7c286da684a8bb932bb8365592, type: 3}
+    m_SceneName: Tutorial_Region2
 --- !u!1 &1688821861
 GameObject:
   m_ObjectHideFlags: 0
