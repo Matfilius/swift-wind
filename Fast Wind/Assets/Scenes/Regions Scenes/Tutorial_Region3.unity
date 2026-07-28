@@ -25537,35 +25537,23 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: 12.789139
       objectReference: {fileID: 0}
+    - target: {fileID: 8713370242179338077, guid: 59bf4b4442f745344a04af9abaf6da22, type: 3}
+      propertyPath: id
+      value: 7abc08eb-af67-4d32-ba5c-740762958a21
+      objectReference: {fileID: 0}
+    - target: {fileID: 8713370242179338077, guid: 59bf4b4442f745344a04af9abaf6da22, type: 3}
+      propertyPath: regionScene.m_SceneName
+      value: Tutorial_Region3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8713370242179338077, guid: 59bf4b4442f745344a04af9abaf6da22, type: 3}
+      propertyPath: regionScene.m_SceneAsset
+      value: 
+      objectReference: {fileID: 102900000, guid: 1a59e1c7c8bb92444ac305b31e93273d, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6134952088575724270, guid: 59bf4b4442f745344a04af9abaf6da22, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1607932963}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 59bf4b4442f745344a04af9abaf6da22, type: 3}
---- !u!1 &1607932962 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6134952088575724270, guid: 59bf4b4442f745344a04af9abaf6da22, type: 3}
-  m_PrefabInstance: {fileID: 1607932961}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1607932963
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1607932962}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53a0b694f1494bd489c1c6ee9b607162, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Checkpoint
-  id: 6ce1d589-cc9c-4394-8807-44c71a7066e2
-  regionScene:
-    m_SceneAsset: {fileID: 102900000, guid: 1a59e1c7c8bb92444ac305b31e93273d, type: 3}
-    m_SceneName: Tutorial_Region3
 --- !u!1 &1688821861
 GameObject:
   m_ObjectHideFlags: 0
@@ -26257,35 +26245,23 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: 10.140785
       objectReference: {fileID: 0}
+    - target: {fileID: 8713370242179338077, guid: 59bf4b4442f745344a04af9abaf6da22, type: 3}
+      propertyPath: id
+      value: d63a20ee-8a0c-48c5-b4fb-56789aca12df
+      objectReference: {fileID: 0}
+    - target: {fileID: 8713370242179338077, guid: 59bf4b4442f745344a04af9abaf6da22, type: 3}
+      propertyPath: regionScene.m_SceneName
+      value: Tutorial_Region3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8713370242179338077, guid: 59bf4b4442f745344a04af9abaf6da22, type: 3}
+      propertyPath: regionScene.m_SceneAsset
+      value: 
+      objectReference: {fileID: 102900000, guid: 1a59e1c7c8bb92444ac305b31e93273d, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6134952088575724270, guid: 59bf4b4442f745344a04af9abaf6da22, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2037867689}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 59bf4b4442f745344a04af9abaf6da22, type: 3}
---- !u!1 &2037867688 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6134952088575724270, guid: 59bf4b4442f745344a04af9abaf6da22, type: 3}
-  m_PrefabInstance: {fileID: 2037867687}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2037867689
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2037867688}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53a0b694f1494bd489c1c6ee9b607162, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Checkpoint
-  id: 042b60d7-a379-4515-9b42-6c1a93f7fc75
-  regionScene:
-    m_SceneAsset: {fileID: 102900000, guid: 1a59e1c7c8bb92444ac305b31e93273d, type: 3}
-    m_SceneName: Tutorial_Region3
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
