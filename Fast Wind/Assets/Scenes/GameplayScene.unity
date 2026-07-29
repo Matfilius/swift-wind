@@ -2338,6 +2338,17 @@ MonoBehaviour:
   wallCheckDistance: 0.2
   wallSlideSpeed: 3.5
   requireInputForSlide: 1
+  wallSlideSnapOffset: -0.2
+  wallSlideLandingGroundDistance: 0.12
+  wallSlideGroundProbeWallOffset: 0.12
+  wallSlideFloorNormalMin: 0.5
+  wallSlideIntroClipLength: 0.45
+  wallSlideIntroAnimSpeed: 0.7
+  wallSlideLoopAnimSpeed: 0.8
+  wallSlideLandingClipLength: 0.267
+  wallSlideLandingAnimSpeed: 0.5
+  wallSlideWallMissLimit: 6
+  wallSlideReentryCooldown: 0.3
   climbSpeed: 6
   ladderSnapSpeed: 24
   ladderSnapXOffset: 0

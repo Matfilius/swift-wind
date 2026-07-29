@@ -14,7 +14,15 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         Dashing,
         Rolling,
         LedgeClimbing,
-        LadderClimbing
+        LadderClimbing,
+        WallSliding,
+        WallSlideLanding
+    }
+
+    private enum WallSlidePhase
+    {
+        Intro,
+        Loop
     }
 
     [Header("Player Component References")]
@@ -58,6 +66,25 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     [SerializeField] float wallCheckDistance = 0.1f;
     [SerializeField] float wallSlideSpeed = 2f;
     [SerializeField] bool requireInputForSlide = true;
+    [SerializeField] float wallSlideSnapOffset = 0.06f;
+    [SerializeField] float wallSlideLandingGroundDistance = 0.4f;
+    [Tooltip("Horizontal offset away from the wall when probing for floor during a wall slide.")]
+    [SerializeField] float wallSlideGroundProbeWallOffset = 0.12f;
+    [Tooltip("Minimum surface normal Y to count as floor during a wall slide.")]
+    [SerializeField] float wallSlideFloorNormalMin = 0.5f;
+    [Header("Wall Slide Animation")]
+    [Tooltip("Clip length of Wall slide1 (Animation window → clip Stop Time).")]
+    [SerializeField] float wallSlideIntroClipLength = 0.45f;
+    [Tooltip("Speed on the WallSlideIntro Animator state. Playback time = clip length ÷ speed.")]
+    [SerializeField] float wallSlideIntroAnimSpeed = 0.7f;
+    [Tooltip("Speed on the WallSlideLoop Animator state (timing is handled by the Animator only).")]
+    [SerializeField] float wallSlideLoopAnimSpeed = 0.8f;
+    [Tooltip("Clip length of Wall slide3.")]
+    [SerializeField] float wallSlideLandingClipLength = 0.267f;
+    [Tooltip("Speed on the WallSlideLand Animator state. Used for the landing lock fallback timer.")]
+    [SerializeField] float wallSlideLandingAnimSpeed = 0.5f;
+    [SerializeField] int wallSlideWallMissLimit = 6;
+    [SerializeField] float wallSlideReentryCooldown = 0.3f;
 
     [Header("Ladder Climb")]
     [SerializeField] float climbSpeed = 6f;
@@ -78,6 +105,8 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     public bool IsGrounded => _isGrounded;
     public bool IsLedgeClimbing => _movementState == MovementState.LedgeClimbing;
     public bool IsLadderClimbing => _movementState == MovementState.LadderClimbing;
+    public bool IsWallSliding => _movementState == MovementState.WallSliding
+        || _movementState == MovementState.WallSlideLanding;
     public bool IsInClimbMode => IsLedgeClimbing || IsLadderClimbing;
     public bool IsFacingRight => _isFacingRight;
     public int FacingSign => _isFacingRight ? 1 : -1;
@@ -138,6 +167,17 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     private float _ladderRegrabUntil;
     private float _ladderDismountAllowedAfter;
     private float _defaultGravityScale;
+    private WallSlidePhase _wallSlidePhase;
+    private int _wallSlideWallSide;
+    private int _wallSlideWallMissCount;
+    private float _flipBlockedUntil;
+    private float _wallSlideReentryBlockedUntil;
+    private Coroutine _wallSlideLandingRoutine;
+
+    private static readonly int WallSlideIntroHash = Animator.StringToHash("WallSlideIntro");
+    private static readonly int WallSlideLoopHash = Animator.StringToHash("WallSlideLoop");
+    private int _hazardsLayer;
+    private bool _ignoredHazardCollision;
     private readonly Dictionary<int, float> _slowZones = new();
 
     private void Awake()
@@ -175,6 +215,8 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
         _isFacingRight = true;
         ApplyFacing();
+
+        _hazardsLayer = LayerMask.NameToLayer("Hazzards");
     }
 
     private void Start()
@@ -192,6 +234,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         RefreshClimbableZone();
 
         _horizontalInput = _horizontal;
+        TryJump();
         Flip();
         jumpBufferCounter -= Time.deltaTime;
         if (_isGrounded)
@@ -203,7 +246,6 @@ public class PlayerController : MonoBehaviour, IDataPersistence
             coyoteTimeCounter -= Time.deltaTime;
         }
 
-        TryJump();
         TryStartLadderClimb();
 
         if (_movementState == MovementState.LedgeClimbing)
@@ -239,6 +281,19 @@ public class PlayerController : MonoBehaviour, IDataPersistence
             return;
         }
 
+        if (_movementState == MovementState.WallSlideLanding)
+        {
+            _rb.linearVelocity = Vector2.zero;
+            UpdateAnimatorVelocity();
+            return;
+        }
+
+        if (_movementState == MovementState.WallSliding)
+        {
+            UpdateWallSlide();
+            return;
+        }
+
         if (_movementState == MovementState.Dashing)
         {
             UpdateAnimatorVelocity();
@@ -258,6 +313,9 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
         TryStartLedgeClimb();
 
+        if (_movementState == MovementState.Normal && ShouldStartWallSlide())
+            BeginWallSlide();
+
         float targetX = _horizontal * speed * GetSpeedMultiplier();
         float targetY = _rb.linearVelocity.y;
         if (!IsTouchingClimbable())
@@ -270,13 +328,6 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
                 if (holdingTowardWall)
                     targetX = 0f;
-
-                if (!IsGrounded && _isTouchingWall)
-                {
-                    bool shouldSlide = requireInputForSlide ? holdingTowardWall : true;
-                    if (shouldSlide && targetY < -wallSlideSpeed)
-                        targetY = -wallSlideSpeed;
-                }
             }
         }
         _rb.linearVelocity = new Vector2(targetX, targetY);
@@ -299,16 +350,6 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     {
         _animator.SetFloat("xVelocity", Math.Abs(_rb.linearVelocity.x));
         _animator.SetFloat("yVelocity", _rb.linearVelocity.y);
-
-        bool isWallSliding = !_isGrounded && _isTouchingWall;
-
-        _animator.SetBool("isWallSliding", isWallSliding);
-
-        if (isWallSliding)
-        {
-            _animator.SetFloat("WallSlideSpeed", Mathf.Lerp(_animator.GetFloat("WallSlideSpeed"), Mathf.Clamp01(Mathf.Abs(_rb.linearVelocity.y) / 10f), 0.1f));
-        }
-
     }
 
     #region Slow Effects
@@ -402,6 +443,18 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     void TryJump()
     {
+        if (_movementState == MovementState.WallSlideLanding)
+            return;
+
+        if (_movementState == MovementState.WallSliding)
+        {
+            if (jumpBufferCounter <= 0f)
+                return;
+
+            JumpOffWallSlide();
+            return;
+        }
+
         if (_movementState != MovementState.Normal)
             return;
         if (jumpBufferCounter <= 0f)
@@ -442,8 +495,20 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         _isTouchingWall = false;
         _wallDirection = 0;
 
-        if (IsInClimbMode || _inClimbableZone)
+        if (IsInClimbMode || IsWallSliding || _inClimbableZone)
             return;
+
+        if (!IsGrounded)
+        {
+            int side = DetectAdjacentWallSide();
+            if (side != 0)
+            {
+                _isTouchingWall = true;
+                _wallDirection = side;
+            }
+
+            return;
+        }
 
         Bounds bounds = _playerCollider.bounds;
         float skin = 0.02f;
@@ -465,6 +530,327 @@ public class PlayerController : MonoBehaviour, IDataPersistence
             _isTouchingWall = true;
             _wallDirection = -1;
         }
+    }
+
+    #endregion
+
+    #region Wall Slide
+
+    private bool ShouldStartWallSlide()
+    {
+        if (_inClimbableZone || IsGrounded)
+            return false;
+
+        if (Time.time < _wallSlideReentryBlockedUntil)
+            return false;
+
+        if (_ledgeDetect != null && _ledgeDetect.CurrentGrab.IsValid)
+            return false;
+
+        int wallSide = DetectAdjacentWallSide();
+        if (wallSide == 0)
+            return false;
+
+        if (requireInputForSlide)
+        {
+            bool holdingTowardWall = (wallSide == 1 && _horizontal > 0f)
+                || (wallSide == -1 && _horizontal < 0f);
+            if (!holdingTowardWall)
+                return false;
+        }
+
+        return true;
+    }
+
+    private void BeginWallSlide()
+    {
+        _movementState = MovementState.WallSliding;
+        _wallSlideWallSide = DetectAdjacentWallSide();
+        _wallSlidePhase = WallSlidePhase.Intro;
+        _wallSlideWallMissCount = 0;
+        jumpBufferCounter = 0f;
+
+        _animator.SetBool("isJumping", false);
+        _animator.SetBool("isWallSliding", true);
+        _animator.SetInteger("wallSlidePhase", 0);
+        _animator.SetTrigger("wallSlideStart");
+
+        _isTouchingWall = true;
+        _wallDirection = _wallSlideWallSide;
+
+        SetWallSlideHazardCollisionIgnored(true);
+
+        bool faceTowardWall = _wallSlideWallSide == 1;
+        if (_isFacingRight != faceTowardWall)
+        {
+            _isFacingRight = faceTowardWall;
+            ApplyFacing();
+        }
+    }
+
+    private void UpdateWallSlide()
+    {
+        if (_ledgeDetect != null)
+            _ledgeDetect.RefreshDetection();
+
+        TryStartLedgeClimb();
+        if (_movementState != MovementState.WallSliding)
+            return;
+
+        SyncWallSlideAnimatorPhase();
+
+        if (!IsStillOnWallSlideWall())
+        {
+            _wallSlideWallMissCount++;
+            if (_wallSlideWallMissCount >= wallSlideWallMissLimit)
+            {
+                if (IsWallSlideAtGround())
+                    BeginWallSlideLanding();
+                else
+                    EndWallSlide();
+                return;
+            }
+        }
+        else
+        {
+            _wallSlideWallMissCount = 0;
+        }
+
+        if (IsWallSlideAtGround())
+        {
+            BeginWallSlideLanding();
+            return;
+        }
+
+        SnapToWallSlide();
+
+        float slideY = -wallSlideSpeed;
+        float newY = transform.position.y + slideY * Time.fixedDeltaTime;
+        transform.position = new Vector3(transform.position.x, newY, transform.position.z);
+        _rb.linearVelocity = Vector2.zero;
+        Physics2D.SyncTransforms();
+        UpdateAnimatorVelocity();
+    }
+
+    private void SyncWallSlideAnimatorPhase()
+    {
+        if (_wallSlidePhase == WallSlidePhase.Loop)
+            return;
+
+        AnimatorStateInfo state = _animator.GetCurrentAnimatorStateInfo(0);
+        if (state.shortNameHash == WallSlideLoopHash
+            || (state.shortNameHash == WallSlideIntroHash && state.normalizedTime >= 0.95f))
+        {
+            AdvanceWallSlideToLoop();
+        }
+    }
+
+    private void AdvanceWallSlideToLoop()
+    {
+        if (_wallSlidePhase == WallSlidePhase.Loop)
+            return;
+
+        _wallSlidePhase = WallSlidePhase.Loop;
+        _animator.SetInteger("wallSlidePhase", 1);
+    }
+
+    private void JumpOffWallSlide()
+    {
+        _animator.SetBool("isJumping", true);
+        _flipBlockedUntil = Time.time + 0.15f;
+        EndWallSlide();
+        _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, jumpingPower);
+        doubleJump = true;
+        coyoteTimeCounter = 0f;
+        jumpBufferCounter = 0f;
+    }
+
+    private static float GetAnimPlaybackDuration(float clipLength, float animSpeed)
+    {
+        return clipLength / Mathf.Max(animSpeed, 0.01f);
+    }
+
+    private float GetWallSlideLandingDuration()
+    {
+        return GetAnimPlaybackDuration(wallSlideLandingClipLength, wallSlideLandingAnimSpeed);
+    }
+
+    private bool IsStillOnWallSlideWall()
+    {
+        Bounds bounds = _playerCollider.bounds;
+        float castY = wallCheck != null ? wallCheck.position.y : bounds.center.y;
+        Vector2 origin = new Vector2(bounds.center.x, castY);
+        Vector2 dir = _wallSlideWallSide > 0 ? Vector2.right : Vector2.left;
+
+        return Physics2D.Raycast(
+            origin,
+            dir,
+            bounds.extents.x + wallCheckDistance + 0.5f,
+            groundLayer
+        ).collider != null;
+    }
+
+    private void SetWallSlideHazardCollisionIgnored(bool ignore)
+    {
+        if (_hazardsLayer < 0 || _ignoredHazardCollision == ignore)
+            return;
+
+        Physics2D.IgnoreLayerCollision(gameObject.layer, _hazardsLayer, ignore);
+        _ignoredHazardCollision = ignore;
+    }
+
+    private bool IsNearWallSlideGround()
+    {
+        if (groundCheck == null)
+            return false;
+
+        Vector2 origin = groundCheck.position;
+        if (_wallSlideWallSide != 0)
+            origin.x -= _wallSlideWallSide * wallSlideGroundProbeWallOffset;
+
+        RaycastHit2D hit = Physics2D.Raycast(
+            origin,
+            Vector2.down,
+            wallSlideLandingGroundDistance,
+            groundLayer
+        );
+
+        return hit.collider != null && hit.normal.y >= wallSlideFloorNormalMin;
+    }
+
+    private bool IsWallSlideAtGround()
+    {
+        return IsNearWallSlideGround();
+    }
+
+    private static bool HasFloorContact(Collision2D collision, float floorNormalMin)
+    {
+        foreach (ContactPoint2D contact in collision.contacts)
+        {
+            if (contact.normal.y >= floorNormalMin)
+                return true;
+        }
+
+        return false;
+    }
+
+    private void TryBeginWallSlideLandingFromGroundContact(Collision2D collision)
+    {
+        if (_movementState != MovementState.WallSliding)
+            return;
+
+        if (!HasFloorContact(collision, wallSlideFloorNormalMin))
+            return;
+
+        BeginWallSlideLanding();
+    }
+
+    private void SnapToWallSlide()
+    {
+        Bounds bounds = _playerCollider.bounds;
+        float castY = wallCheck != null ? wallCheck.position.y : bounds.center.y;
+        Vector2 origin = new Vector2(bounds.center.x, castY);
+        Vector2 dir = _wallSlideWallSide > 0 ? Vector2.right : Vector2.left;
+
+        RaycastHit2D hit = Physics2D.Raycast(
+            origin,
+            dir,
+            bounds.extents.x + wallCheckDistance + 0.5f,
+            groundLayer
+        );
+
+        if (hit.collider == null)
+            return;
+
+        float targetEdgeX = hit.point.x - _wallSlideWallSide * wallSlideSnapOffset;
+        float currentEdgeX = _wallSlideWallSide > 0 ? bounds.max.x : bounds.min.x;
+        float deltaX = targetEdgeX - currentEdgeX;
+
+        if (Mathf.Abs(deltaX) > 0.0001f)
+        {
+            transform.position += new Vector3(deltaX, 0f, 0f);
+            Physics2D.SyncTransforms();
+        }
+    }
+
+    private void BeginWallSlideLanding()
+    {
+        if (_movementState != MovementState.WallSliding)
+            return;
+
+        _movementState = MovementState.WallSlideLanding;
+        _climbLock = true;
+        _rb.linearVelocity = Vector2.zero;
+        _animator.SetInteger("wallSlidePhase", 2);
+
+        if (_wallSlideLandingRoutine != null)
+            StopCoroutine(_wallSlideLandingRoutine);
+
+        _wallSlideLandingRoutine = StartCoroutine(WallSlideLandingRoutine());
+    }
+
+    private IEnumerator WallSlideLandingRoutine()
+    {
+        yield return new WaitForSeconds(GetWallSlideLandingDuration());
+        FinishWallSlideLanding();
+    }
+
+    public void FinishWallSlideLanding()
+    {
+        if (_movementState != MovementState.WallSlideLanding)
+            return;
+
+        if (_wallSlideLandingRoutine != null)
+        {
+            StopCoroutine(_wallSlideLandingRoutine);
+            _wallSlideLandingRoutine = null;
+        }
+
+        FaceAwayFromWall();
+        _animator.SetBool("isJumping", false);
+        doubleJump = false;
+        _climbLock = false;
+        _movementState = MovementState.Normal;
+        _animator.SetInteger("wallSlidePhase", 0);
+        _animator.SetBool("isWallSliding", false);
+        SetWallSlideHazardCollisionIgnored(false);
+    }
+
+    private void FaceAwayFromWall()
+    {
+        bool shouldFaceRight = _wallSlideWallSide == -1;
+        if (_isFacingRight == shouldFaceRight)
+            return;
+
+        _isFacingRight = shouldFaceRight;
+        ApplyFacing();
+    }
+
+    private void EndWallSlide()
+    {
+        if (_movementState == MovementState.WallSlideLanding)
+        {
+            if (_wallSlideLandingRoutine != null)
+                StopCoroutine(_wallSlideLandingRoutine);
+
+            _wallSlideLandingRoutine = null;
+            _climbLock = false;
+        }
+
+        if (!IsWallSliding)
+            return;
+
+        _movementState = MovementState.Normal;
+        _wallSlidePhase = WallSlidePhase.Intro;
+        _wallSlideWallSide = 0;
+        _wallSlideWallMissCount = 0;
+        _wallSlideReentryBlockedUntil = Time.time + wallSlideReentryCooldown;
+        _isTouchingWall = false;
+        _wallDirection = 0;
+        _animator.ResetTrigger("wallSlideStart");
+        _animator.SetInteger("wallSlidePhase", 0);
+        _animator.SetBool("isWallSliding", false);
+        SetWallSlideHazardCollisionIgnored(false);
     }
 
     #endregion
@@ -626,7 +1012,10 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     private void TryStartLedgeClimb()
     {
-        if (_ledgeDetect == null || !_canGrabLedge || _climbLock || _movementState != MovementState.Normal)
+        if (_ledgeDetect == null || !_canGrabLedge || _climbLock)
+            return;
+
+        if (_movementState != MovementState.Normal && _movementState != MovementState.WallSliding)
             return;
 
         if (_inClimbableZone)
@@ -634,6 +1023,9 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
         if (!_ledgeDetect.CurrentGrab.IsValid)
             return;
+
+        if (_movementState == MovementState.WallSliding)
+            EndWallSlide();
 
         BeginLedgeClimb(_ledgeDetect.CurrentGrab);
     }
@@ -914,6 +1306,11 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
         if (IsLandingCollision(collision))
         {
+            TryBeginWallSlideLandingFromGroundContact(collision);
+
+            if (_movementState != MovementState.WallSliding)
+                return;
+
             _animator.SetBool("isJumping", false);
             doubleJump = false;
         }
@@ -926,7 +1323,9 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         if (((1 << collision.gameObject.layer) & groundLayer) == 0)
             return;
 
-        if (IsGrounded)
+        if (_movementState == MovementState.WallSliding)
+            TryBeginWallSlideLandingFromGroundContact(collision);
+        else if (IsGrounded)
             _animator.SetBool("isJumping", false);
 
         DepenetrateFromWalls(collision);
@@ -945,7 +1344,9 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     private void DepenetrateFromWalls(Collision2D collision)
     {
-        if (_movementState == MovementState.LedgeClimbing || _movementState == MovementState.LadderClimbing)
+        if (_movementState == MovementState.LedgeClimbing
+            || _movementState == MovementState.LadderClimbing
+            || IsWallSliding)
             return;
 
         foreach (ContactPoint2D contact in collision.contacts)
@@ -967,7 +1368,10 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     {
         if (_movementState == MovementState.LedgeClimbing
             || _movementState == MovementState.LadderClimbing
-            || _climbLock)
+            || _movementState == MovementState.WallSliding
+            || _movementState == MovementState.WallSlideLanding
+            || _climbLock
+            || Time.time < _flipBlockedUntil)
             return;
 
         if ((_isFacingRight && _horizontalInput < 0f) || (!_isFacingRight && _horizontalInput > 0f))
