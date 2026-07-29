@@ -2338,7 +2338,7 @@ MonoBehaviour:
   wallCheckDistance: 0.2
   wallSlideSpeed: 3.5
   requireInputForSlide: 1
-  wallSlideSnapOffset: -0.2
+  wallSlideSnapOffset: -0.32
   wallSlideLandingGroundDistance: 0.12
   wallSlideGroundProbeWallOffset: 0.12
   wallSlideFloorNormalMin: 0.5
