@@ -237,6 +237,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     {
         RefreshGrounded();
         RefreshClimbableZone();
+        RefreshDoubleJump();
 
         _horizontalInput = _horizontal;
         TryJump();
@@ -272,6 +273,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     {
         RefreshGrounded();
         RefreshClimbableZone();
+        RefreshDoubleJump();
 
         if (_movementState == MovementState.LedgeClimbing)
         {
@@ -815,6 +817,12 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     private void TryFinishWallSlideAtGround()
     {
+        if (!IsWallSlideAtGround())
+        {
+            EndWallSlide();
+            return;
+        }
+
         if (ShouldPlayWallSlideLanding())
             BeginWallSlideLanding();
         else
@@ -1337,6 +1345,14 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     private void RefreshGrounded()
     {
         _isGrounded = CheckGrounded();
+    }
+
+    private void RefreshDoubleJump()
+    {
+        if( _isGrounded)
+        {
+            doubleJump = true;
+        }
     }
 
     private bool CheckGrounded()
