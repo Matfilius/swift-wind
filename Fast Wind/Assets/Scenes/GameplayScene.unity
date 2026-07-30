@@ -2336,7 +2336,7 @@ MonoBehaviour:
   mantleLandVisualYOffset: -1
   wallCheck: {fileID: 1528552974}
   wallCheckDistance: 0.2
-  wallSlideSpeed: 3.5
+  wallSlideSpeed: 4.5
   requireInputForSlide: 1
   wallSlideSnapOffset: -0.32
   wallSlideLandingGroundDistance: 0.12
@@ -2349,6 +2349,14 @@ MonoBehaviour:
   wallSlideLandingAnimSpeed: 0.5
   wallSlideWallMissLimit: 6
   wallSlideReentryCooldown: 0.3
+  wallSlideJumpReentryCooldown: 0.8
+  wallSlideDoubleJumpReentryCooldown: 0.95
+  wallSlideDismountHoldTime: 0.2
+  wallSlideDismountInputThreshold: 0.1
+  wallSlideJumpAwayMultiplier: 0.6
+  wallSlideMinJumpAge: 0.5
+  wallSlideMinStartGroundClearance: 1.5
+  wallSlideMinDurationForLanding: 0.35
   climbSpeed: 6
   ladderSnapSpeed: 24
   ladderSnapXOffset: 0

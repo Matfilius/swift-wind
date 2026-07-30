@@ -68,23 +68,24 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     [SerializeField] bool requireInputForSlide = true;
     [SerializeField] float wallSlideSnapOffset = 0.06f;
     [SerializeField] float wallSlideLandingGroundDistance = 0.4f;
-    [Tooltip("Horizontal offset away from the wall when probing for floor during a wall slide.")]
     [SerializeField] float wallSlideGroundProbeWallOffset = 0.12f;
-    [Tooltip("Minimum surface normal Y to count as floor during a wall slide.")]
     [SerializeField] float wallSlideFloorNormalMin = 0.5f;
     [Header("Wall Slide Animation")]
-    [Tooltip("Clip length of Wall slide1 (Animation window → clip Stop Time).")]
     [SerializeField] float wallSlideIntroClipLength = 0.45f;
-    [Tooltip("Speed on the WallSlideIntro Animator state. Playback time = clip length ÷ speed.")]
     [SerializeField] float wallSlideIntroAnimSpeed = 0.7f;
-    [Tooltip("Speed on the WallSlideLoop Animator state (timing is handled by the Animator only).")]
     [SerializeField] float wallSlideLoopAnimSpeed = 0.8f;
-    [Tooltip("Clip length of Wall slide3.")]
     [SerializeField] float wallSlideLandingClipLength = 0.267f;
-    [Tooltip("Speed on the WallSlideLand Animator state. Used for the landing lock fallback timer.")]
     [SerializeField] float wallSlideLandingAnimSpeed = 0.5f;
     [SerializeField] int wallSlideWallMissLimit = 6;
     [SerializeField] float wallSlideReentryCooldown = 0.3f;
+    [SerializeField] float wallSlideJumpReentryCooldown = 0.8f;
+    [SerializeField] float wallSlideDoubleJumpReentryCooldown = 1.4f;
+    [SerializeField] float wallSlideDismountHoldTime = 0.2f;
+    [SerializeField] float wallSlideDismountInputThreshold = 0.1f;
+    [SerializeField] float wallSlideJumpAwayMultiplier = 0.6f;
+    [SerializeField] float wallSlideMinJumpAge = 0.2f;
+    [SerializeField] float wallSlideMinStartGroundClearance = 1.5f;
+    [SerializeField] float wallSlideMinDurationForLanding = 0.35f;
 
     [Header("Ladder Climb")]
     [SerializeField] float climbSpeed = 6f;
@@ -172,6 +173,10 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     private int _wallSlideWallMissCount;
     private float _flipBlockedUntil;
     private float _wallSlideReentryBlockedUntil;
+    private float _wallSlideDismountTimer;
+    private bool _postWallSlideJumpDoubleJumpPending;
+    private float _lastJumpTime = -999f;
+    private float _wallSlideStartTime;
     private Coroutine _wallSlideLandingRoutine;
 
     private static readonly int WallSlideIntroHash = Animator.StringToHash("WallSlideIntro");
@@ -240,6 +245,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         if (_isGrounded)
         {
             coyoteTimeCounter = coyoteTime;
+            _postWallSlideJumpDoubleJumpPending = false;
         }
         else
         {
@@ -476,17 +482,27 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     void GroundJump()
     {
+        _postWallSlideJumpDoubleJumpPending = false;
+        _lastJumpTime = Time.time;
         _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, jumpingPower);
         _animator.SetBool("isJumping", true);
         doubleJump = true;          
         coyoteTimeCounter = 0f;      
         jumpBufferCounter = 0f;      
     }
+
     void AirJump()
     {
+        if (_postWallSlideJumpDoubleJumpPending)
+        {
+            BlockWallSlideReentry(wallSlideDoubleJumpReentryCooldown);
+            _postWallSlideJumpDoubleJumpPending = false;
+        }
+
+        _lastJumpTime = Time.time;
         _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, jumpingPower);
         _animator.SetBool("isJumping", true);
-        doubleJump = false;          
+        doubleJump = false;
         jumpBufferCounter = 0f;
     }
 
@@ -559,6 +575,12 @@ public class PlayerController : MonoBehaviour, IDataPersistence
                 return false;
         }
 
+        if (Time.time - _lastJumpTime < wallSlideMinJumpAge)
+            return false;
+
+        if (GetGroundDistanceBelowFeet(wallSide) < wallSlideMinStartGroundClearance)
+            return false;
+
         return true;
     }
 
@@ -568,6 +590,8 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         _wallSlideWallSide = DetectAdjacentWallSide();
         _wallSlidePhase = WallSlidePhase.Intro;
         _wallSlideWallMissCount = 0;
+        _wallSlideDismountTimer = 0f;
+        _wallSlideStartTime = Time.time;
         jumpBufferCounter = 0f;
 
         _animator.SetBool("isJumping", false);
@@ -604,10 +628,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
             _wallSlideWallMissCount++;
             if (_wallSlideWallMissCount >= wallSlideWallMissLimit)
             {
-                if (IsWallSlideAtGround())
-                    BeginWallSlideLanding();
-                else
-                    EndWallSlide();
+                TryFinishWallSlideAtGround();
                 return;
             }
         }
@@ -618,9 +639,12 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
         if (IsWallSlideAtGround())
         {
-            BeginWallSlideLanding();
+            TryFinishWallSlideAtGround();
             return;
         }
+
+        if (TryDismountWallSlide())
+            return;
 
         SnapToWallSlide();
 
@@ -654,15 +678,68 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         _animator.SetInteger("wallSlidePhase", 1);
     }
 
+    private bool TryDismountWallSlide()
+    {
+        bool holdingAwayFromWall = (_wallSlideWallSide == 1 && _horizontal < -wallSlideDismountInputThreshold)
+            || (_wallSlideWallSide == -1 && _horizontal > wallSlideDismountInputThreshold);
+
+        if (!holdingAwayFromWall)
+        {
+            _wallSlideDismountTimer = 0f;
+            return false;
+        }
+
+        _wallSlideDismountTimer += Time.fixedDeltaTime;
+        if (_wallSlideDismountTimer < wallSlideDismountHoldTime)
+            return false;
+
+        DismountWallSlide();
+        return true;
+    }
+
+    private void DismountWallSlide()
+    {
+        int wallSide = _wallSlideWallSide;
+        int awayDir = -wallSide;
+        bool shouldFaceRight = awayDir > 0;
+
+        EndWallSlide();
+
+        if (_isFacingRight != shouldFaceRight)
+        {
+            _isFacingRight = shouldFaceRight;
+            ApplyFacing();
+        }
+
+        _flipBlockedUntil = Time.time + 0.15f;
+
+        float awaySpeed = awayDir * speed * GetSpeedMultiplier() * 0.35f;
+        _rb.linearVelocity = new Vector2(awaySpeed, Mathf.Min(_rb.linearVelocity.y, 0f));
+        _animator.SetBool("isJumping", false);
+    }
+
     private void JumpOffWallSlide()
     {
+        int awayDir = -_wallSlideWallSide;
+        float jumpX = awayDir * speed * GetSpeedMultiplier() * wallSlideJumpAwayMultiplier;
+
         _animator.SetBool("isJumping", true);
         _flipBlockedUntil = Time.time + 0.15f;
-        EndWallSlide();
-        _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, jumpingPower);
+        EndWallSlide(skipReentryCooldown: true);
+        BlockWallSlideReentry(wallSlideJumpReentryCooldown);
+        _postWallSlideJumpDoubleJumpPending = true;
+        _rb.linearVelocity = new Vector2(jumpX, jumpingPower);
         doubleJump = true;
         coyoteTimeCounter = 0f;
         jumpBufferCounter = 0f;
+    }
+
+    private void BlockWallSlideReentry(float duration)
+    {
+        _wallSlideReentryBlockedUntil = Mathf.Max(
+            _wallSlideReentryBlockedUntil,
+            Time.time + duration
+        );
     }
 
     private static float GetAnimPlaybackDuration(float clipLength, float animSpeed)
@@ -699,28 +776,49 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         _ignoredHazardCollision = ignore;
     }
 
-    private bool IsNearWallSlideGround()
+    private float GetGroundDistanceBelowFeet(int wallSide = 0)
     {
         if (groundCheck == null)
-            return false;
+            return float.MaxValue;
 
         Vector2 origin = groundCheck.position;
-        if (_wallSlideWallSide != 0)
-            origin.x -= _wallSlideWallSide * wallSlideGroundProbeWallOffset;
+        if (wallSide != 0)
+            origin.x -= wallSide * wallSlideGroundProbeWallOffset;
 
         RaycastHit2D hit = Physics2D.Raycast(
             origin,
             Vector2.down,
-            wallSlideLandingGroundDistance,
+            50f,
             groundLayer
         );
 
-        return hit.collider != null && hit.normal.y >= wallSlideFloorNormalMin;
+        if (hit.collider == null || hit.normal.y < wallSlideFloorNormalMin)
+            return float.MaxValue;
+
+        return hit.distance;
+    }
+
+    private bool IsNearWallSlideGround()
+    {
+        return GetGroundDistanceBelowFeet(_wallSlideWallSide) <= wallSlideLandingGroundDistance;
     }
 
     private bool IsWallSlideAtGround()
     {
         return IsNearWallSlideGround();
+    }
+
+    private bool ShouldPlayWallSlideLanding()
+    {
+        return Time.time - _wallSlideStartTime >= wallSlideMinDurationForLanding;
+    }
+
+    private void TryFinishWallSlideAtGround()
+    {
+        if (ShouldPlayWallSlideLanding())
+            BeginWallSlideLanding();
+        else
+            EndWallSlide();
     }
 
     private static bool HasFloorContact(Collision2D collision, float floorNormalMin)
@@ -742,7 +840,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         if (!HasFloorContact(collision, wallSlideFloorNormalMin))
             return;
 
-        BeginWallSlideLanding();
+        TryFinishWallSlideAtGround();
     }
 
     private void SnapToWallSlide()
@@ -826,7 +924,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         ApplyFacing();
     }
 
-    private void EndWallSlide()
+    private void EndWallSlide(bool skipReentryCooldown = false)
     {
         if (_movementState == MovementState.WallSlideLanding)
         {
@@ -844,7 +942,9 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         _wallSlidePhase = WallSlidePhase.Intro;
         _wallSlideWallSide = 0;
         _wallSlideWallMissCount = 0;
-        _wallSlideReentryBlockedUntil = Time.time + wallSlideReentryCooldown;
+        _wallSlideDismountTimer = 0f;
+        if (!skipReentryCooldown)
+            BlockWallSlideReentry(wallSlideReentryCooldown);
         _isTouchingWall = false;
         _wallDirection = 0;
         _animator.ResetTrigger("wallSlideStart");
@@ -1313,6 +1413,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
             _animator.SetBool("isJumping", false);
             doubleJump = false;
+            _postWallSlideJumpDoubleJumpPending = false;
         }
 
         DepenetrateFromWalls(collision);
@@ -1390,7 +1491,6 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         float newOffsetX = GetColliderOffsetX();
         _playerCollider.offset = new Vector2(newOffsetX, _playerCollider.offset.y);
 
-        // Offset sign flip teleports the collider; nudge transform so it stays put when near a wall
         if (DetectAdjacentWallSide() != 0)
         {
             transform.position += new Vector3(
