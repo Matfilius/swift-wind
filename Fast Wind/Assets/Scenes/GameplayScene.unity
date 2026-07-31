@@ -2379,8 +2379,8 @@ MonoBehaviour:
   wallSlideLandingAnimSpeed: 0.5
   wallSlideWallMissLimit: 6
   wallSlideReentryCooldown: 0.3
-  wallSlideJumpReentryCooldown: 0.8
-  wallSlideDoubleJumpReentryCooldown: 0.95
+  wallSlideJumpReentryCooldown: 0.75
+  wallSlideDoubleJumpReentryCooldown: 0.9
   wallSlideDismountHoldTime: 0.2
   wallSlideDismountInputThreshold: 0.1
   wallSlideJumpAwayMultiplier: 0.6
