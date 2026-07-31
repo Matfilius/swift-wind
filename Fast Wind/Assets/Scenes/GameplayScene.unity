@@ -2360,10 +2360,12 @@ MonoBehaviour:
   hangFineTune: {x: -0.15, y: -0.25}
   climbOverFineTune: {x: 0, y: 0.9}
   ledgeClimbCooldown: 0.2
+  ledgeMinJumpAge: 0.5
   mantleSnapPullBack: 0.12
   mantleStepForward: 0.1
   mantleHangVisualYOffset: -0.75
   mantleLandVisualYOffset: -1
+  mantleHazardProbeDuration: 0
   wallCheck: {fileID: 1528552974}
   wallCheckDistance: 0.2
   wallSlideSpeed: 4.5

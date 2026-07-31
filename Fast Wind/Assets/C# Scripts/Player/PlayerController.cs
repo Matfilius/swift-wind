@@ -61,7 +61,6 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     [SerializeField] float mantleStepForward = 0.1f;
     [SerializeField] float mantleHangVisualYOffset = -0.75f;
     [SerializeField] float mantleLandVisualYOffset = -1f;
-    [Tooltip("Extra time to keep the collider on after one physics step at mantle grab (0 = one step only).")]
     [SerializeField] float mantleHazardProbeDuration = 0f;
 
     [Header("Wall Slide")]
