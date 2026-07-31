@@ -126,9 +126,13 @@ public class WindController : MonoBehaviour
             lr.enabled = false;
     }
 
-    private bool IsObjectUnderPlayerFeet()
+    private bool ShouldBlockUpwardForce()
     {
-        return _playerController != null && _playerController.IsRigidbodyOverlappingGroundCheck(_heldObject);
+        if (_playerController == null || _heldObject == null)
+            return false;
+
+        return _playerController.IsRigidbodyOverlappingGroundCheck(_heldObject)
+            || _playerController.IsGrabbableWindLiftBlocked(_heldObject);
     }
 
     void FixedUpdate()
@@ -151,7 +155,7 @@ public class WindController : MonoBehaviour
         Vector2 toTarget = targetPos - _heldObject.position;
         Vector2 force = toTarget * followForce;
 
-        if (IsObjectUnderPlayerFeet())
+        if (ShouldBlockUpwardForce())
         {
             force.y = Mathf.Min(force.y, 0f);
         }

@@ -56,10 +56,13 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     [SerializeField] Vector2 hangFineTune;
     [SerializeField] Vector2 climbOverFineTune;
     [SerializeField] float ledgeClimbCooldown = 0.2f;
+    [SerializeField] float ledgeMinJumpAge = 0.5f;
     [SerializeField] float mantleSnapPullBack = 0.12f;
     [SerializeField] float mantleStepForward = 0.1f;
     [SerializeField] float mantleHangVisualYOffset = -0.75f;
     [SerializeField] float mantleLandVisualYOffset = -1f;
+    [Tooltip("Extra time to keep the collider on after one physics step at mantle grab (0 = one step only).")]
+    [SerializeField] float mantleHazardProbeDuration = 0f;
 
     [Header("Wall Slide")]
     [SerializeField] Transform wallCheck;           
@@ -114,6 +117,11 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     public Rigidbody2D Rigidbody => _rb;
     public Vector2 FeetPosition => groundCheck != null ? groundCheck.position : (Vector2)transform.position;
 
+    public bool IsGrabbableWindLiftBlocked(Rigidbody2D rb)
+    {
+        return rb != null && _launchedFromGrabbable != null && _launchedFromGrabbable == rb;
+    }
+
     public bool IsMovingToward(int direction)
     {
         if (direction == 0)
@@ -160,6 +168,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     private Vector2 _climbOverPosition;
     private Vector2 _ledgeHangPosition;
     private Coroutine _ledgeCooldownRoutine;
+    private Coroutine _mantleHazardProbeRoutine;
     private float _rollVisualDrop;
     private float _savedGravityScale;
     private RigidbodyType2D _savedBodyType;
@@ -178,6 +187,8 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     private float _lastJumpTime = -999f;
     private float _wallSlideStartTime;
     private Coroutine _wallSlideLandingRoutine;
+    private Rigidbody2D _lastGrabbableStoodOn;
+    private Rigidbody2D _launchedFromGrabbable;
 
     private static readonly int WallSlideIntroHash = Animator.StringToHash("WallSlideIntro");
     private static readonly int WallSlideLoopHash = Animator.StringToHash("WallSlideLoop");
@@ -230,12 +241,14 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         _rb.gravityScale = _defaultGravityScale;
         coyoteTimeCounter = coyoteTime;
         RefreshGrounded();
+        RefreshGrabbableWindBlock();
         RefreshClimbableZone();
     }
 
     private void Update()
     {
         RefreshGrounded();
+        RefreshGrabbableWindBlock();
         RefreshClimbableZone();
         RefreshDoubleJump();
 
@@ -272,6 +285,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     private void FixedUpdate()
     {
         RefreshGrounded();
+        RefreshGrabbableWindBlock();
         RefreshClimbableZone();
         RefreshDoubleJump();
 
@@ -485,6 +499,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     void GroundJump()
     {
         _postWallSlideJumpDoubleJumpPending = false;
+        _launchedFromGrabbable = GetGrabbableUnderFeet() ?? _lastGrabbableStoodOn;
         _lastJumpTime = Time.time;
         _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, jumpingPower);
         _animator.SetBool("isJumping", true);
@@ -1132,6 +1147,9 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         if (!_ledgeDetect.CurrentGrab.IsValid)
             return;
 
+        if (Time.time - _lastJumpTime < ledgeMinJumpAge)
+            return;
+
         if (_movementState == MovementState.WallSliding)
             EndWallSlide();
 
@@ -1164,6 +1182,10 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         transform.position = _ledgeHangPosition;
         Physics2D.SyncTransforms();
 
+        if (_mantleHazardProbeRoutine != null)
+            StopCoroutine(_mantleHazardProbeRoutine);
+        _mantleHazardProbeRoutine = StartCoroutine(MantleHazardProbeRoutine());
+
         _animator.SetBool("canClimb", true);
     }
 
@@ -1194,6 +1216,12 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         if (_movementState != MovementState.LedgeClimbing)
             return;
 
+        if (_mantleHazardProbeRoutine != null)
+        {
+            StopCoroutine(_mantleHazardProbeRoutine);
+            _mantleHazardProbeRoutine = null;
+        }
+
         _movementState = MovementState.Normal;
         _animator.SetBool("canClimb", false);
         transform.position = _climbOverPosition;
@@ -1211,6 +1239,22 @@ public class PlayerController : MonoBehaviour, IDataPersistence
             StopCoroutine(_ledgeCooldownRoutine);
 
         _ledgeCooldownRoutine = StartCoroutine(LedgeCooldownRoutine());
+    }
+
+    private IEnumerator MantleHazardProbeRoutine()
+    {
+        _playerCollider.enabled = _colliderWasEnabled;
+        Physics2D.SyncTransforms();
+
+        yield return new WaitForFixedUpdate();
+
+        if (mantleHazardProbeDuration > 0f)
+            yield return new WaitForSeconds(mantleHazardProbeDuration);
+
+        if (_movementState == MovementState.LedgeClimbing)
+            _playerCollider.enabled = false;
+
+        _mantleHazardProbeRoutine = null;
     }
 
     private IEnumerator LedgeCooldownRoutine()
@@ -1353,6 +1397,51 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         {
             doubleJump = true;
         }
+    }
+
+    private void RefreshGrabbableWindBlock()
+    {
+        Rigidbody2D grabbableUnderFeet = GetGrabbableUnderFeet();
+        if (grabbableUnderFeet != null)
+            _lastGrabbableStoodOn = grabbableUnderFeet;
+
+        if (_isGrounded && grabbableUnderFeet == null)
+        {
+            _launchedFromGrabbable = null;
+            _lastGrabbableStoodOn = null;
+        }
+    }
+
+    private Rigidbody2D GetGrabbableUnderFeet()
+    {
+        if (groundCheck == null)
+            return null;
+
+        ContactFilter2D filter = ContactFilter2D.noFilter;
+        filter.useTriggers = true;
+
+        Collider2D[] results = new Collider2D[16];
+        int count = Physics2D.OverlapCapsule(
+            GetGroundCheckProbeCenter(),
+            groundCheckSize,
+            CapsuleDirection2D.Horizontal,
+            0f,
+            filter,
+            results
+        );
+
+        for (int i = 0; i < count; i++)
+        {
+            GrabbableObject grabbable = results[i].GetComponentInParent<GrabbableObject>();
+            if (grabbable == null)
+                continue;
+
+            Rigidbody2D rb = grabbable.GetComponent<Rigidbody2D>();
+            if (rb != null)
+                return rb;
+        }
+
+        return null;
     }
 
     private bool CheckGrounded()
