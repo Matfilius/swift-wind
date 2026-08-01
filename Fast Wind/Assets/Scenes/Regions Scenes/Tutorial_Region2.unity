@@ -200,8 +200,8 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1155849631
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
@@ -9814,7 +9814,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 19
-      m_TileSpriteIndex: 19
+      m_TileSpriteIndex: 23
       m_TileMatrixIndex: 2
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -12319,16 +12319,16 @@ Tilemap:
     m_Data: {fileID: -742571839, guid: f084147685fe9b246aff6beab2f635c8, type: 3}
   - m_RefCount: 116
     m_Data: {fileID: 1334759808, guid: f084147685fe9b246aff6beab2f635c8, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: -843928238, guid: f084147685fe9b246aff6beab2f635c8, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 20
     m_Data: {fileID: 1562175752, guid: f084147685fe9b246aff6beab2f635c8, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: -1302249462, guid: f084147685fe9b246aff6beab2f635c8, type: 3}
   - m_RefCount: 799
     m_Data: {fileID: -1891154234, guid: f084147685fe9b246aff6beab2f635c8, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: -843928238, guid: f084147685fe9b246aff6beab2f635c8, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 0
     m_Data:
@@ -12812,8 +12812,8 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1155849631
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
@@ -13898,8 +13898,8 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1155849631
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
