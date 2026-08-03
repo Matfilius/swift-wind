@@ -3,52 +3,28 @@ using UnityEngine;
 
 public class BackgroundController : MonoBehaviour
 {
-    private float startPosX;
-    private float startPosY;
+    private float startLocalPosX;
+    private float startLocalPosY;
     private float camStartPosX;
     private float camStartPosY;
     private float length;
     private Transform cam;
+    private bool initialized;
     private bool useCinemachineCallback;
 
     [Header("Horizontal Parallax")]
-    [Tooltip("1 = fixed on screen horizontally. Lower = moves faster.")]
     public float parallaxEffect = 0.8f;
 
     [Header("Vertical Parallax")]
-    [Tooltip("Clouds/sun: on with high vertical effect. Region layers: optional, use a small value like 0.1.")]
     public bool followCameraY;
 
-    [Tooltip("1 = fully tracks camera height. Lower values drift less vertically.")]
     [Range(0f, 1f)]
     public float verticalParallaxEffect = 1f;
-
-    [Tooltip("Fixed height above camera center. Mainly for sun and clouds.")]
     public float yOffsetFromCamera;
 
     [Header("Infinite Scroll")]
-    [Tooltip("Enable for global layers like clouds. Disable for region layers that use hand-placed duplicates.")]
     public bool infiniteScroll;
-
-    [Tooltip("Distance between loop copies. Required when infinite scroll is on and this object has no SpriteRenderer.")]
     public float scrollWidth;
-
-    void Start()
-    {
-        if (Camera.main == null)
-            return;
-
-        cam = Camera.main.transform;
-        camStartPosX = cam.position.x;
-        camStartPosY = cam.position.y;
-        startPosX = transform.position.x;
-        startPosY = transform.position.y;
-
-        if (scrollWidth > 0f)
-            length = scrollWidth;
-        else if (TryGetComponent(out SpriteRenderer spriteRenderer))
-            length = spriteRenderer.bounds.size.x;
-    }
 
     void OnEnable()
     {
@@ -74,40 +50,62 @@ public class BackgroundController : MonoBehaviour
         if (brain == null || !brain.isActiveAndEnabled || Camera.main == null)
             return;
 
-        cam = Camera.main.transform;
         ApplyParallax();
+    }
+
+    void EnsureInitialized()
+    {
+        if (initialized || Camera.main == null)
+            return;
+
+        cam = Camera.main.transform;
+        camStartPosX = cam.position.x;
+        camStartPosY = cam.position.y;
+        startLocalPosX = transform.localPosition.x;
+        startLocalPosY = transform.localPosition.y;
+
+        if (scrollWidth > 0f)
+            length = scrollWidth;
+        else if (TryGetComponent(out SpriteRenderer spriteRenderer))
+            length = spriteRenderer.bounds.size.x;
+
+        initialized = true;
     }
 
     void ApplyParallax()
     {
-        if (cam == null)
+        EnsureInitialized();
+        if (!initialized || cam == null)
             return;
 
         float camDeltaX = cam.position.x - camStartPosX;
-        float x = startPosX + camDeltaX * parallaxEffect;
-        float y = transform.position.y;
+        float localX = startLocalPosX + camDeltaX * parallaxEffect;
+        Vector3 localPos = transform.localPosition;
+        localPos.x = localX;
 
         if (followCameraY)
         {
+            float parentWorldY = transform.parent != null ? transform.parent.position.y : 0f;
+
             if (verticalParallaxEffect >= 1f)
-                y = cam.position.y + yOffsetFromCamera;
+                localPos.y = cam.position.y + yOffsetFromCamera - parentWorldY;
             else
             {
                 float camDeltaY = cam.position.y - camStartPosY;
-                y = startPosY + camDeltaY * verticalParallaxEffect + yOffsetFromCamera;
+                localPos.y = startLocalPosY + camDeltaY * verticalParallaxEffect + yOffsetFromCamera;
             }
         }
 
-        transform.position = new Vector3(x, y, transform.position.z);
+        transform.localPosition = localPos;
 
         if (!infiniteScroll || parallaxEffect >= 1f || length <= 0f)
             return;
 
         float movement = camDeltaX * (1f - parallaxEffect);
 
-        if (movement > startPosX + length)
-            startPosX += length;
-        else if (movement < startPosX - length)
-            startPosX -= length;
+        if (movement > startLocalPosX + length)
+            startLocalPosX += length;
+        else if (movement < startLocalPosX - length)
+            startLocalPosX -= length;
     }
 }

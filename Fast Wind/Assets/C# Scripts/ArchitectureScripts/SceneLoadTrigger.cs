@@ -15,11 +15,11 @@ public class SceneLoadTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject == player)
-        {
-            LoadScenes();
-            UnloadScenes();
-        }
+        if (collision.gameObject != player)
+            return;
+
+        LoadScenes();
+        UnloadScenes();
     }
 
     private void LoadScenes()
