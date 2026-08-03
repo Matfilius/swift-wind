@@ -47,11 +47,32 @@ TagManager:
   - name: 2Clouds
     uniqueID: 2642949683
     locked: 0
+  - name: 3Background
+    uniqueID: 2998365823
+    locked: 0
+  - name: 4Far Trees
+    uniqueID: 1721163947
+    locked: 0
+  - name: 5Medium Trees
+    uniqueID: 29474747
+    locked: 0
+  - name: 6Close Grass
+    uniqueID: 3852207173
+    locked: 0
+  - name: 7Close Trees
+    uniqueID: 3909745731
+    locked: 0
+  - name: Ground
+    uniqueID: 3750774433
+    locked: 0
   - name: Player
     uniqueID: 2861017225
     locked: 0
-  - name: Ground
+  - name: 8Foreground
     uniqueID: 3139117665
+    locked: 0
+  - name: Projectiles
+    uniqueID: 3310637999
     locked: 0
   m_RenderingLayers:
   - Default
