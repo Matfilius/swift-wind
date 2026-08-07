@@ -440,8 +440,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BackgroundController
   parallaxEffect: 0.35
-  followCameraY: 0
-  verticalParallaxEffect: 1
+  followCameraY: 1
+  verticalParallaxEffect: 0.12
   yOffsetFromCamera: 0
   infiniteScroll: 0
   scrollWidth: 0
@@ -16402,8 +16402,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BackgroundController
   parallaxEffect: 0.45
-  followCameraY: 0
-  verticalParallaxEffect: 1
+  followCameraY: 1
+  verticalParallaxEffect: 0.14
   yOffsetFromCamera: 0
   infiniteScroll: 0
   scrollWidth: 0
@@ -18331,8 +18331,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BackgroundController
   parallaxEffect: 0.35
-  followCameraY: 0
-  verticalParallaxEffect: 1
+  followCameraY: 1
+  verticalParallaxEffect: 0.12
   yOffsetFromCamera: 0
   infiniteScroll: 0
   scrollWidth: 0
@@ -18841,8 +18841,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BackgroundController
   parallaxEffect: 0.7
-  followCameraY: 0
-  verticalParallaxEffect: 1
+  followCameraY: 1
+  verticalParallaxEffect: 0.2
   yOffsetFromCamera: 0
   infiniteScroll: 0
   scrollWidth: 0
@@ -19047,8 +19047,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BackgroundController
   parallaxEffect: 0.5
-  followCameraY: 0
-  verticalParallaxEffect: 1
+  followCameraY: 1
+  verticalParallaxEffect: 0.15
   yOffsetFromCamera: 0
   infiniteScroll: 0
   scrollWidth: 0
@@ -19158,8 +19158,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BackgroundController
   parallaxEffect: 0.35
-  followCameraY: 0
-  verticalParallaxEffect: 1
+  followCameraY: 1
+  verticalParallaxEffect: 0.12
   yOffsetFromCamera: 0
   infiniteScroll: 0
   scrollWidth: 0
@@ -19546,8 +19546,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BackgroundController
   parallaxEffect: 0.6
-  followCameraY: 0
-  verticalParallaxEffect: 0.1
+  followCameraY: 1
+  verticalParallaxEffect: 0.19
   yOffsetFromCamera: 0
   infiniteScroll: 0
   scrollWidth: 0
@@ -19752,8 +19752,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BackgroundController
   parallaxEffect: 0.1
-  followCameraY: 0
-  verticalParallaxEffect: 1
+  followCameraY: 1
+  verticalParallaxEffect: 0.1
   yOffsetFromCamera: 0
   infiniteScroll: 0
   scrollWidth: 0

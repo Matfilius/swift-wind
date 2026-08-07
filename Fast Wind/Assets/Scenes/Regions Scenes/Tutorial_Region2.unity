@@ -10999,8 +10999,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BackgroundController
   parallaxEffect: 0.35
-  followCameraY: 0
-  verticalParallaxEffect: 1
+  followCameraY: 1
+  verticalParallaxEffect: 0.12
   yOffsetFromCamera: 0
   infiniteScroll: 0
   scrollWidth: 0
@@ -11117,8 +11117,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BackgroundController
   parallaxEffect: 0.1
-  followCameraY: 0
-  verticalParallaxEffect: 1
+  followCameraY: 1
+  verticalParallaxEffect: 0.1
   yOffsetFromCamera: 0
   infiniteScroll: 0
   scrollWidth: 0
@@ -11234,7 +11234,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BackgroundController
   parallaxEffect: 0.45
   followCameraY: 0
-  verticalParallaxEffect: 1
+  verticalParallaxEffect: 0.14
   yOffsetFromCamera: 0
   infiniteScroll: 0
   scrollWidth: 0
@@ -11326,14 +11326,14 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 442539313}
-  - {fileID: 1671838699}
-  - {fileID: 702193605}
-  - {fileID: 2088178986}
   - {fileID: 929995261}
-  - {fileID: 433828585}
+  - {fileID: 1671838699}
+  - {fileID: 2088178986}
   - {fileID: 444308438}
+  - {fileID: 433828585}
+  - {fileID: 702193605}
   - {fileID: 1258761304}
+  - {fileID: 442539313}
   - {fileID: 1272888654}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12339,8 +12339,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BackgroundController
   parallaxEffect: 0.35
-  followCameraY: 0
-  verticalParallaxEffect: 1
+  followCameraY: 1
+  verticalParallaxEffect: 0.12
   yOffsetFromCamera: 0
   infiniteScroll: 0
   scrollWidth: 0
@@ -12818,8 +12818,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BackgroundController
   parallaxEffect: 0.7
-  followCameraY: 0
-  verticalParallaxEffect: 1
+  followCameraY: 1
+  verticalParallaxEffect: 0.2
   yOffsetFromCamera: 0
   infiniteScroll: 0
   scrollWidth: 0
@@ -13246,6 +13246,98 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &1174394375
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1174394378}
+  - component: {fileID: 1174394376}
+  - component: {fileID: 1174394377}
+  m_Layer: 9
+  m_Name: SpearTip
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!61 &1174394376
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1174394375}
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.3495058, y: -0.21392372}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.45120996, y: 0.39793593}
+  m_EdgeRadius: 0
+--- !u!114 &1174394377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1174394375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b277eb53af27254b876e3b8ed36c773, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  attack: {fileID: 2079656346}
+--- !u!4 &1174394378
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1174394375}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2079656339}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1175192223
 GameObject:
   m_ObjectHideFlags: 0
@@ -13386,8 +13478,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BackgroundController
   parallaxEffect: 0.35
-  followCameraY: 0
-  verticalParallaxEffect: 1
+  followCameraY: 1
+  verticalParallaxEffect: 0.12
   yOffsetFromCamera: 0
   infiniteScroll: 0
   scrollWidth: 0
@@ -13642,8 +13734,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1307633777}
   - component: {fileID: 1307633778}
-  - component: {fileID: 1307633779}
   - component: {fileID: 1307633780}
+  - component: {fileID: 1307633781}
   m_Layer: 9
   m_Name: DetectionZone
   m_TagString: Untagged
@@ -13712,18 +13804,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.29619744, y: 0.4617257}
   m_EdgeRadius: 0
---- !u!114 &1307633779
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1307633776}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5beaf3637d61ea24a86dd161501aac0e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Attack
 --- !u!95 &1307633780
 Animator:
   serializedVersion: 7
@@ -13746,6 +13826,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1307633781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1307633776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b35ecd2d20a5754da32d185fc75a7d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Attack
+  animator: {fileID: 2079656341}
+  spearHitbox: {fileID: 1174394376}
+  damage: 30
 --- !u!1 &1326916389
 GameObject:
   m_ObjectHideFlags: 0
@@ -14880,8 +14975,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BackgroundController
   parallaxEffect: 0.6
-  followCameraY: 0
-  verticalParallaxEffect: 0.1
+  followCameraY: 1
+  verticalParallaxEffect: 0.19
   yOffsetFromCamera: 0
   infiniteScroll: 0
   scrollWidth: 0
@@ -16184,8 +16279,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1433950071
+  m_SortingLayer: 9
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7583518370384637660, guid: e6de79cfabf1f85458f166f70f0f3024, type: 3}
@@ -16213,6 +16308,7 @@ Transform:
   m_Children:
   - {fileID: 1307633777}
   - {fileID: 1569485528}
+  - {fileID: 1174394378}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &2079656341
@@ -16335,6 +16431,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b35ecd2d20a5754da32d185fc75a7d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Attack
+  animator: {fileID: 2079656341}
+  spearHitbox: {fileID: 1174394376}
+  damage: 30
 --- !u!1 &2088178985
 GameObject:
   m_ObjectHideFlags: 0
@@ -16386,8 +16485,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BackgroundController
   parallaxEffect: 0.5
-  followCameraY: 0
-  verticalParallaxEffect: 1
+  followCameraY: 1
+  verticalParallaxEffect: 0.15
   yOffsetFromCamera: 0
   infiniteScroll: 0
   scrollWidth: 0
