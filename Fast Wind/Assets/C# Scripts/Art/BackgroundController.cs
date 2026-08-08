@@ -3,15 +3,6 @@ using UnityEngine;
 
 public class BackgroundController : MonoBehaviour
 {
-    private float startLocalPosX;
-    private float startLocalPosY;
-    private float camStartPosX;
-    private float camStartPosY;
-    private float length;
-    private Transform cam;
-    private bool initialized;
-    private bool useCinemachineCallback;
-
     [Header("Horizontal Parallax")]
     public float parallaxEffect = 0.8f;
 
@@ -26,86 +17,76 @@ public class BackgroundController : MonoBehaviour
     public bool infiniteScroll;
     public float scrollWidth;
 
-    void OnEnable()
+    private Vector2 designPos;
+    private float camStartY;
+    private bool camStartYSet;
+    private bool cinemachineDriven;
+
+    private void Awake()
     {
-        useCinemachineCallback = FindFirstObjectByType<CinemachineBrain>() != null;
-        if (useCinemachineCallback)
+        designPos = transform.position;
+    }
+
+    private void OnEnable()
+    {
+        cinemachineDriven = FindFirstObjectByType<CinemachineBrain>() != null;
+
+        if (cinemachineDriven)
             CinemachineCore.CameraUpdatedEvent.AddListener(OnCameraUpdated);
     }
 
-    void OnDisable()
+    private void OnDisable()
     {
-        if (useCinemachineCallback)
+        if (cinemachineDriven)
             CinemachineCore.CameraUpdatedEvent.RemoveListener(OnCameraUpdated);
     }
 
-    void LateUpdate()
+    private void LateUpdate()
     {
-        if (!useCinemachineCallback)
+        if (!cinemachineDriven)
             ApplyParallax();
     }
 
-    void OnCameraUpdated(CinemachineBrain brain)
+    private void OnCameraUpdated(CinemachineBrain brain)
     {
-        if (brain == null || !brain.isActiveAndEnabled || Camera.main == null)
-            return;
-
-        ApplyParallax();
+        if (brain != null && brain.isActiveAndEnabled)
+            ApplyParallax();
     }
 
-    void EnsureInitialized()
+    private void ApplyParallax()
     {
-        if (initialized || Camera.main == null)
+        Camera mainCamera = Camera.main;
+        if (mainCamera == null)
             return;
 
-        cam = Camera.main.transform;
-        camStartPosX = cam.position.x;
-        camStartPosY = cam.position.y;
-        startLocalPosX = transform.localPosition.x;
-        startLocalPosY = transform.localPosition.y;
+        Vector3 camPos = mainCamera.transform.position;
 
-        if (scrollWidth > 0f)
-            length = scrollWidth;
-        else if (TryGetComponent(out SpriteRenderer spriteRenderer))
-            length = spriteRenderer.bounds.size.x;
+        if (!camStartYSet)
+        {
+            camStartY = camPos.y;
+            camStartYSet = true;
+        }
 
-        initialized = true;
-    }
+        Vector3 pos = transform.position;
 
-    void ApplyParallax()
-    {
-        EnsureInitialized();
-        if (!initialized || cam == null)
-            return;
-
-        float camDeltaX = cam.position.x - camStartPosX;
-        float localX = startLocalPosX + camDeltaX * parallaxEffect;
-        Vector3 localPos = transform.localPosition;
-        localPos.x = localX;
+        if (infiniteScroll && scrollWidth > 0f)
+        {
+            float scrollOffset = scrollWidth * Mathf.Floor(camPos.x * (1f - parallaxEffect) / scrollWidth);
+            pos.x = designPos.x + camPos.x * parallaxEffect + scrollOffset;
+        }
+        else
+        {
+            pos.x = designPos.x + camPos.x * parallaxEffect;
+        }
 
         if (followCameraY)
         {
-            float parentWorldY = transform.parent != null ? transform.parent.position.y : 0f;
-
             if (verticalParallaxEffect >= 1f)
-                localPos.y = cam.position.y + yOffsetFromCamera - parentWorldY;
+                pos.y = camPos.y + yOffsetFromCamera;
             else
-            {
-                float camDeltaY = cam.position.y - camStartPosY;
-                localPos.y = startLocalPosY + camDeltaY * verticalParallaxEffect + yOffsetFromCamera;
-            }
+                pos.y = designPos.y + (camPos.y - camStartY) * verticalParallaxEffect + yOffsetFromCamera;
         }
 
-        transform.localPosition = localPos;
-
-        if (!infiniteScroll || parallaxEffect >= 1f || length <= 0f)
-            return;
-
-        float movement = camDeltaX * (1f - parallaxEffect);
-
-        if (movement > startLocalPosX + length)
-            startLocalPosX += length;
-        else if (movement < startLocalPosX - length)
-            startLocalPosX -= length;
+        transform.position = pos;
     }
 }
