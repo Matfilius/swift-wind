@@ -3596,7 +3596,6 @@ MonoBehaviour:
   mantleStepForward: 0.1
   mantleHangVisualYOffset: -0.75
   mantleLandVisualYOffset: -1
-  mantleHazardProbeDuration: 0
   wallCheck: {fileID: 1528552974}
   wallCheckDistance: 0.2
   wallSlideSpeed: 4.5

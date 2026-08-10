@@ -9,7 +9,6 @@ public class HazardDamage : MonoBehaviour
         if (!collision.gameObject.CompareTag("Player"))
             return;
 
-        if (HealthManager.Instance != null)
-            HealthManager.Instance.TakeDamage(damage);
+        HealthManager.Instance?.TakeDamage(damage);
     }
 }

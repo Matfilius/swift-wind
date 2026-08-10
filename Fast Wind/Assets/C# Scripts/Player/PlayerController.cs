@@ -61,7 +61,6 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     [SerializeField] float mantleStepForward = 0.1f;
     [SerializeField] float mantleHangVisualYOffset = -0.75f;
     [SerializeField] float mantleLandVisualYOffset = -1f;
-    [SerializeField] float mantleHazardProbeDuration = 0f;
 
     [Header("Wall Slide")]
     [SerializeField] Transform wallCheck;           
@@ -167,7 +166,6 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     private Vector2 _climbOverPosition;
     private Vector2 _ledgeHangPosition;
     private Coroutine _ledgeCooldownRoutine;
-    private Coroutine _mantleHazardProbeRoutine;
     private float _rollVisualDrop;
     private float _savedGravityScale;
     private RigidbodyType2D _savedBodyType;
@@ -1164,10 +1162,18 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     private void BeginLedgeClimb(LedgeGrabInfo grab)
     {
         _canGrabLedge = false;
-        _movementState = MovementState.LedgeClimbing;
 
         int facing = FacingSign;
         ComputeMantlePositions(grab.LedgeTop, facing, out _ledgeHangPosition, out _climbOverPosition);
+
+        if (IsOverlappingSpikesAt(_ledgeHangPosition) || IsOverlappingSpikesAt(_climbOverPosition))
+        {
+            HealthManager.Instance?.TakeDamage(200f);
+            _canGrabLedge = true;
+            return;
+        }
+
+        _movementState = MovementState.LedgeClimbing;
 
         _savedGravityScale = _rb.gravityScale;
         _savedBodyType = _rb.bodyType;
@@ -1181,11 +1187,21 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         transform.position = _ledgeHangPosition;
         Physics2D.SyncTransforms();
 
-        if (_mantleHazardProbeRoutine != null)
-            StopCoroutine(_mantleHazardProbeRoutine);
-        _mantleHazardProbeRoutine = StartCoroutine(MantleHazardProbeRoutine());
-
         _animator.SetBool("canClimb", true);
+    }
+
+    private bool IsOverlappingSpikesAt(Vector2 transformPosition)
+    {
+        Vector2 center = transformPosition + _playerCollider.offset;
+        Collider2D[] hits = Physics2D.OverlapBoxAll(center, _playerCollider.size, 0f);
+
+        for (int i = 0; i < hits.Length; i++)
+        {
+            if (hits[i].GetComponentInParent<HazardDamage>() != null)
+                return true;
+        }
+
+        return false;
     }
 
     private void ComputeMantlePositions(Vector2 ledgeTop, int facing, out Vector2 hang, out Vector2 climbOver)
@@ -1215,12 +1231,6 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         if (_movementState != MovementState.LedgeClimbing)
             return;
 
-        if (_mantleHazardProbeRoutine != null)
-        {
-            StopCoroutine(_mantleHazardProbeRoutine);
-            _mantleHazardProbeRoutine = null;
-        }
-
         _movementState = MovementState.Normal;
         _animator.SetBool("canClimb", false);
         transform.position = _climbOverPosition;
@@ -1238,22 +1248,6 @@ public class PlayerController : MonoBehaviour, IDataPersistence
             StopCoroutine(_ledgeCooldownRoutine);
 
         _ledgeCooldownRoutine = StartCoroutine(LedgeCooldownRoutine());
-    }
-
-    private IEnumerator MantleHazardProbeRoutine()
-    {
-        _playerCollider.enabled = _colliderWasEnabled;
-        Physics2D.SyncTransforms();
-
-        yield return new WaitForFixedUpdate();
-
-        if (mantleHazardProbeDuration > 0f)
-            yield return new WaitForSeconds(mantleHazardProbeDuration);
-
-        if (_movementState == MovementState.LedgeClimbing)
-            _playerCollider.enabled = false;
-
-        _mantleHazardProbeRoutine = null;
     }
 
     private IEnumerator LedgeCooldownRoutine()
