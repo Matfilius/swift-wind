@@ -33,6 +33,9 @@ AnimatorStateMachine:
   - serializedVersion: 1
     m_State: {fileID: 2591686158211351}
     m_Position: {x: 590, y: 290, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 6350909039855626871}
+    m_Position: {x: 625, y: 355, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: 2062976137350699314}
@@ -610,6 +613,32 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: 89d8007510e29bb48b7aa28ce81cc3b1, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
+--- !u!1102 &6350909039855626871
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Sudden Attack 2
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: a48cbcb588f4dcc448c24396037e163a, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
