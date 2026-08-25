@@ -189,6 +189,15 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     private static readonly int WallSlideIntroHash = Animator.StringToHash("WallSlideIntro");
     private static readonly int WallSlideLoopHash = Animator.StringToHash("WallSlideLoop");
+    private static readonly int SuddenAttackHash = Animator.StringToHash("Sudden Attack");
+    private static readonly int SuddenAttack2Hash = Animator.StringToHash("Sudden Attack 2");
+    private static readonly int AttackButtonHash = Animator.StringToHash("Attack_button");
+    private static readonly int ComboQueuedHash = Animator.StringToHash("comboQueued");
+    private static readonly int IsAttackingHash = Animator.StringToHash("isAttacking");
+    private static readonly int MovementHash = Animator.StringToHash("Movement");
+    private bool _comboReadyToConsume;
+    private bool _attackActive;
+    private bool _enteredAttackAnimation;
     private int _hazardsLayer;
     private bool _ignoredHazardCollision;
     private readonly Dictionary<int, float> _slowZones = new();
@@ -264,6 +273,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         }
 
         TryStartLadderClimb();
+        UpdateAttackState();
 
         if (_movementState == MovementState.LedgeClimbing)
             transform.position = _ledgeHangPosition;
@@ -335,7 +345,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         if (_movementState == MovementState.Normal && ShouldStartWallSlide())
             BeginWallSlide();
 
-        float targetX = _horizontal * speed * GetSpeedMultiplier();
+        float targetX = IsGroundAttackLocked() ? 0f : _horizontal * speed * GetSpeedMultiplier();
         float targetY = _rb.linearVelocity.y;
         if (!IsTouchingClimbable())
         {
@@ -369,6 +379,99 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     {
         _animator.SetFloat("xVelocity", Math.Abs(_rb.linearVelocity.x));
         _animator.SetFloat("yVelocity", _rb.linearVelocity.y);
+    }
+
+    private bool IsAttacking()
+    {
+        return _attackActive
+            || IsInAttackState(SuddenAttackHash)
+            || IsInAttackState(SuddenAttack2Hash);
+    }
+
+    private bool IsGroundAttackLocked()
+    {
+        return IsAttacking() && _isGrounded;
+    }
+
+    private bool IsInAttackState(int stateHash)
+    {
+        if (_animator.GetCurrentAnimatorStateInfo(0).shortNameHash == stateHash)
+            return true;
+
+        return _animator.IsInTransition(0)
+            && _animator.GetNextAnimatorStateInfo(0).shortNameHash == stateHash;
+    }
+
+    private void UpdateAttackState()
+    {
+        bool inAttack = IsInAttackState(SuddenAttackHash) || IsInAttackState(SuddenAttack2Hash);
+
+        if (_attackActive)
+        {
+            _animator.SetBool(IsAttackingHash, true);
+            if (inAttack)
+                _enteredAttackAnimation = true;
+            else if (_enteredAttackAnimation)
+                EndAttackTracking();
+        }
+        else
+        {
+            _animator.SetBool(IsAttackingHash, false);
+        }
+
+        AnimatorStateInfo state = _animator.GetCurrentAnimatorStateInfo(0);
+        bool inSwing = state.shortNameHash == SuddenAttack2Hash;
+        if (!inSwing)
+        {
+            _comboReadyToConsume = false;
+            return;
+        }
+
+        float normalizedTime = state.normalizedTime;
+        if (normalizedTime >= 1f)
+            return;
+
+        if (!_comboReadyToConsume && normalizedTime < 0.25f)
+        {
+            _animator.SetBool(ComboQueuedHash, false);
+            _comboReadyToConsume = true;
+        }
+        else if (normalizedTime >= 0.25f)
+        {
+            _comboReadyToConsume = false;
+        }
+    }
+
+    private void BeginAttack()
+    {
+        _attackActive = true;
+        _enteredAttackAnimation = false;
+        _animator.SetBool(IsAttackingHash, true);
+        _animator.SetBool(ComboQueuedHash, false);
+        _animator.ResetTrigger(AttackButtonHash);
+        _animator.Play(SuddenAttackHash, 0, 0f);
+
+        if (_isGrounded)
+            _rb.linearVelocity = new Vector2(0f, _rb.linearVelocity.y);
+    }
+
+    private void EndAttackTracking()
+    {
+        _attackActive = false;
+        _enteredAttackAnimation = false;
+        _comboReadyToConsume = false;
+        _animator.SetBool(IsAttackingHash, false);
+        _animator.SetBool(ComboQueuedHash, false);
+        _animator.ResetTrigger(AttackButtonHash);
+    }
+
+    private void CancelAttack()
+    {
+        bool wasInAttack = IsInAttackState(SuddenAttackHash) || IsInAttackState(SuddenAttack2Hash);
+        EndAttackTracking();
+
+        if (wasInAttack)
+            _animator.Play(MovementHash, 0, 0f);
     }
 
     #region Slow Effects
@@ -418,14 +521,35 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     public void Dash(InputAction.CallbackContext context)
     {
-        if (context.performed && _movementState == MovementState.Normal && IsGrounded)
+        if (context.performed && _movementState == MovementState.Normal && IsGrounded && !IsAttacking())
             StartCoroutine(DashRoutine());
     }
 
     public void Roll(InputAction.CallbackContext context)
     {
-        if (context.performed && _movementState == MovementState.Normal && IsGrounded)
+        if (context.performed && _movementState == MovementState.Normal && IsGrounded && !IsAttacking())
             StartCoroutine(RollRoutine());
+    }
+
+    public void Attack(InputAction.CallbackContext context)
+    {
+        if (!context.started)
+            return;
+
+        if (_movementState != MovementState.Normal)
+            return;
+
+        AnimatorStateInfo state = _animator.GetCurrentAnimatorStateInfo(0);
+        if (state.shortNameHash == SuddenAttack2Hash)
+        {
+            _animator.SetBool(ComboQueuedHash, true);
+            return;
+        }
+
+        if (IsAttacking())
+            return;
+
+        BeginAttack();
     }
 
     public void Jump(InputAction.CallbackContext context)
@@ -495,6 +619,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     void GroundJump()
     {
+        CancelAttack();
         _postWallSlideJumpDoubleJumpPending = false;
         _launchedFromGrabbable = GetGrabbableUnderFeet() ?? _lastGrabbableStoodOn;
         _lastJumpTime = Time.time;
@@ -513,6 +638,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
             _postWallSlideJumpDoubleJumpPending = false;
         }
 
+        CancelAttack();
         _lastJumpTime = Time.time;
         _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, jumpingPower);
         _animator.SetBool("isJumping", true);
@@ -571,6 +697,9 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         if (_inClimbableZone || IsGrounded)
             return false;
 
+        if (IsAttacking())
+            return false;
+
         if (Time.time < _wallSlideReentryBlockedUntil)
             return false;
 
@@ -608,6 +737,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         _wallSlideStartTime = Time.time;
         jumpBufferCounter = 0f;
 
+        CancelAttack();
         _animator.SetBool("isJumping", false);
         _animator.SetBool("isWallSliding", true);
         _animator.SetInteger("wallSlidePhase", 0);
@@ -1011,6 +1141,8 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         _isTouchingWall = false;
         _wallDirection = 0;
 
+        CancelAttack();
+
         if (_ledgeDetect != null)
             _ledgeDetect.ClearBufferedGrab();
     }
@@ -1175,6 +1307,8 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
         _movementState = MovementState.LedgeClimbing;
 
+        CancelAttack();
+
         _savedGravityScale = _rb.gravityScale;
         _savedBodyType = _rb.bodyType;
         _colliderWasEnabled = _playerCollider.enabled;
@@ -1267,6 +1401,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     private IEnumerator RollRoutine()
     {
         _movementState = MovementState.Rolling;
+        CancelAttack();
         _animator.SetBool("roll", true);
 
         float targetHeight = _originalColliderSize.y * rollColliderHeightScale;
@@ -1350,6 +1485,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     private IEnumerator DashRoutine()
     {
         _movementState = MovementState.Dashing;
+        CancelAttack();
 
         float dashDirection = _isFacingRight ? 1f : -1f;
         _rb.linearVelocity = new Vector2(dashDirection * dashLenght, 0f);
@@ -1570,7 +1706,8 @@ public class PlayerController : MonoBehaviour, IDataPersistence
             || _movementState == MovementState.WallSliding
             || _movementState == MovementState.WallSlideLanding
             || _climbLock
-            || Time.time < _flipBlockedUntil)
+            || Time.time < _flipBlockedUntil
+            || IsGroundAttackLocked())
             return;
 
         if ((_isFacingRight && _horizontalInput < 0f) || (!_isFacingRight && _horizontalInput > 0f))
