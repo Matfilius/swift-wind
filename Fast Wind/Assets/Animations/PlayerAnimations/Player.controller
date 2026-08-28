@@ -35,7 +35,7 @@ AnimatorStateMachine:
     m_Position: {x: 590, y: 290, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6350909039855626871}
-    m_Position: {x: 625, y: 355, z: 0}
+    m_Position: {x: 620, y: 360, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: -892514865689995780}
@@ -640,7 +640,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Sudden Attack 2
-  m_Speed: 1
+  m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 8901234567890123502}

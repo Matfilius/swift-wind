@@ -52,6 +52,9 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     [SerializeField] float groundCheckProbeLift = 0.04f;
     [SerializeField] float wallDepenetrateDistance = 0.03f;
 
+    [Header("Attacking")]
+    [SerializeField] Transform attackCheck;
+
     [Header("Ledge Climb")]
     [SerializeField] Vector2 hangFineTune;
     [SerializeField] Vector2 climbOverFineTune;
@@ -145,6 +148,8 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     private ClimbableDetector _climbableDetect;
     private Transform _ledgeCheckTransform;
     private Transform _wallCheckTransform;
+    private Transform _attackCheckTransform;
+    private Collider2D _attackCheckCollider;
     private SpriteRenderer _playerSR;
 
     private Vector3 _originalScale;
@@ -153,6 +158,8 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     private float _colliderOffsetAbsX;
     private float _ledgeCheckAbsX;
     private float _wallCheckAbsX;
+    private float _attackCheckAbsX;
+    private float _attackCheckColliderOffsetAbsX;
 
     private MovementState _movementState = MovementState.Normal;
     private float _horizontalInput;
@@ -233,6 +240,15 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         {
             _wallCheckTransform = wallCheck;
             _wallCheckAbsX = Mathf.Abs(_wallCheckTransform.localPosition.x);
+        }
+
+        if (attackCheck != null)
+        {
+            _attackCheckTransform = attackCheck;
+            _attackCheckAbsX = Mathf.Abs(_attackCheckTransform.localPosition.x);
+            _attackCheckCollider = attackCheck.GetComponent<Collider2D>();
+            if (_attackCheckCollider != null)
+                _attackCheckColliderOffsetAbsX = Mathf.Abs(_attackCheckCollider.offset.x);
         }
 
         _isFacingRight = true;
@@ -1747,6 +1763,20 @@ public class PlayerController : MonoBehaviour, IDataPersistence
             Vector3 wallPos = _wallCheckTransform.localPosition;
             wallPos.x = _wallCheckAbsX * (_isFacingRight ? 1f : -1f);
             _wallCheckTransform.localPosition = wallPos;
+        }
+
+        if (_attackCheckTransform != null)
+        {
+            Vector3 attackPos = _attackCheckTransform.localPosition;
+            attackPos.x = _attackCheckAbsX * (_isFacingRight ? 1f : -1f);
+            _attackCheckTransform.localPosition = attackPos;
+
+            if (_attackCheckCollider != null)
+            {
+                Vector2 attackOffset = _attackCheckCollider.offset;
+                attackOffset.x = _attackCheckColliderOffsetAbsX * (_isFacingRight ? 1f : -1f);
+                _attackCheckCollider.offset = attackOffset;
+            }
         }
     }
 

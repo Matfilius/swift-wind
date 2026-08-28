@@ -3,6 +3,7 @@ using UnityEngine;
 public class Enemy_Damage : MonoBehaviour
 {
     [SerializeField] int damage1;
+    [SerializeField] float enemyHealth;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
