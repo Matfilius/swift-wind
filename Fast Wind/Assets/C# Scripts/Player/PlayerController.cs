@@ -54,6 +54,8 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     [Header("Attacking")]
     [SerializeField] Transform attackCheck;
+    [SerializeField] LayerMask attackHitLayers;
+    [SerializeField] float attackDamage = 20f;
 
     [Header("Ledge Climb")]
     [SerializeField] Vector2 hangFineTune;
@@ -208,6 +210,9 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     private int _hazardsLayer;
     private bool _ignoredHazardCollision;
     private readonly Dictionary<int, float> _slowZones = new();
+    private readonly HashSet<Enemy_Damage> _hitEnemiesThisStrike = new();
+    private readonly Collider2D[] _attackOverlapResults = new Collider2D[16];
+    private int _trackedAttackStateHash;
 
     private void Awake()
     {
@@ -248,8 +253,15 @@ public class PlayerController : MonoBehaviour, IDataPersistence
             _attackCheckAbsX = Mathf.Abs(_attackCheckTransform.localPosition.x);
             _attackCheckCollider = attackCheck.GetComponent<Collider2D>();
             if (_attackCheckCollider != null)
+            {
                 _attackCheckColliderOffsetAbsX = Mathf.Abs(_attackCheckCollider.offset.x);
+                _attackCheckCollider.isTrigger = true;
+                _attackCheckCollider.enabled = false;
+            }
         }
+
+        if (attackHitLayers.value == 0)
+            attackHitLayers = 1 << LayerMask.NameToLayer("Enemy");
 
         _isFacingRight = true;
         ApplyFacing();
@@ -421,6 +433,15 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     private void UpdateAttackState()
     {
         bool inAttack = IsInAttackState(SuddenAttackHash) || IsInAttackState(SuddenAttack2Hash);
+        int currentAttackHash = 0;
+        if (IsInAttackState(SuddenAttackHash))
+            currentAttackHash = SuddenAttackHash;
+        else if (IsInAttackState(SuddenAttack2Hash))
+            currentAttackHash = SuddenAttack2Hash;
+
+        if (currentAttackHash != 0 && currentAttackHash != _trackedAttackStateHash)
+            _hitEnemiesThisStrike.Clear();
+        _trackedAttackStateHash = currentAttackHash;
 
         if (_attackActive)
         {
@@ -462,6 +483,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     {
         _attackActive = true;
         _enteredAttackAnimation = false;
+        _hitEnemiesThisStrike.Clear();
         _animator.SetBool(IsAttackingHash, true);
         _animator.SetBool(ComboQueuedHash, false);
         _animator.ResetTrigger(AttackButtonHash);
@@ -476,9 +498,56 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         _attackActive = false;
         _enteredAttackAnimation = false;
         _comboReadyToConsume = false;
+        _hitEnemiesThisStrike.Clear();
+        DisableAttackHitbox();
         _animator.SetBool(IsAttackingHash, false);
         _animator.SetBool(ComboQueuedHash, false);
         _animator.ResetTrigger(AttackButtonHash);
+    }
+
+    public void EnableAttackHitbox()
+    {
+        _hitEnemiesThisStrike.Clear();
+        if (_attackCheckCollider != null)
+            _attackCheckCollider.enabled = true;
+    }
+
+    public void DisableAttackHitbox()
+    {
+        if (_attackCheckCollider != null)
+            _attackCheckCollider.enabled = false;
+    }
+
+    public void DealAttackDamage()
+    {
+        if (_attackCheckCollider == null)
+            return;
+
+        bool wasEnabled = _attackCheckCollider.enabled;
+        _attackCheckCollider.enabled = true;
+        Physics2D.SyncTransforms();
+
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.SetLayerMask(attackHitLayers);
+        filter.useTriggers = true;
+
+        int count = _attackCheckCollider.Overlap(filter, _attackOverlapResults);
+
+        if (!wasEnabled)
+            _attackCheckCollider.enabled = false;
+
+        for (int i = 0; i < count; i++)
+        {
+            Collider2D hit = _attackOverlapResults[i];
+            if (hit == null)
+                continue;
+
+            Enemy_Damage enemy = hit.GetComponentInParent<Enemy_Damage>();
+            if (enemy == null || !_hitEnemiesThisStrike.Add(enemy))
+                continue;
+
+            enemy.TakeDamage(attackDamage);
+        }
     }
 
     private void CancelAttack()

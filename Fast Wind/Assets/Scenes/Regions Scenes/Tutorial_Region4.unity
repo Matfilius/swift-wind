@@ -271,6 +271,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Damage
   damage1: 1
+  enemyHealth: 100
+  hitFlashColor: {r: 1, g: 0.2, b: 0.2, a: 1}
+  hitFlashDuration: 0.15
 --- !u!61 &273127020
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1327,6 +1330,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Damage
   damage1: 1
+  enemyHealth: 100
+  hitFlashColor: {r: 1, g: 0.2, b: 0.2, a: 1}
+  hitFlashDuration: 0.15
 --- !u!61 &442680278
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1844,6 +1850,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5beaf3637d61ea24a86dd161501aac0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Attack
+  animator: {fileID: 0}
+  spearHitbox: {fileID: 0}
+  damage: 30
 --- !u!61 &1113231138
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2066,6 +2075,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5beaf3637d61ea24a86dd161501aac0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Attack
+  animator: {fileID: 0}
+  spearHitbox: {fileID: 0}
+  damage: 30
 --- !u!61 &1320453300
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2254,6 +2266,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Damage
   damage1: 1
+  enemyHealth: 100
+  hitFlashColor: {r: 1, g: 0.2, b: 0.2, a: 1}
+  hitFlashDuration: 0.15
 --- !u!61 &1417776167
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2591,6 +2606,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Damage
   damage1: 1
+  enemyHealth: 100
+  hitFlashColor: {r: 1, g: 0.2, b: 0.2, a: 1}
+  hitFlashDuration: 0.15
 --- !u!61 &1512526632
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -12728,6 +12746,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5beaf3637d61ea24a86dd161501aac0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Attack
+  animator: {fileID: 0}
+  spearHitbox: {fileID: 0}
+  damage: 30
 --- !u!61 &1880704304
 BoxCollider2D:
   m_ObjectHideFlags: 0
