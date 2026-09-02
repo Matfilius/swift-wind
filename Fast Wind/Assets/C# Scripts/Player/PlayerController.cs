@@ -56,6 +56,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     [SerializeField] Transform attackCheck;
     [SerializeField] LayerMask attackHitLayers;
     [SerializeField] float attackDamage = 20f;
+    [SerializeField] float comboBufferTime = 0.25f;
 
     [Header("Ledge Climb")]
     [SerializeField] Vector2 hangFineTune;
@@ -198,15 +199,34 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     private static readonly int WallSlideIntroHash = Animator.StringToHash("WallSlideIntro");
     private static readonly int WallSlideLoopHash = Animator.StringToHash("WallSlideLoop");
-    private static readonly int SuddenAttackHash = Animator.StringToHash("Sudden Attack");
+    private static readonly int SuddenAttack1Hash = Animator.StringToHash("Sudden Attack 1");
     private static readonly int SuddenAttack2Hash = Animator.StringToHash("Sudden Attack 2");
+    private static readonly int SuddenAttack3Hash = Animator.StringToHash("Sudden Attack 3");
+    private static readonly int SuddenAttack4Hash = Animator.StringToHash("Sudden Attack 4");
     private static readonly int AttackButtonHash = Animator.StringToHash("Attack_button");
     private static readonly int ComboQueuedHash = Animator.StringToHash("comboQueued");
     private static readonly int IsAttackingHash = Animator.StringToHash("isAttacking");
     private static readonly int MovementHash = Animator.StringToHash("Movement");
-    private bool _comboReadyToConsume;
+    private static readonly int JumpingHash = Animator.StringToHash("Jumping");
+
+    private enum AttackStep
+    {
+        None,
+        Unsheathe,
+        SwingRight,
+        SwingLeft,
+        Sheathe
+    }
+
+    private AttackStep _attackStep;
+    private AttackStep _lastSwingStep;
+    private bool _comboQueued;
+    private bool _restartQueued;
+    private bool _attackStepAdvanced;
     private bool _attackActive;
-    private bool _enteredAttackAnimation;
+    private bool _comboBuffering;
+    private float _comboBufferUntil;
+    private float _sheatheStartedTime;
     private int _hazardsLayer;
     private bool _ignoredHazardCollision;
     private readonly Dictionary<int, float> _slowZones = new();
@@ -411,9 +431,40 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     private bool IsAttacking()
     {
-        return _attackActive
-            || IsInAttackState(SuddenAttackHash)
-            || IsInAttackState(SuddenAttack2Hash);
+        return _attackActive || IsInAnyAttackState();
+    }
+
+    private bool IsInAnyAttackState()
+    {
+        return IsInAttackState(SuddenAttack1Hash)
+            || IsInAttackState(SuddenAttack2Hash)
+            || IsInAttackState(SuddenAttack3Hash)
+            || IsInAttackState(SuddenAttack4Hash);
+    }
+
+    private int GetCurrentAttackStateHash()
+    {
+        if (IsInAttackState(SuddenAttack1Hash))
+            return SuddenAttack1Hash;
+        if (IsInAttackState(SuddenAttack2Hash))
+            return SuddenAttack2Hash;
+        if (IsInAttackState(SuddenAttack3Hash))
+            return SuddenAttack3Hash;
+        if (IsInAttackState(SuddenAttack4Hash))
+            return SuddenAttack4Hash;
+        return 0;
+    }
+
+    private static int GetAttackStateHash(AttackStep step)
+    {
+        return step switch
+        {
+            AttackStep.Unsheathe => SuddenAttack1Hash,
+            AttackStep.SwingRight => SuddenAttack2Hash,
+            AttackStep.SwingLeft => SuddenAttack3Hash,
+            AttackStep.Sheathe => SuddenAttack4Hash,
+            _ => 0
+        };
     }
 
     private bool IsGroundAttackLocked()
@@ -432,72 +483,147 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     private void UpdateAttackState()
     {
-        bool inAttack = IsInAttackState(SuddenAttackHash) || IsInAttackState(SuddenAttack2Hash);
-        int currentAttackHash = 0;
-        if (IsInAttackState(SuddenAttackHash))
-            currentAttackHash = SuddenAttackHash;
-        else if (IsInAttackState(SuddenAttack2Hash))
-            currentAttackHash = SuddenAttack2Hash;
-
+        int currentAttackHash = GetCurrentAttackStateHash();
         if (currentAttackHash != 0 && currentAttackHash != _trackedAttackStateHash)
             _hitEnemiesThisStrike.Clear();
         _trackedAttackStateHash = currentAttackHash;
 
-        if (_attackActive)
+        _animator.SetBool(IsAttackingHash, _attackActive);
+
+        if (!_attackActive || _attackStep == AttackStep.None)
+            return;
+
+        if (_comboBuffering)
         {
-            _animator.SetBool(IsAttackingHash, true);
-            if (inAttack)
-                _enteredAttackAnimation = true;
-            else if (_enteredAttackAnimation)
-                EndAttackTracking();
+            UpdateComboBuffer();
+            return;
         }
-        else
-        {
-            _animator.SetBool(IsAttackingHash, false);
-        }
+
+        if (_animator.IsInTransition(0))
+            return;
 
         AnimatorStateInfo state = _animator.GetCurrentAnimatorStateInfo(0);
-        bool inSwing = state.shortNameHash == SuddenAttack2Hash;
-        if (!inSwing)
-        {
-            _comboReadyToConsume = false;
-            return;
-        }
-
-        float normalizedTime = state.normalizedTime;
-        if (normalizedTime >= 1f)
+        if (state.shortNameHash != GetAttackStateHash(_attackStep))
             return;
 
-        if (!_comboReadyToConsume && normalizedTime < 0.25f)
-        {
-            _animator.SetBool(ComboQueuedHash, false);
-            _comboReadyToConsume = true;
-        }
-        else if (normalizedTime >= 0.25f)
-        {
-            _comboReadyToConsume = false;
-        }
+        if (_attackStepAdvanced || state.normalizedTime < 0.95f)
+            return;
+
+        _attackStepAdvanced = true;
+        AdvanceAttackCombo();
     }
 
     private void BeginAttack()
     {
         _attackActive = true;
-        _enteredAttackAnimation = false;
+        _comboQueued = false;
+        _restartQueued = false;
+        _comboBuffering = false;
         _hitEnemiesThisStrike.Clear();
-        _animator.SetBool(IsAttackingHash, true);
-        _animator.SetBool(ComboQueuedHash, false);
-        _animator.ResetTrigger(AttackButtonHash);
-        _animator.Play(SuddenAttackHash, 0, 0f);
+        PlayAttackStep(AttackStep.Unsheathe);
 
         if (_isGrounded)
             _rb.linearVelocity = new Vector2(0f, _rb.linearVelocity.y);
     }
 
+    private void PlayAttackStep(AttackStep step)
+    {
+        _attackStep = step;
+        _attackStepAdvanced = false;
+        _comboBuffering = false;
+        _attackActive = true;
+        if (step == AttackStep.SwingRight || step == AttackStep.SwingLeft)
+            _lastSwingStep = step;
+        if (step == AttackStep.Sheathe)
+            _sheatheStartedTime = Time.time;
+
+        _animator.SetBool(IsAttackingHash, true);
+        _animator.SetBool(ComboQueuedHash, false);
+        _animator.ResetTrigger(AttackButtonHash);
+        _animator.Play(GetAttackStateHash(step), 0, 0f);
+    }
+
+    private static AttackStep GetNextSwing(AttackStep currentSwing)
+    {
+        return currentSwing == AttackStep.SwingRight
+            ? AttackStep.SwingLeft
+            : AttackStep.SwingRight;
+    }
+
+    private void StartComboBuffer()
+    {
+        _comboBuffering = true;
+        _comboBufferUntil = Time.time + comboBufferTime;
+    }
+
+    private void UpdateComboBuffer()
+    {
+        if (_comboQueued)
+        {
+            _comboQueued = false;
+            _comboBuffering = false;
+            PlayAttackStep(GetNextSwing(_attackStep));
+            return;
+        }
+
+        if (Time.time >= _comboBufferUntil)
+        {
+            _comboBuffering = false;
+            PlayAttackStep(AttackStep.Sheathe);
+        }
+    }
+
+    private void AdvanceAttackCombo()
+    {
+        switch (_attackStep)
+        {
+            case AttackStep.Unsheathe:
+                PlayAttackStep(AttackStep.SwingRight);
+                break;
+            case AttackStep.SwingRight:
+            case AttackStep.SwingLeft:
+                if (_comboQueued)
+                {
+                    _comboQueued = false;
+                    PlayAttackStep(GetNextSwing(_attackStep));
+                }
+                else
+                {
+                    StartComboBuffer();
+                }
+                break;
+            case AttackStep.Sheathe:
+                if (_restartQueued)
+                {
+                    _restartQueued = false;
+                    _comboQueued = false;
+                    PlayAttackStep(AttackStep.Unsheathe);
+                }
+                else
+                {
+                    FinishAttack();
+                }
+                break;
+        }
+    }
+
+    private void FinishAttack()
+    {
+        EndAttackTracking();
+        if (_animator.GetBool("isJumping"))
+            _animator.Play(JumpingHash, 0, 0f);
+        else
+            _animator.Play(MovementHash, 0, 0f);
+    }
+
     private void EndAttackTracking()
     {
         _attackActive = false;
-        _enteredAttackAnimation = false;
-        _comboReadyToConsume = false;
+        _attackStep = AttackStep.None;
+        _attackStepAdvanced = false;
+        _comboQueued = false;
+        _restartQueued = false;
+        _comboBuffering = false;
         _hitEnemiesThisStrike.Clear();
         DisableAttackHitbox();
         _animator.SetBool(IsAttackingHash, false);
@@ -552,7 +678,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     private void CancelAttack()
     {
-        bool wasInAttack = IsInAttackState(SuddenAttackHash) || IsInAttackState(SuddenAttack2Hash);
+        bool wasInAttack = IsInAnyAttackState();
         EndAttackTracking();
 
         if (wasInAttack)
@@ -606,13 +732,13 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     public void Dash(InputAction.CallbackContext context)
     {
-        if (context.performed && _movementState == MovementState.Normal && IsGrounded && !IsAttacking())
+        if (context.performed && _movementState == MovementState.Normal && IsGrounded)
             StartCoroutine(DashRoutine());
     }
 
     public void Roll(InputAction.CallbackContext context)
     {
-        if (context.performed && _movementState == MovementState.Normal && IsGrounded && !IsAttacking())
+        if (context.performed && _movementState == MovementState.Normal && IsGrounded)
             StartCoroutine(RollRoutine());
     }
 
@@ -624,10 +750,25 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         if (_movementState != MovementState.Normal)
             return;
 
-        AnimatorStateInfo state = _animator.GetCurrentAnimatorStateInfo(0);
-        if (state.shortNameHash == SuddenAttack2Hash)
+        if (_attackStep == AttackStep.Unsheathe
+            || _attackStep == AttackStep.SwingRight
+            || _attackStep == AttackStep.SwingLeft
+            || _comboBuffering)
         {
-            _animator.SetBool(ComboQueuedHash, true);
+            _comboQueued = true;
+            return;
+        }
+
+        if (_attackStep == AttackStep.Sheathe)
+        {
+            if (Time.time < _sheatheStartedTime + comboBufferTime)
+            {
+                _restartQueued = false;
+                PlayAttackStep(GetNextSwing(_lastSwingStep));
+                return;
+            }
+
+            _restartQueued = true;
             return;
         }
 
@@ -780,9 +921,6 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     private bool ShouldStartWallSlide()
     {
         if (_inClimbableZone || IsGrounded)
-            return false;
-
-        if (IsAttacking())
             return false;
 
         if (Time.time < _wallSlideReentryBlockedUntil)
@@ -1791,12 +1929,14 @@ public class PlayerController : MonoBehaviour, IDataPersistence
             || _movementState == MovementState.WallSliding
             || _movementState == MovementState.WallSlideLanding
             || _climbLock
-            || Time.time < _flipBlockedUntil
-            || IsGroundAttackLocked())
+            || Time.time < _flipBlockedUntil)
             return;
 
         if ((_isFacingRight && _horizontalInput < 0f) || (!_isFacingRight && _horizontalInput > 0f))
         {
+            if (IsAttacking())
+                CancelAttack();
+
             _isFacingRight = !_isFacingRight;
             ApplyFacing();
         }

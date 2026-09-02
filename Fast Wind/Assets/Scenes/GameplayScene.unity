@@ -3590,6 +3590,11 @@ MonoBehaviour:
   groundCheckProbeLift: 0.04
   wallDepenetrateDistance: 0.05
   attackCheck: {fileID: 1465275426}
+  attackHitLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  attackDamage: 15
+  comboBufferTime: 0.25
   hangFineTune: {x: -0.15, y: -0.25}
   climbOverFineTune: {x: 0, y: 0.9}
   ledgeClimbCooldown: 0.2
