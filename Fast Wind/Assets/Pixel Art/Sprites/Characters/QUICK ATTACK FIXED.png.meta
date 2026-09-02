@@ -1,0 +1,624 @@
+fileFormatVersion: 2
+guid: ab5273a402ebf1a40bd206e7a830f0ac
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4816345188335871518
+    second: QUICK ATTACK FIXED_0
+  - first:
+      213: -2112882539389884078
+    second: QUICK ATTACK FIXED_1
+  - first:
+      213: -6318750992647893689
+    second: QUICK ATTACK FIXED_2
+  - first:
+      213: -6435739002215950975
+    second: QUICK ATTACK FIXED_3
+  - first:
+      213: 6747620274342648648
+    second: QUICK ATTACK FIXED_4
+  - first:
+      213: -4462965002699322401
+    second: QUICK ATTACK FIXED_5
+  - first:
+      213: 121707111561756618
+    second: QUICK ATTACK FIXED_6
+  - first:
+      213: -6841628694678255985
+    second: QUICK ATTACK FIXED_7
+  - first:
+      213: 8368153176756870779
+    second: QUICK ATTACK FIXED_8
+  - first:
+      213: 242984652255731525
+    second: QUICK ATTACK FIXED_9
+  - first:
+      213: -80467587110134584
+    second: QUICK ATTACK FIXED_10
+  - first:
+      213: -1877432393756372862
+    second: QUICK ATTACK FIXED_11
+  - first:
+      213: 3419778389530276279
+    second: QUICK ATTACK FIXED_12
+  - first:
+      213: -1630003215778251545
+    second: QUICK ATTACK FIXED_13
+  - first:
+      213: -5901375399745625597
+    second: QUICK ATTACK FIXED_14
+  - first:
+      213: -414129257263288764
+    second: QUICK ATTACK FIXED_15
+  - first:
+      213: 5269507143579921167
+    second: QUICK ATTACK FIXED_16
+  - first:
+      213: 7247589411851650028
+    second: QUICK ATTACK FIXED_17
+  - first:
+      213: 4982713358336663733
+    second: QUICK ATTACK FIXED_18
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: QUICK ATTACK FIXED_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 39
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e9149db197e82db0800000000000000
+      internalID: -4816345188335871518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QUICK ATTACK FIXED_1
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 0
+        width: 39
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2596a8366888da2e0800000000000000
+      internalID: -2112882539389884078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QUICK ATTACK FIXED_2
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 0
+        width: 35
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74d431b43794f48a0800000000000000
+      internalID: -6318750992647893689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QUICK ATTACK FIXED_3
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 0
+        width: 35
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1859ac9b979afa6a0800000000000000
+      internalID: -6435739002215950975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QUICK ATTACK FIXED_4
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 0
+        width: 41
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84bda6b93ec54ad50800000000000000
+      internalID: 6747620274342648648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QUICK ATTACK FIXED_5
+      rect:
+        serializedVersion: 2
+        x: 419
+        y: 0
+        width: 43
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fdb4b11d9fc5012c0800000000000000
+      internalID: -4462965002699322401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QUICK ATTACK FIXED_6
+      rect:
+        serializedVersion: 2
+        x: 503
+        y: 0
+        width: 44
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: acff64f19f360b100800000000000000
+      internalID: 121707111561756618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QUICK ATTACK FIXED_7
+      rect:
+        serializedVersion: 2
+        x: 588
+        y: 0
+        width: 76
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f86459063f6ad01a0800000000000000
+      internalID: -6841628694678255985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QUICK ATTACK FIXED_8
+      rect:
+        serializedVersion: 2
+        x: 671
+        y: 0
+        width: 76
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7e56a65af6a12470800000000000000
+      internalID: 8368153176756870779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QUICK ATTACK FIXED_9
+      rect:
+        serializedVersion: 2
+        x: 754
+        y: 0
+        width: 75
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54f139bf0414f5300800000000000000
+      internalID: 242984652255731525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QUICK ATTACK FIXED_10
+      rect:
+        serializedVersion: 2
+        x: 837
+        y: 0
+        width: 77
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8cc1e56e72f12eef0800000000000000
+      internalID: -80467587110134584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QUICK ATTACK FIXED_11
+      rect:
+        serializedVersion: 2
+        x: 920
+        y: 0
+        width: 70
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28017585f2502f5e0800000000000000
+      internalID: -1877432393756372862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QUICK ATTACK FIXED_12
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 0
+        width: 57
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b17286935e757f20800000000000000
+      internalID: 3419778389530276279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QUICK ATTACK FIXED_13
+      rect:
+        serializedVersion: 2
+        x: 1083
+        y: 0
+        width: 43
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ecfacc16b01169e0800000000000000
+      internalID: -1630003215778251545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QUICK ATTACK FIXED_14
+      rect:
+        serializedVersion: 2
+        x: 1167
+        y: 0
+        width: 42
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 302eeeb375a1a1ea0800000000000000
+      internalID: -5901375399745625597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QUICK ATTACK FIXED_15
+      rect:
+        serializedVersion: 2
+        x: 1251
+        y: 0
+        width: 40
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44ea9b972a7b04af0800000000000000
+      internalID: -414129257263288764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QUICK ATTACK FIXED_16
+      rect:
+        serializedVersion: 2
+        x: 1333
+        y: 0
+        width: 41
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0be67af3dc012940800000000000000
+      internalID: 5269507143579921167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QUICK ATTACK FIXED_17
+      rect:
+        serializedVersion: 2
+        x: 1416
+        y: 0
+        width: 38
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce3cc43bb2c949460800000000000000
+      internalID: 7247589411851650028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QUICK ATTACK FIXED_18
+      rect:
+        serializedVersion: 2
+        x: 1498
+        y: 0
+        width: 53
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b0204d5667262540800000000000000
+      internalID: 4982713358336663733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      QUICK ATTACK FIXED_0: -4816345188335871518
+      QUICK ATTACK FIXED_1: -2112882539389884078
+      QUICK ATTACK FIXED_10: -80467587110134584
+      QUICK ATTACK FIXED_11: -1877432393756372862
+      QUICK ATTACK FIXED_12: 3419778389530276279
+      QUICK ATTACK FIXED_13: -1630003215778251545
+      QUICK ATTACK FIXED_14: -5901375399745625597
+      QUICK ATTACK FIXED_15: -414129257263288764
+      QUICK ATTACK FIXED_16: 5269507143579921167
+      QUICK ATTACK FIXED_17: 7247589411851650028
+      QUICK ATTACK FIXED_18: 4982713358336663733
+      QUICK ATTACK FIXED_2: -6318750992647893689
+      QUICK ATTACK FIXED_3: -6435739002215950975
+      QUICK ATTACK FIXED_4: 6747620274342648648
+      QUICK ATTACK FIXED_5: -4462965002699322401
+      QUICK ATTACK FIXED_6: 121707111561756618
+      QUICK ATTACK FIXED_7: -6841628694678255985
+      QUICK ATTACK FIXED_8: 8368153176756870779
+      QUICK ATTACK FIXED_9: 242984652255731525
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
