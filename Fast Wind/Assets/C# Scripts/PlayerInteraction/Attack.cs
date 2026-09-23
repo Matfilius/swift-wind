@@ -7,6 +7,7 @@ public class Attack : MonoBehaviour
     [SerializeField] private float damage = 30f;
 
     private bool hasHitThisSwing;
+    private EnemyBrain _brain;
 
     void Awake()
     {
@@ -15,18 +16,48 @@ public class Attack : MonoBehaviour
 
         if (spearHitbox != null)
             spearHitbox.enabled = false;
+
+        _brain = GetComponentInParent<EnemyBrain>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (!other.CompareTag("Player"))
+            return;
+
+        if (Brain != null)
+        {
+            Brain.NotifyStrikeZone(true, other.transform);
+            return;
+        }
+
+        if (animator != null)
             animator.SetBool("hasTarget", true);
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (!other.CompareTag("Player"))
+            return;
+
+        if (Brain != null)
+        {
+            Brain.NotifyStrikeZone(false, other.transform);
+            return;
+        }
+
+        if (animator != null)
             animator.SetBool("hasTarget", false);
+    }
+
+    EnemyBrain Brain
+    {
+        get
+        {
+            if (_brain == null)
+                _brain = GetComponentInParent<EnemyBrain>();
+            return _brain;
+        }
     }
     public void EnableHitbox()
     {
@@ -52,12 +83,26 @@ public class Attack : MonoBehaviour
 
     public void OnEnemyDetected(Collider2D playerCollider)
     {
-        animator.SetBool("CanAttack", true);
+        if (Brain != null)
+        {
+            Brain.NotifyStrikeZone(true, playerCollider.transform);
+            return;
+        }
+
+        if (animator != null)
+            animator.SetBool("CanAttack", true);
     }
 
     public void OnEnemyNotDetected(Collider2D playerCollider)
     {
-        animator.SetBool("CanAttack", false);
+        if (Brain != null)
+        {
+            Brain.NotifyStrikeZone(false, playerCollider.transform);
+            return;
+        }
+
+        if (animator != null)
+            animator.SetBool("CanAttack", false);
         DisableHitbox();
     }
 }

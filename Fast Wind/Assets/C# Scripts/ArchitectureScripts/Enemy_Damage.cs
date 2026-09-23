@@ -12,6 +12,7 @@ public class Enemy_Damage : MonoBehaviour
     private SpriteRenderer[] _spriteRenderers;
     private Color[] _originalColors;
     private Coroutine _hitFlashRoutine;
+    private EnemyBrain _brain;
 
     private void Awake()
     {
@@ -19,6 +20,13 @@ public class Enemy_Damage : MonoBehaviour
         _originalColors = new Color[_spriteRenderers.Length];
         for (int i = 0; i < _spriteRenderers.Length; i++)
             _originalColors[i] = _spriteRenderers[i].color;
+
+        if (GetComponent<EnemyMotor>() == null)
+            gameObject.AddComponent<EnemyMotor>();
+        if (GetComponent<EnemyBrain>() == null)
+            _brain = gameObject.AddComponent<EnemyBrain>();
+        else
+            _brain = GetComponent<EnemyBrain>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -42,6 +50,11 @@ public class Enemy_Damage : MonoBehaviour
             _isDead = true;
             foreach (Collider2D col in GetComponentsInChildren<Collider2D>())
                 col.enabled = false;
+            _brain?.NotifyDied();
+        }
+        else
+        {
+            _brain?.NotifyHurt();
         }
 
         if (_hitFlashRoutine != null)

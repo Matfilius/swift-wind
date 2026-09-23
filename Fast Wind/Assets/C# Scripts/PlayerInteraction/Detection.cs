@@ -10,7 +10,11 @@ public class Detection : MonoBehaviour
 
         if (other.CompareTag("Player"))
         {
-            attackScript.OnEnemyDetected(other);
+            EnemyBrain brain = GetComponentInParent<EnemyBrain>();
+            if (brain != null)
+                brain.NotifyStrikeZone(true, other.transform);
+            else if (attackScript != null)
+                attackScript.OnEnemyDetected(other);
         }
     }
 
@@ -22,7 +26,11 @@ public class Detection : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            attackScript.OnEnemyNotDetected(other);
+            EnemyBrain brain = GetComponentInParent<EnemyBrain>();
+            if (brain != null)
+                brain.NotifyStrikeZone(false, other.transform);
+            else if (attackScript != null)
+                attackScript.OnEnemyNotDetected(other);
         }
 
     }
