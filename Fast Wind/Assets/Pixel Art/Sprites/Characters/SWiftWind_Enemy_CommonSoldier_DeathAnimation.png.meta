@@ -1,0 +1,1016 @@
+fileFormatVersion: 2
+guid: 4a0c1eef49684c64f8e5553e6b8f2b85
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -9204395840982676989
+    second: SWiftWind_Enemy_CommonSoldier_DeathAnimation_0
+  - first:
+      213: 3468757716768543321
+    second: SWiftWind_Enemy_CommonSoldier_DeathAnimation_1
+  - first:
+      213: -265825186671992425
+    second: SWiftWind_Enemy_CommonSoldier_DeathAnimation_2
+  - first:
+      213: -6479379848606109765
+    second: SWiftWind_Enemy_CommonSoldier_DeathAnimation_3
+  - first:
+      213: -8842660949333708155
+    second: SWiftWind_Enemy_CommonSoldier_DeathAnimation_4
+  - first:
+      213: -5222891109609393154
+    second: SWiftWind_Enemy_CommonSoldier_DeathAnimation_5
+  - first:
+      213: 7811217653936398962
+    second: SWiftWind_Enemy_CommonSoldier_DeathAnimation_6
+  - first:
+      213: -2993820190578252038
+    second: SWiftWind_Enemy_CommonSoldier_DeathAnimation_7
+  - first:
+      213: -3341757409212135296
+    second: SWiftWind_Enemy_CommonSoldier_DeathAnimation_8
+  - first:
+      213: 7961070827503015570
+    second: SWiftWind_Enemy_CommonSoldier_DeathAnimation_9
+  - first:
+      213: 8822596963369276074
+    second: SWiftWind_Enemy_CommonSoldier_DeathAnimation_10
+  - first:
+      213: -132633140423831485
+    second: SWiftWind_Enemy_CommonSoldier_DeathAnimation_11
+  - first:
+      213: 3067873014347598142
+    second: SWiftWind_Enemy_CommonSoldier_DeathAnimation_12
+  - first:
+      213: 39338928045585383
+    second: SWiftWind_Enemy_CommonSoldier_DeathAnimation_13
+  - first:
+      213: 1135906319849760195
+    second: SWiftWind_Enemy_CommonSoldier_DeathAnimation_14
+  - first:
+      213: -7871464403615902926
+    second: SWiftWind_Enemy_CommonSoldier_DeathAnimation_15
+  - first:
+      213: 6055812240173448841
+    second: SWiftWind_Enemy_CommonSoldier_DeathAnimation_16
+  - first:
+      213: 5666638053963594352
+    second: SWiftWind_Enemy_CommonSoldier_DeathAnimation_17
+  - first:
+      213: 5175153235307088284
+    second: SWiftWind_Enemy_CommonSoldier_DeathAnimation_18
+  - first:
+      213: 6702401842383111251
+    second: SWiftWind_Enemy_CommonSoldier_DeathAnimation_19
+  - first:
+      213: -6686074944460629597
+    second: SWiftWind_Enemy_CommonSoldier_DeathAnimation_20
+  - first:
+      213: 6792425832206616980
+    second: SWiftWind_Enemy_CommonSoldier_DeathAnimation_21
+  - first:
+      213: -402999285506338085
+    second: SWiftWind_Enemy_CommonSoldier_DeathAnimation_22
+  - first:
+      213: 975614603722043361
+    second: SWiftWind_Enemy_CommonSoldier_DeathAnimation_23
+  - first:
+      213: -1975147490631150218
+    second: SWiftWind_Enemy_CommonSoldier_DeathAnimation_24
+  - first:
+      213: -1095810238207630724
+    second: SWiftWind_Enemy_CommonSoldier_DeathAnimation_25
+  - first:
+      213: 7716093327565267495
+    second: SWiftWind_Enemy_CommonSoldier_DeathAnimation_26
+  - first:
+      213: 3369632738037455077
+    second: SWiftWind_Enemy_CommonSoldier_DeathAnimation_27
+  - first:
+      213: 5153075107359550954
+    second: SWiftWind_Enemy_CommonSoldier_DeathAnimation_28
+  - first:
+      213: -1977369496207318723
+    second: SWiftWind_Enemy_CommonSoldier_DeathAnimation_29
+  - first:
+      213: 2045810482310980879
+    second: SWiftWind_Enemy_CommonSoldier_DeathAnimation_30
+  - first:
+      213: -7733089709076630884
+    second: SWiftWind_Enemy_CommonSoldier_DeathAnimation_31
+  - first:
+      213: 3083200506606963860
+    second: SWiftWind_Enemy_CommonSoldier_DeathAnimation_32
+  - first:
+      213: 3209151637770159578
+    second: SWiftWind_Enemy_CommonSoldier_DeathAnimation_33
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: SWiftWind_Enemy_CommonSoldier_DeathAnimation_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 98
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30a0526efba634080800000000000000
+      internalID: -9204395840982676989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SWiftWind_Enemy_CommonSoldier_DeathAnimation_1
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 0
+        width: 98
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95252efd3c0832030800000000000000
+      internalID: 3468757716768543321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SWiftWind_Enemy_CommonSoldier_DeathAnimation_2
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 0
+        width: 98
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7916010b6699f4cf0800000000000000
+      internalID: -265825186671992425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SWiftWind_Enemy_CommonSoldier_DeathAnimation_3
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 0
+        width: 98
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bbf220f5b5e9416a0800000000000000
+      internalID: -6479379848606109765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SWiftWind_Enemy_CommonSoldier_DeathAnimation_4
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 0
+        width: 98
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 582febd87be884580800000000000000
+      internalID: -8842660949333708155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SWiftWind_Enemy_CommonSoldier_DeathAnimation_5
+      rect:
+        serializedVersion: 2
+        x: 490
+        y: 0
+        width: 98
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef3bf2735309487b0800000000000000
+      internalID: -5222891109609393154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SWiftWind_Enemy_CommonSoldier_DeathAnimation_6
+      rect:
+        serializedVersion: 2
+        x: 588
+        y: 0
+        width: 98
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 272a3261215076c60800000000000000
+      internalID: 7811217653936398962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SWiftWind_Enemy_CommonSoldier_DeathAnimation_7
+      rect:
+        serializedVersion: 2
+        x: 686
+        y: 0
+        width: 98
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af6e03b0660d376d0800000000000000
+      internalID: -2993820190578252038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SWiftWind_Enemy_CommonSoldier_DeathAnimation_8
+      rect:
+        serializedVersion: 2
+        x: 784
+        y: 0
+        width: 98
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 088816a7751bf91d0800000000000000
+      internalID: -3341757409212135296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SWiftWind_Enemy_CommonSoldier_DeathAnimation_9
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 0
+        width: 98
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 296da01fcb76b7e60800000000000000
+      internalID: 7961070827503015570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SWiftWind_Enemy_CommonSoldier_DeathAnimation_10
+      rect:
+        serializedVersion: 2
+        x: 980
+        y: 0
+        width: 98
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa2d01ea139207a70800000000000000
+      internalID: 8822596963369276074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SWiftWind_Enemy_CommonSoldier_DeathAnimation_11
+      rect:
+        serializedVersion: 2
+        x: 1078
+        y: 0
+        width: 98
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 340d79b8cdac82ef0800000000000000
+      internalID: -132633140423831485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SWiftWind_Enemy_CommonSoldier_DeathAnimation_12
+      rect:
+        serializedVersion: 2
+        x: 1176
+        y: 0
+        width: 98
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3902349046439a20800000000000000
+      internalID: 3067873014347598142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SWiftWind_Enemy_CommonSoldier_DeathAnimation_13
+      rect:
+        serializedVersion: 2
+        x: 1274
+        y: 0
+        width: 98
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e37000fb82cb8000800000000000000
+      internalID: 39338928045585383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SWiftWind_Enemy_CommonSoldier_DeathAnimation_14
+      rect:
+        serializedVersion: 2
+        x: 1372
+        y: 0
+        width: 98
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c524c497cc83cf00800000000000000
+      internalID: 1135906319849760195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SWiftWind_Enemy_CommonSoldier_DeathAnimation_15
+      rect:
+        serializedVersion: 2
+        x: 1470
+        y: 0
+        width: 98
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 233975864d0f2c290800000000000000
+      internalID: -7871464403615902926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SWiftWind_Enemy_CommonSoldier_DeathAnimation_16
+      rect:
+        serializedVersion: 2
+        x: 1568
+        y: 0
+        width: 98
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98e300ab5219a0450800000000000000
+      internalID: 6055812240173448841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SWiftWind_Enemy_CommonSoldier_DeathAnimation_17
+      rect:
+        serializedVersion: 2
+        x: 1666
+        y: 0
+        width: 98
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07af5357941f3ae40800000000000000
+      internalID: 5666638053963594352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SWiftWind_Enemy_CommonSoldier_DeathAnimation_18
+      rect:
+        serializedVersion: 2
+        x: 1764
+        y: 0
+        width: 98
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9941b8c276d1d740800000000000000
+      internalID: 5175153235307088284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SWiftWind_Enemy_CommonSoldier_DeathAnimation_19
+      rect:
+        serializedVersion: 2
+        x: 1862
+        y: 0
+        width: 98
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3544b2df6f6b30d50800000000000000
+      internalID: 6702401842383111251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SWiftWind_Enemy_CommonSoldier_DeathAnimation_20
+      rect:
+        serializedVersion: 2
+        x: 1960
+        y: 0
+        width: 98
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a9d8c9234a4633a0800000000000000
+      internalID: -6686074944460629597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SWiftWind_Enemy_CommonSoldier_DeathAnimation_21
+      rect:
+        serializedVersion: 2
+        x: 2058
+        y: 0
+        width: 98
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 499ccdb7e4b834e50800000000000000
+      internalID: 6792425832206616980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SWiftWind_Enemy_CommonSoldier_DeathAnimation_22
+      rect:
+        serializedVersion: 2
+        x: 2156
+        y: 0
+        width: 98
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd298a6f842486af0800000000000000
+      internalID: -402999285506338085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SWiftWind_Enemy_CommonSoldier_DeathAnimation_23
+      rect:
+        serializedVersion: 2
+        x: 2254
+        y: 0
+        width: 98
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ef298420541a8d00800000000000000
+      internalID: 975614603722043361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SWiftWind_Enemy_CommonSoldier_DeathAnimation_24
+      rect:
+        serializedVersion: 2
+        x: 2352
+        y: 0
+        width: 98
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6751de172ddd694e0800000000000000
+      internalID: -1975147490631150218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SWiftWind_Enemy_CommonSoldier_DeathAnimation_25
+      rect:
+        serializedVersion: 2
+        x: 2450
+        y: 0
+        width: 98
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c72e56ae466eac0f0800000000000000
+      internalID: -1095810238207630724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SWiftWind_Enemy_CommonSoldier_DeathAnimation_26
+      rect:
+        serializedVersion: 2
+        x: 2548
+        y: 0
+        width: 98
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7222a43fff1151b60800000000000000
+      internalID: 7716093327565267495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SWiftWind_Enemy_CommonSoldier_DeathAnimation_27
+      rect:
+        serializedVersion: 2
+        x: 2646
+        y: 0
+        width: 98
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e8df364f1753ce20800000000000000
+      internalID: 3369632738037455077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SWiftWind_Enemy_CommonSoldier_DeathAnimation_28
+      rect:
+        serializedVersion: 2
+        x: 2744
+        y: 0
+        width: 98
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aede21b0286638740800000000000000
+      internalID: 5153075107359550954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SWiftWind_Enemy_CommonSoldier_DeathAnimation_29
+      rect:
+        serializedVersion: 2
+        x: 2842
+        y: 0
+        width: 98
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d31aed47be8fe84e0800000000000000
+      internalID: -1977369496207318723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SWiftWind_Enemy_CommonSoldier_DeathAnimation_30
+      rect:
+        serializedVersion: 2
+        x: 2940
+        y: 0
+        width: 98
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f05aae36bcd246c10800000000000000
+      internalID: 2045810482310980879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SWiftWind_Enemy_CommonSoldier_DeathAnimation_31
+      rect:
+        serializedVersion: 2
+        x: 3038
+        y: 0
+        width: 98
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c92324a91eb8ea490800000000000000
+      internalID: -7733089709076630884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SWiftWind_Enemy_CommonSoldier_DeathAnimation_32
+      rect:
+        serializedVersion: 2
+        x: 3136
+        y: 0
+        width: 98
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49ccc97768ab9ca20800000000000000
+      internalID: 3083200506606963860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SWiftWind_Enemy_CommonSoldier_DeathAnimation_33
+      rect:
+        serializedVersion: 2
+        x: 3234
+        y: 0
+        width: 98
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad547a76962398c20800000000000000
+      internalID: 3209151637770159578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 38234b6b0007c83479b0c58954f54fd8
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":34.0,"y":1.0},"gridSpriteSize":{"x":98.0,"y":90.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      SWiftWind_Enemy_CommonSoldier_DeathAnimation_0: -9204395840982676989
+      SWiftWind_Enemy_CommonSoldier_DeathAnimation_1: 3468757716768543321
+      SWiftWind_Enemy_CommonSoldier_DeathAnimation_10: 8822596963369276074
+      SWiftWind_Enemy_CommonSoldier_DeathAnimation_11: -132633140423831485
+      SWiftWind_Enemy_CommonSoldier_DeathAnimation_12: 3067873014347598142
+      SWiftWind_Enemy_CommonSoldier_DeathAnimation_13: 39338928045585383
+      SWiftWind_Enemy_CommonSoldier_DeathAnimation_14: 1135906319849760195
+      SWiftWind_Enemy_CommonSoldier_DeathAnimation_15: -7871464403615902926
+      SWiftWind_Enemy_CommonSoldier_DeathAnimation_16: 6055812240173448841
+      SWiftWind_Enemy_CommonSoldier_DeathAnimation_17: 5666638053963594352
+      SWiftWind_Enemy_CommonSoldier_DeathAnimation_18: 5175153235307088284
+      SWiftWind_Enemy_CommonSoldier_DeathAnimation_19: 6702401842383111251
+      SWiftWind_Enemy_CommonSoldier_DeathAnimation_2: -265825186671992425
+      SWiftWind_Enemy_CommonSoldier_DeathAnimation_20: -6686074944460629597
+      SWiftWind_Enemy_CommonSoldier_DeathAnimation_21: 6792425832206616980
+      SWiftWind_Enemy_CommonSoldier_DeathAnimation_22: -402999285506338085
+      SWiftWind_Enemy_CommonSoldier_DeathAnimation_23: 975614603722043361
+      SWiftWind_Enemy_CommonSoldier_DeathAnimation_24: -1975147490631150218
+      SWiftWind_Enemy_CommonSoldier_DeathAnimation_25: -1095810238207630724
+      SWiftWind_Enemy_CommonSoldier_DeathAnimation_26: 7716093327565267495
+      SWiftWind_Enemy_CommonSoldier_DeathAnimation_27: 3369632738037455077
+      SWiftWind_Enemy_CommonSoldier_DeathAnimation_28: 5153075107359550954
+      SWiftWind_Enemy_CommonSoldier_DeathAnimation_29: -1977369496207318723
+      SWiftWind_Enemy_CommonSoldier_DeathAnimation_3: -6479379848606109765
+      SWiftWind_Enemy_CommonSoldier_DeathAnimation_30: 2045810482310980879
+      SWiftWind_Enemy_CommonSoldier_DeathAnimation_31: -7733089709076630884
+      SWiftWind_Enemy_CommonSoldier_DeathAnimation_32: 3083200506606963860
+      SWiftWind_Enemy_CommonSoldier_DeathAnimation_33: 3209151637770159578
+      SWiftWind_Enemy_CommonSoldier_DeathAnimation_4: -8842660949333708155
+      SWiftWind_Enemy_CommonSoldier_DeathAnimation_5: -5222891109609393154
+      SWiftWind_Enemy_CommonSoldier_DeathAnimation_6: 7811217653936398962
+      SWiftWind_Enemy_CommonSoldier_DeathAnimation_7: -2993820190578252038
+      SWiftWind_Enemy_CommonSoldier_DeathAnimation_8: -3341757409212135296
+      SWiftWind_Enemy_CommonSoldier_DeathAnimation_9: 7961070827503015570
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
