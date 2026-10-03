@@ -250,8 +250,6 @@ public class EnemyBrain : MonoBehaviour
         if (_attack != null)
             _attack.DisableHitbox();
 
-        // One swing only. Leaving both animator bools off stops the prepare clip
-        // from chaining into a second swing after the player walks away.
         SetCombat(false, false);
         if (_animator != null)
             _animator.Play("Enemy attack", 0, 0f);
