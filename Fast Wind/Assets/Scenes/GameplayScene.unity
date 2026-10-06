@@ -1024,6 +1024,8 @@ MonoBehaviour:
   respawnScene:
     m_SceneAsset: {fileID: 102900000, guid: 04d5f4fcd389d3741ba381a5efce4f9e, type: 3}
     m_SceneName: Tutorial_Region1
+  _animator: {fileID: 1068501820}
+  _playerController: {fileID: 1068501819}
 --- !u!1 &232936819
 GameObject:
   m_ObjectHideFlags: 0
