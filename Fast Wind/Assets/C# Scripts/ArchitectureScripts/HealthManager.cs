@@ -38,7 +38,6 @@ public class HealthManager : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(_playerController.IsGrounded);
         if (healthAmount <= 0 && !isDead)
             HandleDeath();
 

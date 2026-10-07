@@ -21086,6 +21086,7 @@ MonoBehaviour:
   enemyHealth: 100
   hitFlashColor: {r: 1, g: 0.2, b: 0.2, a: 1}
   hitFlashDuration: 0.15
+  _animator: {fileID: 1417776169}
 --- !u!61 &1417776167
 BoxCollider2D:
   m_ObjectHideFlags: 0

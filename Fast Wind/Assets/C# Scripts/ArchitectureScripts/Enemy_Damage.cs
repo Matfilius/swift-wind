@@ -7,6 +7,7 @@ public class Enemy_Damage : MonoBehaviour
     [SerializeField] float enemyHealth = 100f;
     [SerializeField] Color hitFlashColor = new Color(1f, 0.2f, 0.2f);
     [SerializeField] float hitFlashDuration = 0.15f;
+    [SerializeField] Animator _animator;
 
     private bool _isDead;
     private SpriteRenderer[] _spriteRenderers;
@@ -48,8 +49,12 @@ public class Enemy_Damage : MonoBehaviour
         if (enemyHealth <= 0f)
         {
             _isDead = true;
-            foreach (Collider2D col in GetComponentsInChildren<Collider2D>())
-                col.enabled = false;
+
+            if (_animator != null)
+                _animator.SetTrigger("isDead");
+
+           // foreach (Collider2D col in GetComponentsInChildren<Collider2D>())
+             //   col.enabled = false;
             _brain?.NotifyDied();
         }
         else
@@ -78,8 +83,13 @@ public class Enemy_Damage : MonoBehaviour
         ApplyFlash(0f);
         _hitFlashRoutine = null;
 
-        if (_isDead)
+        if (_isDead) 
+        {
+            yield return new WaitForSeconds(3);
             Destroy(gameObject);
+
+        }
+           
     }
 
     private void ApplyFlash(float amount)

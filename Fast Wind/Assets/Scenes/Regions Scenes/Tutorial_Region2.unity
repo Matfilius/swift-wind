@@ -11853,6 +11853,7 @@ MonoBehaviour:
   enemyHealth: 100
   hitFlashColor: {r: 1, g: 0.2, b: 0.2, a: 1}
   hitFlashDuration: 0.15
+  _animator: {fileID: 2079656341}
 --- !u!114 &2079656346
 MonoBehaviour:
   m_ObjectHideFlags: 0
