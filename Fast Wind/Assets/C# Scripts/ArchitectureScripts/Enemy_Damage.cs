@@ -53,8 +53,6 @@ public class Enemy_Damage : MonoBehaviour
             if (_animator != null)
                 _animator.SetTrigger("isDead");
 
-           // foreach (Collider2D col in GetComponentsInChildren<Collider2D>())
-             //   col.enabled = false;
             _brain?.NotifyDied();
         }
         else
@@ -85,7 +83,7 @@ public class Enemy_Damage : MonoBehaviour
 
         if (_isDead) 
         {
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(4);
             Destroy(gameObject);
 
         }
