@@ -4,11 +4,10 @@ using UnityEngine.UI;
 public class ManaBar : MonoBehaviour
 {
     public Mana mana;  
-    private Image barImage;
+   [SerializeField] Image barImage;
 
     private void Awake()
     {
-        barImage = transform.Find("Bar").GetComponent<Image>();
         mana = new Mana();
     }
 
