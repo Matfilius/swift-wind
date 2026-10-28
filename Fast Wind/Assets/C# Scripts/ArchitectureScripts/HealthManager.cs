@@ -7,6 +7,8 @@ public class HealthManager : MonoBehaviour
 {
     public static HealthManager Instance { get; private set; }
 
+    public TetsubinKettleCount kettleCount;
+
     [SerializeField] Image healthBar;
     [SerializeField] float healthAmount = 100f;
     [SerializeField] Transform respawnPoint;
@@ -89,12 +91,12 @@ public class HealthManager : MonoBehaviour
 
     IEnumerator HealRoutine()
     {
-        if (healthBar == null || healthAmount > 99)
+        if (healthBar == null || healthAmount > 99 || kettleCount.tetsubinKettleNumber < 1)
             yield break;
 
         isHealing = true;
 
-        Heal(20);
+        Heal(65);
 
         yield return new WaitForSeconds(1.54f);
 
@@ -106,6 +108,7 @@ public class HealthManager : MonoBehaviour
         _animator.SetTrigger("isHealing");
         healthAmount += healingAmount;
         healthAmount = Mathf.Clamp(healthAmount, 0, 100);
+        kettleCount.tetsubinKettleNumber -= 1;
         healthBar.fillAmount = healthAmount / 100f;
     }
 }
