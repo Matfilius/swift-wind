@@ -1,17 +1,25 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class HealthManager : MonoBehaviour
 {
     public static HealthManager Instance { get; private set; }
 
+    public TetsubinKettleCount kettleCount;
+
     [SerializeField] Image healthBar;
     [SerializeField] float healthAmount = 100f;
     [SerializeField] Transform respawnPoint;
     [SerializeField] SceneField respawnScene;
+    [SerializeField] Animator _animator;
+    [SerializeField] PlayerController _playerController;
+
 
     private bool isDead;
+
+    private bool isHealing = false;
 
     void Awake()
     {
@@ -38,8 +46,10 @@ public class HealthManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return))
             TakeDamage(20);
 
-        if (Input.GetKeyDown(KeyCode.H))
-            Heal(5);
+        if (Input.GetKeyDown(KeyCode.H) && !isHealing && _playerController.IsGrounded)
+        {
+            StartCoroutine(HealRoutine());
+        }
     }
 
     private void HandleDeath()
@@ -52,7 +62,7 @@ public class HealthManager : MonoBehaviour
         if (healthBar != null)
             healthBar.fillAmount = 1f;
 
-        if(SceneManager.GetSceneByName(respawnScene).isLoaded)
+        if (SceneManager.GetSceneByName(respawnScene).isLoaded)
         {
             SceneManager.UnloadSceneAsync(respawnScene);
         }
@@ -79,13 +89,26 @@ public class HealthManager : MonoBehaviour
         healthBar.fillAmount = healthAmount / 100f;
     }
 
+    IEnumerator HealRoutine()
+    {
+        if (healthBar == null || healthAmount > 99 || kettleCount.tetsubinKettleNumber < 1)
+            yield break;
+
+        isHealing = true;
+
+        Heal(65);
+
+        yield return new WaitForSeconds(1.54f);
+
+        isHealing = false;
+    }
+
     public void Heal(float healingAmount)
     {
-        if (healthBar == null)
-            return;
-
+        _animator.SetTrigger("isHealing");
         healthAmount += healingAmount;
         healthAmount = Mathf.Clamp(healthAmount, 0, 100);
+        kettleCount.tetsubinKettleNumber -= 1;
         healthBar.fillAmount = healthAmount / 100f;
     }
 }

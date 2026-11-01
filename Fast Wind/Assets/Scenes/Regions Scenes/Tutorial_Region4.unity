@@ -274,6 +274,7 @@ MonoBehaviour:
   enemyHealth: 100
   hitFlashColor: {r: 1, g: 0.2, b: 0.2, a: 1}
   hitFlashDuration: 0.15
+  _animator: {fileID: 273127022}
 --- !u!61 &273127020
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1333,6 +1334,7 @@ MonoBehaviour:
   enemyHealth: 100
   hitFlashColor: {r: 1, g: 0.2, b: 0.2, a: 1}
   hitFlashDuration: 0.15
+  _animator: {fileID: 442680280}
 --- !u!61 &442680278
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2269,6 +2271,7 @@ MonoBehaviour:
   enemyHealth: 100
   hitFlashColor: {r: 1, g: 0.2, b: 0.2, a: 1}
   hitFlashDuration: 0.15
+  _animator: {fileID: 1417776169}
 --- !u!61 &1417776167
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2609,6 +2612,7 @@ MonoBehaviour:
   enemyHealth: 100
   hitFlashColor: {r: 1, g: 0.2, b: 0.2, a: 1}
   hitFlashDuration: 0.15
+  _animator: {fileID: 1512526634}
 --- !u!61 &1512526632
 BoxCollider2D:
   m_ObjectHideFlags: 0

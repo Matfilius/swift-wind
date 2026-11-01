@@ -7,11 +7,13 @@ public class Enemy_Damage : MonoBehaviour
     [SerializeField] float enemyHealth = 100f;
     [SerializeField] Color hitFlashColor = new Color(1f, 0.2f, 0.2f);
     [SerializeField] float hitFlashDuration = 0.15f;
+    [SerializeField] Animator _animator;
 
     private bool _isDead;
     private SpriteRenderer[] _spriteRenderers;
     private Color[] _originalColors;
     private Coroutine _hitFlashRoutine;
+    private EnemyBrain _brain;
 
     private void Awake()
     {
@@ -19,6 +21,13 @@ public class Enemy_Damage : MonoBehaviour
         _originalColors = new Color[_spriteRenderers.Length];
         for (int i = 0; i < _spriteRenderers.Length; i++)
             _originalColors[i] = _spriteRenderers[i].color;
+
+        if (GetComponent<EnemyMotor>() == null)
+            gameObject.AddComponent<EnemyMotor>();
+        if (GetComponent<EnemyBrain>() == null)
+            _brain = gameObject.AddComponent<EnemyBrain>();
+        else
+            _brain = GetComponent<EnemyBrain>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -40,8 +49,15 @@ public class Enemy_Damage : MonoBehaviour
         if (enemyHealth <= 0f)
         {
             _isDead = true;
-            foreach (Collider2D col in GetComponentsInChildren<Collider2D>())
-                col.enabled = false;
+
+            if (_animator != null)
+                _animator.SetTrigger("isDead");
+
+            _brain?.NotifyDied();
+        }
+        else
+        {
+            _brain?.NotifyHurt();
         }
 
         if (_hitFlashRoutine != null)
@@ -65,8 +81,13 @@ public class Enemy_Damage : MonoBehaviour
         ApplyFlash(0f);
         _hitFlashRoutine = null;
 
-        if (_isDead)
+        if (_isDead) 
+        {
+            yield return new WaitForSeconds(4);
             Destroy(gameObject);
+
+        }
+           
     }
 
     private void ApplyFlash(float amount)
