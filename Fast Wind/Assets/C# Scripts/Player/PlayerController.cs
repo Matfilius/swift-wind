@@ -208,6 +208,12 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     private static readonly int IsAttackingHash = Animator.StringToHash("isAttacking");
     private static readonly int MovementHash = Animator.StringToHash("Movement");
     private static readonly int JumpingHash = Animator.StringToHash("Jumping");
+    private static readonly int IsJumpingHash = Animator.StringToHash("isJumping");
+    private static readonly int IsRunningHash = Animator.StringToHash("isRunning");
+    private static readonly int RunPhaseHash = Animator.StringToHash("runPhase");
+    private static readonly int RunningHash = Animator.StringToHash("Running");
+    private const float RunInputThreshold = 0.05f;
+    private const float RunStartSpeedScale = 0.5f;
 
     private enum AttackStep
     {
@@ -233,6 +239,8 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     private readonly HashSet<Enemy_Damage> _hitEnemiesThisStrike = new();
     private readonly Collider2D[] _attackOverlapResults = new Collider2D[16];
     private int _trackedAttackStateHash;
+    private bool _runStartConsumed;
+    private float _runMoveSpeedScale = 1f;
 
     private void Awake()
     {
@@ -322,6 +330,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
         TryStartLadderClimb();
         UpdateAttackState();
+        UpdateGroundRunAnimation();
 
         if (_movementState == MovementState.LedgeClimbing)
             transform.position = _ledgeHangPosition;
@@ -393,7 +402,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         if (_movementState == MovementState.Normal && ShouldStartWallSlide())
             BeginWallSlide();
 
-        float targetX = IsGroundAttackLocked() ? 0f : _horizontal * speed * GetSpeedMultiplier();
+        float targetX = IsGroundAttackLocked() ? 0f : _horizontal * speed * _runMoveSpeedScale * GetSpeedMultiplier();
         float targetY = _rb.linearVelocity.y;
         if (!IsTouchingClimbable())
         {
@@ -425,8 +434,47 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     private void UpdateAnimatorVelocity()
     {
-        _animator.SetFloat("xVelocity", Math.Abs(_rb.linearVelocity.x));
+        float xVelocity = Math.Abs(_rb.linearVelocity.x);
+        if (Mathf.Abs(_horizontal) <= RunInputThreshold
+            && _movementState == MovementState.Normal)
+            xVelocity = 0f;
+
+        _animator.SetFloat("xVelocity", xVelocity);
         _animator.SetFloat("yVelocity", _rb.linearVelocity.y);
+    }
+
+    private void UpdateGroundRunAnimation()
+    {
+        bool holdingRun = Mathf.Abs(_horizontal) > RunInputThreshold;
+        if (!holdingRun)
+        {
+            _runStartConsumed = false;
+            _runMoveSpeedScale = 1f;
+            _animator.SetBool(IsRunningHash, false);
+            _animator.SetInteger(RunPhaseHash, 0);
+            return;
+        }
+
+        if (IsInRunLoopState())
+            _runStartConsumed = true;
+
+        bool showRun = _isGrounded
+            && _movementState == MovementState.Normal
+            && !IsAttacking()
+            && !_animator.GetBool(IsJumpingHash);
+
+        _runMoveSpeedScale = showRun && !_runStartConsumed ? RunStartSpeedScale : 1f;
+        _animator.SetBool(IsRunningHash, showRun);
+        _animator.SetInteger(RunPhaseHash, _runStartConsumed ? 1 : 0);
+    }
+
+    private bool IsInRunLoopState()
+    {
+        if (_animator.IsInTransition(0)
+            && _animator.GetNextAnimatorStateInfo(0).shortNameHash == RunningHash)
+            return true;
+
+        return _animator.GetCurrentAnimatorStateInfo(0).shortNameHash == RunningHash;
     }
 
     private bool IsAttacking()
