@@ -34,6 +34,7 @@ public class EnemyBrain : MonoBehaviour
 
     static readonly int HasTargetHash = Animator.StringToHash("hasTarget");
     static readonly int CanAttackHash = Animator.StringToHash("CanAttack");
+    static readonly int IsPatrollingHash = Animator.StringToHash("isPatrolling");
 
     EnemyMotor _motor;
     Animator _animator;
@@ -48,6 +49,7 @@ public class EnemyBrain : MonoBehaviour
     float _recoverUntil;
     bool _strikeStarted;
     bool _hasCombatParams;
+    bool _hasPatrolParam;
     int _strikeZoneCount;
 
     bool PlayerInStrikeZone => _strikeZoneCount > 0;
@@ -58,6 +60,7 @@ public class EnemyBrain : MonoBehaviour
         _animator = GetComponent<Animator>();
         _attack = GetComponent<Attack>();
         _hasCombatParams = HasParameter(HasTargetHash) && HasParameter(CanAttackHash);
+        _hasPatrolParam = HasParameter(IsPatrollingHash);
 
         MonsterMovement legacyPatrol = GetComponent<MonsterMovement>();
         if (legacyPatrol != null)
@@ -121,6 +124,7 @@ public class EnemyBrain : MonoBehaviour
     {
         _state = State.Dead;
         SetCombat(false, false);
+        SetPatrolling(false);
         if (_attack != null)
             _attack.DisableHitbox();
         _motor.Stop();
@@ -231,12 +235,14 @@ public class EnemyBrain : MonoBehaviour
     {
         _state = State.Patrol;
         SetCombat(false, false);
+        SetPatrolling(true);
     }
 
     void EnterChase()
     {
         _state = State.Chase;
         SetCombat(false, false);
+        SetPatrolling(false);
     }
 
     void EnterAttack()
@@ -251,6 +257,7 @@ public class EnemyBrain : MonoBehaviour
             _attack.DisableHitbox();
 
         SetCombat(false, false);
+        SetPatrolling(false);
         if (_animator != null)
             _animator.Play("Enemy attack", 0, 0f);
     }
@@ -277,6 +284,7 @@ public class EnemyBrain : MonoBehaviour
         _hurtUntil = Time.time + hurtDuration;
         _strikeStarted = false;
         SetCombat(false, false);
+        SetPatrolling(false);
         if (_attack != null)
             _attack.DisableHitbox();
 
@@ -343,6 +351,14 @@ public class EnemyBrain : MonoBehaviour
 
         _animator.SetBool(HasTargetHash, hasTarget);
         _animator.SetBool(CanAttackHash, canAttack);
+    }
+
+    void SetPatrolling(bool isPatrolling)
+    {
+        if (_animator == null || !_hasPatrolParam)
+            return;
+
+        _animator.SetBool(IsPatrollingHash, isPatrolling);
     }
 
     bool HasParameter(int hash)
