@@ -4033,7 +4033,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Grappler
   _lineRenderer: {fileID: 1068501821}
   _distanceJoint: {fileID: 1068501822}
-  grappleTile: {fileID: 11400000, guid: 00d9f953560a7ec41aed465dfd099019, type: 2}
+  grappleTile: {fileID: 11400000, guid: e74cc4eaa593ba7468bae648b79b273b, type: 2}
   maxGrappleDistance: 6
   ropeLength: 6
   maxSwingSpeed: 16
