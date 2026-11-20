@@ -3816,6 +3816,7 @@ MonoBehaviour:
   coyoteTime: 0.1
   jumpBufferTime: 0.1
   jumpCutMultiplier: 0.6
+  hasSword: 0
   groundLayer:
     serializedVersion: 2
     m_Bits: 64

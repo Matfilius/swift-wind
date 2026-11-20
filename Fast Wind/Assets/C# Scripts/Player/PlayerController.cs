@@ -45,6 +45,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     [SerializeField] float jumpBufferTime = 0.1f;
     float jumpBufferCounter;
     [SerializeField] float jumpCutMultiplier = 0.6f;
+    [SerializeField] bool hasSword;
 
     [Header("Collision")]
     [SerializeField] LayerMask groundLayer;
@@ -309,6 +310,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     private void Update()
     {
+        _animator.SetBool("hasSword", hasSword);
         RefreshGrounded();
         RefreshGrabbableWindBlock();
         RefreshClimbableZone();
@@ -1931,7 +1933,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
         if (_movementState == MovementState.WallSliding)
             TryBeginWallSlideLandingFromGroundContact(collision);
-        else if (IsGrounded)
+        else if (IsGrounded && Time.time - _lastJumpTime > 0.1f)
             _animator.SetBool("isJumping", false);
 
         DepenetrateFromWalls(collision);
